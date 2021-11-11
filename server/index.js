@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
+// Read
 app.get("/api/get",(req,res)=>{
     const sqlQuery = "SELECT * FROM board;";
     db.execute(sqlQuery, (err,result)=>{
@@ -18,6 +18,7 @@ app.get("/api/get",(req,res)=>{
     })
 })
 
+// Create
 app.post("/api/insert", (req, res)=>{
     const title = req.body.title;
     const text = req.body.text;
@@ -28,6 +29,13 @@ app.post("/api/insert", (req, res)=>{
     })
 })
 
-app.listen(PORT, ()=>{
+// Delete
+app.post("/api/delete/:id",(req,res)=>{
+    const {params:{id}} = req;
+    const sqlQuery = "DELETE FROM board WHERE id=?";
+    db.execute(sqlQuery,[id]);
+})
+
+app.listen(PORT, () => {
     console.log(`✅ Running on port ${PORT}`)
 })

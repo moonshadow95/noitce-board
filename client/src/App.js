@@ -12,17 +12,31 @@ function App() {
     })
     const [viewContent,setViewContent] = useState([])
 
+    // Input Text
     const onChange = event => {
         const {name, value} = event.target
         setContent({...content, [name]:value})
     }
+    // Create
     const onClick = () => {
         Axios.post('http://localhost:8080/api/insert', {
             title: content.title,
             text: content.text,
             createdAt: content.createdAt
-        }).then(()=> alert('저장되었습니다!'))
+        }).then(() => alert('저장되었습니다.'))
     }
+
+    // Delete
+    const onDeleteClick =(event)=>{
+        const ok = window.confirm("삭제하시겠습니까?");
+        if(ok){
+            const {target:{id}} = event;
+            Axios.post(`http://localhost:8080/api/delete/${id}`
+            ).then(() => alert('삭제되었습니다.')
+            )
+        }
+    }
+
     // Time Formatter
     const timeFormatter = (createdAt) => {
         const milliSeconds = new Date() - createdAt;
@@ -48,21 +62,27 @@ function App() {
             setViewContent(response.data)
         )
     },[viewContent])
+
     return (
         <main>
             <section>
                 <header>
                     <h1>React Notice Board</h1>
                 </header>
-                <aside style={{width:'100%'}}>
-                    {viewContent.map((element,index) =>
-                        <div key={index}>
-                            <h2>{element.title}</h2>
-                            {ReactHtmlParser(element.text)}
-                            <small>{timeFormatter(new Date(element.createdAt))}</small>
+                {viewContent.map((element,index) =>
+                    <aside key={index} style={{width:'100%'}}>
+                        <div style={{display:'flex', justifyContent: 'space-between', alignItems:'center'}}>
+                            <div>
+                                <h2>{element.title}</h2>
+                                {ReactHtmlParser(element.text)}
+                                <small>{timeFormatter(new Date(element.createdAt))}</small>
+                            </div>
+                            <div>
+                                <button id={index} onClick={onDeleteClick}>Delete</button>
+                            </div>
                         </div>
-                    )}
-                </aside>
+                    </aside>
+                )}
                 <aside style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center'}}>
                     <div style={{color:'#000'}}>
                         <input type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
