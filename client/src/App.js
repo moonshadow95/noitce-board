@@ -31,8 +31,7 @@ function App() {
         const ok = window.confirm("삭제하시겠습니까?");
         if(ok){
             const {target:{id}} = event;
-            Axios.post(`http://localhost:8080/api/delete/${id}`
-            ).then(() => alert('삭제되었습니다.')
+            Axios.post(`http://localhost:8080/api/delete/${id}`).then(() => alert('삭제되었습니다.')
             )
         }
     }
@@ -78,7 +77,7 @@ function App() {
                                 <small>{timeFormatter(new Date(element.createdAt))}</small>
                             </div>
                             <div>
-                                <button id={index} onClick={onDeleteClick}>Delete</button>
+                                <button id={element.id} onClick={onDeleteClick}>Delete</button>
                             </div>
                         </div>
                     </aside>
