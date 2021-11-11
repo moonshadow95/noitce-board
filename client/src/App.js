@@ -7,7 +7,8 @@ import Axios from "axios";
 function App() {
     const [content, setContent] = useState({
         title:'',
-        text:''
+        text:'',
+        createdAt:'',
     })
     const [viewContent,setViewContent] = useState([])
 
@@ -18,16 +19,35 @@ function App() {
     const onClick = () => {
         Axios.post('http://localhost:8080/api/insert', {
             title: content.title,
-            text: content.text
+            text: content.text,
+            createdAt: content.createdAt
         }).then(()=> alert('저장되었습니다!'))
     }
+    // Time Formatter
+    const timeFormatter = (createdAt) => {
+        const milliSeconds = new Date() - createdAt;
+        const seconds = milliSeconds / 1000;
+        if (seconds < 60) return `방금 전`;
+        const minutes = seconds / 60;
+        if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+        const hours = minutes / 60;
+        if (hours < 24) return `${Math.floor(hours)}시간 전`;
+        const days = hours / 24;
+        if (days < 2) return `${Math.floor(days)}일 전`;
+        if (days >= 2) {
+            const dateObj = new Date(createdAt);
+            const year = dateObj.getFullYear();
+            const month = dateObj.getMonth() + 1;
+            const date = dateObj.getDate();
+            return `${year}년 ${month}월 ${date}일`;
+        }
+    };
 
     useEffect(()=>{
         Axios.get('http://localhost:8080/api/get').then((response)=>
             setViewContent(response.data)
         )
     },[viewContent])
-
     return (
         <main>
             <section>
@@ -39,7 +59,7 @@ function App() {
                         <div key={index}>
                             <h2>{element.title}</h2>
                             {ReactHtmlParser(element.text)}
-                            <small>{element.createdAt}</small>
+                            <small>{timeFormatter(new Date(element.createdAt))}</small>
                         </div>
                     )}
                 </aside>
