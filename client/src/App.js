@@ -1,24 +1,32 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { useState} from "react";
+import {useEffect, useState} from "react";
 import ReactHtmlParser from 'html-react-parser';
+import Axios from "axios";
 
 function App() {
     const [content, setContent] = useState({
         title:'',
         text:''
     })
-    const [viewContent, setViewContent] = useState([])
+    const [viewContent,setViewContent] = useState([])
 
     const onChange = event => {
         const {name, value} = event.target
         setContent({...content, [name]:value})
     }
     const onClick = () => {
-        setViewContent(
-            viewContent.concat({...content})
-        )
+        Axios.post('http://localhost:8080/api/insert', {
+            title: content.title,
+            text: content.text
+        }).then(()=> alert('저장되었습니다!'))
     }
+
+    useEffect(()=>{
+        Axios.get('http://localhost:8080/api/get').then((response)=>
+            setViewContent(response.data)
+        )
+    },[viewContent])
 
     return (
         <main>
@@ -27,10 +35,11 @@ function App() {
                     <h1>React Notice Board</h1>
                 </header>
                 <aside style={{width:'100%'}}>
-                    {viewContent.map(element =>
-                        <div>
+                    {viewContent.map((element,index) =>
+                        <div key={index}>
                             <h2>{element.title}</h2>
                             {ReactHtmlParser(element.text)}
+                            <small>{element.createdAt}</small>
                         </div>
                     )}
                 </aside>
