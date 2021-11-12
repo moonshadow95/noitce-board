@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Read
 app.get("/api/get",(req,res)=>{
-    const sqlQuery = "SELECT * FROM board;";
+    const sqlQuery = "SELECT * FROM board ORDER BY createdAt DESC;";
     db.execute(sqlQuery, (err,result)=>{
         res.send(result)
     })

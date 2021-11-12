@@ -5,6 +5,8 @@ import ReactHtmlParser from 'html-react-parser';
 import Axios from "axios";
 
 function App() {
+    const [writing, setWriting] = useState(false);
+    const [editing, setEditing] = useState(true);
     const [content, setContent] = useState({
         title:'',
         text:'',
@@ -18,12 +20,22 @@ function App() {
         setContent({...content, [name]:value})
     }
     // Create
-    const onClick = () => {
+    const onWriteClick = () => {
+        setWriting(prev=>!prev)
+    }
+    const onSubmitClick = () => {
         Axios.post('http://localhost:8080/api/insert', {
             title: content.title,
             text: content.text,
             createdAt: content.createdAt
         }).then(() => alert('저장되었습니다.'))
+    }
+
+    // Edit
+    const onEditClick = (event) => {
+        setEditing(prev => !prev)
+        console.log(editing)
+
     }
 
     // Delete
@@ -76,26 +88,30 @@ function App() {
                                 {ReactHtmlParser(element.text)}
                                 <small>{timeFormatter(new Date(element.createdAt))}</small>
                             </div>
-                            <div>
+                            <div style={{display:'flex',flexDirection:'column',}}>
                                 <button id={element.id} onClick={onDeleteClick}>Delete</button>
+                                <button onClick={onEditClick}>Edit</button>
                             </div>
                         </div>
                     </aside>
                 )}
-                <aside style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center'}}>
-                    <div style={{color:'#000'}}>
+                { writing &&
+                <aside style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <div style={{color: '#000'}}>
                         <input type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
                         <CKEditor
                             editor={ClassicEditor}
                             data=""
                             onChange={(event, editor) => {
-                                const data = editor.getData();
-                                setContent({...content, text:data})
-                            }}
+                            const data = editor.getData();
+                            setContent({...content, text: data})
+                        }}
                         />
                     </div>
-                    <button onClick={onClick}>완료</button>
+                    <button onClick={onSubmitClick}>완료</button>
                 </aside>
+                }
+                <button onClick={onWriteClick}>{writing ? "작성 취소" : "글 작성하기"}</button>
             </section>
         </main>
     );
