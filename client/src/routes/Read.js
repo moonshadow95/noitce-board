@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import Board from "../components/Board";
 import {useParams} from "react-router-dom";
+import Selected from "../components/Selected";
 
 const Read = ({viewContent}) => {
-    const [content, setContent] = useState(viewContent)
     const [selected, setSelected] = useState();
+    const [loading, setLoading] = useState(true)
     const {id} = useParams();
-
     useEffect(()=>{
-        setSelected(viewContent.find((item)=>item.id = id))
-        console.log(viewContent)
-        console.log('selected?', selected)
-    },[id])
+        setSelected(viewContent.find((item)=> item.id === parseInt(id)))
+        setLoading(prev=>!prev)
+    },[])
+
     return (
-        <Board content={{id: '31', title: '일곱번째 글', text: '<p>일곱ㅂㅈㄷㅂㅈㄷ</p>', createdAt: '2021-11-12T05:31:29.000Z'}}/>
+        loading ? <span>Loading...</span> :
+            <Selected selected={selected}/>
     );
 }
 

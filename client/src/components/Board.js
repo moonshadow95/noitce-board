@@ -1,26 +1,7 @@
-import React, {useState} from 'react';
-import ReactHtmlParser from "html-react-parser";
-import Axios from "axios";
+import React from 'react';
+import {Link} from "react-router-dom";
 
-const Board = ({content:{id, title, text, createdAt}, }) => {
-    const [editing, setEditing] = useState(true);
-
-    // Edit
-    const onEditClick = (event) => {
-        setEditing(prev => !prev)
-        console.log(editing)
-    }
-
-    // Delete
-    const onDeleteClick =(event)=>{
-        const ok = window.confirm("삭제하시겠습니까?");
-        if(ok){
-            const {target:{id}} = event;
-            Axios.post(`http://localhost:8080/api/delete/${id}`).then(() => alert('삭제되었습니다.')
-            )
-        }
-    }
-
+const Board = ({content:{id, title, createdAt}, }) => {
     // Time Formatter
     const timeFormatter = (createdAt) => {
         const milliSeconds = new Date() - createdAt;
@@ -40,23 +21,20 @@ const Board = ({content:{id, title, text, createdAt}, }) => {
             return `${year}년 ${month}월 ${date}일`;
         }
     };
-
     return(
-        <>
-            <td style={{width:'100%'}} >
-                <span>{id}</span>
-            </td>
-            <td>
-                <span>{title}</span>
-            </td>
-            <td>
-                <span>{timeFormatter(new Date(createdAt))}</span>
-            </td>
-            {/*<div style={{display:'flex',flexDirection:'column',}}>*/}
-            {/*    <button id={id} onClick={onDeleteClick}>Delete</button>*/}
-            {/*    <button onClick={onEditClick}>Edit</button>*/}
-            {/*</div>*/}
-        </>
+        <Link style={{width:'100%'}} to={`/read/${id}`}>
+            <div>
+                <td style={{width:'100%'}} >
+                    <span>{id}</span>
+                </td>
+                <td>
+                    <span>{title}</span>
+                </td>
+                <td>
+                    <span>{timeFormatter(new Date(createdAt))}</span>
+                </td>
+            </div>
+        </Link>
     )
 };
 

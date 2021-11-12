@@ -3,7 +3,6 @@ import Board from "../components/Board";
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
-import {Link} from "react-router-dom";
 
 const Home = (props) => {
     const [writing, setWriting] = useState(false);
@@ -66,10 +65,8 @@ const Home = (props) => {
                 <table>
                     <tbody>
                     {viewContent.map((content,index) =>
-                        <tr>
-                            <Link key={index} style={{width:'100%'}} to={`/read/${content.id}`}>
-                                <Board content={content} />
-                            </Link>
+                        <tr key={index} >
+                            <Board content={content} />
                         </tr>
                     )}
                     </tbody>
