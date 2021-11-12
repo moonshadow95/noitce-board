@@ -40,19 +40,12 @@ const Home = (props) => {
 
     return(
         <main>
-            <section>
+            <section style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',}}>
                 <header>
                     <h1>React Notice Board</h1>
                 </header>
-                {viewContent.map((content,index) =>
-                    <aside key={index} style={{width:'100%'}}>
-                        <Link style={{width:'100%'}} to={`/read/:${content.id}`}>
-                            <Board content={content} />
-                        </Link>
-                    </aside>
-                )}
                 { writing &&
-                <aside style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <>
                     <div style={{color: '#000'}}>
                         <input type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
                         <CKEditor
@@ -65,9 +58,22 @@ const Home = (props) => {
                         />
                     </div>
                     <button onClick={onSubmitClick}>완료</button>
-                </aside>
+                </>
                 }
-                <button onClick={onWriteClick}>{writing ? "작성 취소" : "글 작성하기"}</button>
+                <div>
+                    <button onClick={onWriteClick}>{writing ? "작성 취소" : "글 작성하기"}</button>
+                </div>
+                <table>
+                    <tbody>
+                    {viewContent.map((content,index) =>
+                        <tr>
+                            <Link key={index} style={{width:'100%'}} to={`/read/${content.id}`}>
+                                <Board content={content} />
+                            </Link>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
             </section>
         </main>
     );

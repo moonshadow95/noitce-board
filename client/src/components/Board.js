@@ -5,13 +5,10 @@ import Axios from "axios";
 const Board = ({content:{id, title, text, createdAt}, }) => {
     const [editing, setEditing] = useState(true);
 
-
-
     // Edit
     const onEditClick = (event) => {
         setEditing(prev => !prev)
         console.log(editing)
-
     }
 
     // Delete
@@ -23,7 +20,6 @@ const Board = ({content:{id, title, text, createdAt}, }) => {
             )
         }
     }
-
 
     // Time Formatter
     const timeFormatter = (createdAt) => {
@@ -46,17 +42,21 @@ const Board = ({content:{id, title, text, createdAt}, }) => {
     };
 
     return(
-        <div style={{display:'flex', justifyContent: 'space-between', alignItems:'center'}}>
-            <div>
-                <h2>{title}</h2>
-                {ReactHtmlParser(text)}
-                <small>{timeFormatter(new Date(createdAt))}</small>
-            </div>
-            <div style={{display:'flex',flexDirection:'column',}}>
-                <button id={id} onClick={onDeleteClick}>Delete</button>
-                <button onClick={onEditClick}>Edit</button>
-            </div>
-        </div>
+        <>
+            <td style={{width:'100%'}} >
+                <span>{id}</span>
+            </td>
+            <td>
+                <span>{title}</span>
+            </td>
+            <td>
+                <span>{timeFormatter(new Date(createdAt))}</span>
+            </td>
+            {/*<div style={{display:'flex',flexDirection:'column',}}>*/}
+            {/*    <button id={id} onClick={onDeleteClick}>Delete</button>*/}
+            {/*    <button onClick={onEditClick}>Edit</button>*/}
+            {/*</div>*/}
+        </>
     )
 };
 

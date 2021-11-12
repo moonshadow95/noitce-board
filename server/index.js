@@ -18,6 +18,14 @@ app.get("/api/get",(req,res)=>{
     })
 })
 
+app.get('/api/get/:id', (req, res)=>{
+    const {id} = req.params
+    const sqlQuery = `SELECT * FROM board id WHERE id=${id}`;
+    db.execute(sqlQuery, (err, result)=>{
+        res.send(result)
+    })
+})
+
 // Create
 app.post("/api/insert", (req, res)=>{
     const title = req.body.title;
