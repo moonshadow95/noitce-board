@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Axios from "axios";
 import HTMLReactParser from "html-react-parser";
+import TextEditor from "./TextEditor";
 
 const Selected = ({selected:{id, title, createdAt, text}}) => {
     const [editing, setEditing] = useState(true);
@@ -8,7 +9,6 @@ const Selected = ({selected:{id, title, createdAt, text}}) => {
     // Edit
     const onEditClick = (event) => {
         setEditing(prev => !prev)
-        console.log(editing)
     }
 
     // Delete
@@ -42,17 +42,32 @@ const Selected = ({selected:{id, title, createdAt, text}}) => {
     };
 
     return(
-        <div>
-            <div>
-                <h1>{title}</h1>
-                <p>{HTMLReactParser(text)}</p>
-                <small>{timeFormatter(new Date(createdAt))}</small>
-            </div>
-            <div style={{display:'flex',flexDirection:'column',}}>
-                <button id={id} onClick={onDeleteClick}>Delete</button>
-                <button onClick={onEditClick}>Edit</button>
-            </div>
-        </div>
+        <main>
+            { editing ?
+                <section>
+                    <div>
+                        <header>
+                            <h1>{title}</h1>
+                        </header>
+                    </div>
+                    <div>
+                        <div>
+                            <small>{timeFormatter(new Date(createdAt))}</small>
+                        </div>
+                        <div>
+                            <p>{HTMLReactParser(text)}</p>
+                        </div>
+                    </div>
+                    <div style={{display:'flex',flexDirection:'column',}}>
+                        <button id={id} onClick={onDeleteClick}>Delete</button>
+                        <button onClick={onEditClick}>Edit</button>
+                    </div>
+                </section> :
+                <section>
+                    <TextEditor isEdit={true} />
+                </section>
+            }
+        </main>
     )
 };
 

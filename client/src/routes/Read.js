@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import Selected from "../components/Selected";
+import NotFound from "./NotFound";
 
 const Read = ({viewContent}) => {
     const [selected, setSelected] = useState();
@@ -13,7 +14,8 @@ const Read = ({viewContent}) => {
 
     return (
         loading ? <span>Loading...</span> :
-            <Selected selected={selected}/>
+            selected ? <Selected selected={selected}/> :
+                <NotFound />
     );
 }
 
