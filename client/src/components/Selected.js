@@ -4,7 +4,7 @@ import HTMLReactParser from "html-react-parser";
 import TextEditor from "./TextEditor";
 
 const Selected = ({selected:{id, title, createdAt, text}}) => {
-    const [editing, setEditing] = useState(true);
+    const [editing, setEditing] = useState(false);
 
     // Edit
     const onEditClick = (event) => {
@@ -43,7 +43,7 @@ const Selected = ({selected:{id, title, createdAt, text}}) => {
 
     return(
         <main>
-            { editing ?
+            { !editing ?
                 <section>
                     <div>
                         <header>
@@ -59,14 +59,14 @@ const Selected = ({selected:{id, title, createdAt, text}}) => {
                         </div>
                     </div>
                     <div style={{display:'flex',flexDirection:'column',}}>
-                        <button id={id} onClick={onDeleteClick}>Delete</button>
-                        <button onClick={onEditClick}>Edit</button>
+                        <button id={id} onClick={onDeleteClick}>글 삭제하기</button>
                     </div>
                 </section> :
                 <section>
                     <TextEditor isEdit={true} />
                 </section>
             }
+            <button onClick={onEditClick}>{editing ? "취소" : "글 수정하기" }</button>
         </main>
     )
 };

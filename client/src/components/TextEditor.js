@@ -4,6 +4,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
 
 const TextEditor = ({isEdit}) => {
+    const [isEditing, setIsEditing] = useState(isEdit)
     const [content, setContent] = useState({
         title:'',
         text:'',
@@ -18,13 +19,16 @@ const TextEditor = ({isEdit}) => {
         setContent({...content, [name]:value})
     }
     // Create
-    const onSubmitClick = () => {
+    const onSubmit = () => {
         Axios.post('http://localhost:8080/api/insert', {
             title: content.title,
             text: content.text,
             createdAt: content.createdAt
         }).then(() => alert('저장되었습니다.'))
     }
+
+    // TODO
+    // 수정하기를 누르면 선택된 게시물의 내용 텍스트 에디터에 받아오기
     return (
         <>
             { isEdit ? <>
@@ -39,7 +43,7 @@ const TextEditor = ({isEdit}) => {
                     }}
                         />
                     </div>
-                    <button onClick={onSubmitClick}>완료</button>
+                    <button onClick={onSubmit}>완료</button>
                 </> :
                 <>
                     <div style={{color: '#000'}}>
@@ -53,7 +57,9 @@ const TextEditor = ({isEdit}) => {
                         }}
                         />
                     </div>
-                    <button onClick={onSubmitClick}>완료</button>
+                    <div>
+                        <button onClick={onSubmit}>완료</button>
+                    </div>
                 </>}
         </>
 )};
