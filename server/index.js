@@ -10,9 +10,18 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// Create
+app.post("/api/insert", (req, res)=>{
+    const {title, text} = req.body
+    const sqlQuery = "INSERT INTO board (title, text) VALUES (?,?)";
+    db.execute(sqlQuery, [title, text],(err,result)=>{
+        res.send(result)
+    })
+})
+
 // Read
 app.get("/api/get",(req,res)=>{
-    const sqlQuery = "SELECT * FROM board ORDER BY createdAt DESC;";
+    const sqlQuery = "SELECT * FROM board ORDER BY date DESC;";
     db.execute(sqlQuery, (err,result)=>{
         res.send(result)
     })
@@ -26,13 +35,13 @@ app.get('/api/get/:id', (req, res)=>{
     })
 })
 
-// Create
-app.post("/api/insert", (req, res)=>{
-    const title = req.body.title;
-    const text = req.body.text;
-    const createdAt = new Date();
-    const sqlQuery = "INSERT INTO board (title, text) VALUES (?,?)";
-    db.execute(sqlQuery, [title, text],(err,result)=>{
+// Update
+// UPDATE board SET title='HELLO',text='<p>안녕하십니까</p>' WHERE id=32
+app.post("/api/edit/:id", (req, res)=>{
+    const {id} = req.params
+    const {title, text} = req.body
+    const sqlQuery = `UPDATE board SET title=?,text=? WHERE id=?`
+    db.execute(sqlQuery, [title, text, id], (err, result) => {
         res.send(result)
     })
 })
@@ -41,7 +50,9 @@ app.post("/api/insert", (req, res)=>{
 app.post("/api/delete/:id",(req,res)=>{
     const {params:{id}} = req;
     const sqlQuery = "DELETE FROM board WHERE id=?";
-    db.execute(sqlQuery,[id]);
+    db.execute(sqlQuery,[id], (err, result)=>{
+        res.send(result)
+    });
 })
 
 app.listen(PORT, () => {

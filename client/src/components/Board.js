@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const Board = ({content:{id, title, createdAt}, }) => {
+const Board = ({content:{id, title, date}, }) => {
     // Time Formatter
     const timeFormatter = (createdAt) => {
-        const milliSeconds = new Date() - createdAt;
+        const milliSeconds = new Date() - new Date(createdAt);
         const seconds = milliSeconds / 1000;
         if (seconds < 60) return `방금 전`;
         const minutes = seconds / 60;
@@ -31,7 +31,7 @@ const Board = ({content:{id, title, createdAt}, }) => {
                     <span>{title}</span>
                 </td>
                 <td>
-                    <span>{timeFormatter(new Date(createdAt))}</span>
+                    <span>{timeFormatter(date)}</span>
                 </td>
             </div>
         </Link>

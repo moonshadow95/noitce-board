@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import Axios from "axios";
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "./TextEditor";
+import { useNavigate } from "react-router-dom";
 
-const Selected = ({selected:{id, title, createdAt, text}}) => {
+const Selected = ({selected}) => {
     const [editing, setEditing] = useState(false);
+    const navigate = useNavigate();
 
     // Edit
     const onEditClick = (event) => {
@@ -16,14 +18,17 @@ const Selected = ({selected:{id, title, createdAt, text}}) => {
         const ok = window.confirm("삭제하시겠습니까?");
         if(ok){
             const {target:{id}} = event;
-            Axios.post(`http://localhost:8080/api/delete/${id}`).then(() => alert('삭제되었습니다.')
-            )
+            Axios.post(`http://localhost:8080/api/delete/${id}`)
+                .then(() => {
+                    navigate('/')
+                    alert('삭제되었습니다.')
+                })
         }
     }
 
     // Time Formatter
     const timeFormatter = (createdAt) => {
-        const milliSeconds = new Date() - createdAt;
+        const milliSeconds = new Date() - new Date(createdAt);
         const seconds = milliSeconds / 1000;
         if (seconds < 60) return `방금 전`;
         const minutes = seconds / 60;
@@ -47,23 +52,23 @@ const Selected = ({selected:{id, title, createdAt, text}}) => {
                 <section>
                     <div>
                         <header>
-                            <h1>{title}</h1>
+                            <h1>{selected.title}</h1>
                         </header>
                     </div>
                     <div>
                         <div>
-                            <small>{timeFormatter(new Date(createdAt))}</small>
+                            <small>{timeFormatter(selected.date)}</small>
                         </div>
                         <div>
-                            <p>{HTMLReactParser(text)}</p>
+                            {HTMLReactParser(selected.text)}
                         </div>
                     </div>
                     <div style={{display:'flex',flexDirection:'column',}}>
-                        <button id={id} onClick={onDeleteClick}>글 삭제하기</button>
+                        <button id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
                     </div>
                 </section> :
                 <section>
-                    <TextEditor isEdit={true} />
+                    <TextEditor isEdit={true} selected={selected} />
                 </section>
             }
             <button onClick={onEditClick}>{editing ? "취소" : "글 수정하기" }</button>

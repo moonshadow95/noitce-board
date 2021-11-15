@@ -1,53 +1,82 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
 
-const TextEditor = ({isEdit}) => {
-    const [isEditing, setIsEditing] = useState(isEdit)
-    const [content, setContent] = useState({
-        title:'',
-        text:'',
-        createdAt:'',
-    })
-
-    const titleRef = useRef();
+const TextEditor = ({isEdit, selected}) => {
+    const [newTitle, setNewTitle] = useState()
+    const [content, setContent] = useState()
+    const navigate = useNavigate();
 
     // Input Text
     const onChange = event => {
         const {name, value} = event.target
         setContent({...content, [name]:value})
     }
+
     // Create
     const onSubmit = () => {
         Axios.post('http://localhost:8080/api/insert', {
             title: content.title,
             text: content.text,
-            createdAt: content.createdAt
-        }).then(() => alert('저장되었습니다.'))
+        }).then(() => {
+            alert('저장되었습니다.')
+        })
     }
 
-    // TODO
-    // 수정하기를 누르면 선택된 게시물의 내용 텍스트 에디터에 받아오기
+    // Edit
+    const onEdit  = (event) => {
+        const {value} = event.target;
+        setNewTitle(value)
+    }
+    const onEditSubmit = () => {
+        setContent({...content},)
+        Axios.post(`http://localhost:8080/api/edit/${selected.id}`, {
+            title: newTitle,
+            text: content.text,
+        }).then((result)=>{
+            navigate("/")
+        })
+    }
+
+    useEffect(()=>{
+        if(isEdit) {
+            setContent({
+                title: '',
+                text: '',
+                createdAt: '',
+            })
+            setNewTitle(selected.title)
+        }
+        else{
+            setContent(selected)
+        }
+    },[])
+
+
     return (
         <>
-            { isEdit ? <>
+            { isEdit ?
+                // 글 수정
+                <>
                     <div style={{color: '#000'}}>
-                        <input ref={titleRef} type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
+                        <input type="text" placeholder='제목을 입력하세요.' value={newTitle || ''} name='title' onChange={onEdit}/>
                         <CKEditor
                             editor={ClassicEditor}
-                            data=""
+                            data={selected.text}
                             onChange={(event, editor) => {
                         const data = editor.getData();
                         setContent({...content, text: data})
                     }}
                         />
                     </div>
-                    <button onClick={onSubmit}>완료</button>
+                    <button onClick={onEditSubmit}>완료</button>
                 </> :
+                // 글 작성
                 <>
                     <div style={{color: '#000'}}>
-                        <input ref={titleRef} type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
+                        <input type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
                         <CKEditor
                             editor={ClassicEditor}
                             data=""

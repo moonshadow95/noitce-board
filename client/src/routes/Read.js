@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import Selected from "../components/Selected";
 import NotFound from "./NotFound";
 
@@ -10,7 +10,7 @@ const Read = ({viewContent}) => {
     useEffect(()=>{
         setSelected(viewContent.find((item)=> item.id === parseInt(id)))
         setLoading(prev=>!prev)
-    },[])
+    },[id])
 
     return (
         loading ? <span>Loading...</span> :
