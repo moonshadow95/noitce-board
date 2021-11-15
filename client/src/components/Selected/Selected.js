@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import Axios from "axios";
 import HTMLReactParser from "html-react-parser";
-import TextEditor from "./TextEditor";
+import TextEditor from "../TextEditor/TextEditor";
 import { useNavigate } from "react-router-dom";
+import styles from './selected.module.css';
 
 const Selected = ({selected}) => {
     const [editing, setEditing] = useState(false);
@@ -50,11 +51,9 @@ const Selected = ({selected}) => {
         <main>
             { !editing ?
                 <section>
-                    <div>
-                        <header>
-                            <h1>{selected.title}</h1>
-                        </header>
-                    </div>
+                    <header>
+                        <h1>{selected.title}</h1>
+                    </header>
                     <div>
                         <div>
                             <small>{timeFormatter(selected.date)}</small>
@@ -63,7 +62,7 @@ const Selected = ({selected}) => {
                             {HTMLReactParser(selected.text)}
                         </div>
                     </div>
-                    <div style={{display:'flex',flexDirection:'column',}}>
+                    <div>
                         <button id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
                     </div>
                 </section> :

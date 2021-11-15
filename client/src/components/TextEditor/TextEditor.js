@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
+import styles from './textEditor.module.css';
+
 
 const TextEditor = ({isEdit, selected}) => {
     const [newTitle, setNewTitle] = useState()
@@ -60,7 +62,7 @@ const TextEditor = ({isEdit, selected}) => {
             { isEdit ?
                 // 글 수정
                 <>
-                    <div style={{color: '#000'}}>
+                    <div>
                         <input type="text" placeholder='제목을 입력하세요.' value={newTitle || ''} name='title' onChange={onEdit}/>
                         <CKEditor
                             editor={ClassicEditor}
@@ -75,7 +77,7 @@ const TextEditor = ({isEdit, selected}) => {
                 </> :
                 // 글 작성
                 <>
-                    <div style={{color: '#000'}}>
+                    <div>
                         <input type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
                         <CKEditor
                             editor={ClassicEditor}

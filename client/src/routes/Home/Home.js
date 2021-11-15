@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Board from "../components/Board";
+import Board from "../../components/Board/Board";
 import Axios from "axios";
-import TextEditor from "../components/TextEditor";
+import TextEditor from "../../components/TextEditor/TextEditor";
+import styles from './home.module.css';
 
 const Home = (props) => {
     const [writing, setWriting] = useState(false);
@@ -17,24 +18,22 @@ const Home = (props) => {
     },[viewContent])
 
     return(
-        <main>
-            <section style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',}}>
-                <header>
-                    <h1>React Notice Board</h1>
+        <main className={styles.main}>
+            <section className={styles.section}>
+                <header className={styles.header}>
+                    <h1 className={styles.title}>Notice</h1>
                 </header>
                 { writing && <TextEditor isEdit={false} /> }
-                <div>
-                    <button onClick={onWriteClick}>{writing ? "작성 취소" : "글 작성하기"}</button>
-                </div>
-                <table>
-                    <tbody>
+                <ul className={styles.list}>
                     {viewContent.map((content,index) =>
-                        <tr key={index} >
+                        <li key={index} className={styles.item}>
                             <Board content={content} />
-                        </tr>
+                        </li>
                     )}
-                    </tbody>
-                </table>
+                </ul>
+                <div className={styles.btnContainer}>
+                    <button className={styles.btn} onClick={onWriteClick}>{writing ? "작성 취소" : "글 작성하기"}</button>
+                </div>
             </section>
         </main>
     );

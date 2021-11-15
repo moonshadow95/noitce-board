@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams} from "react-router-dom";
-import Selected from "../components/Selected";
-import NotFound from "./NotFound";
+import Selected from "../../components/Selected/Selected";
+import NotFound from "../NotFound/NotFound";
 
 const Read = ({viewContent}) => {
     const [selected, setSelected] = useState();

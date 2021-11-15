@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Create
 app.post("/api/insert", (req, res)=>{
     const {title, text} = req.body
-    const sqlQuery = "INSERT INTO board (title, text) VALUES (?,?)";
+    const sqlQuery = "INSERT INTO Board (title, text) VALUES (?,?)";
     db.execute(sqlQuery, [title, text],(err,result)=>{
         res.send(result)
     })
@@ -21,7 +21,7 @@ app.post("/api/insert", (req, res)=>{
 
 // Read
 app.get("/api/get",(req,res)=>{
-    const sqlQuery = "SELECT * FROM board ORDER BY date DESC;";
+    const sqlQuery = "SELECT * FROM Board ORDER BY date DESC;";
     db.execute(sqlQuery, (err,result)=>{
         res.send(result)
     })
@@ -36,7 +36,7 @@ app.get('/api/get/:id', (req, res)=>{
 })
 
 // Update
-// UPDATE board SET title='HELLO',text='<p>안녕하십니까</p>' WHERE id=32
+// UPDATE Board SET title='HELLO',text='<p>안녕하십니까</p>' WHERE id=32
 app.post("/api/edit/:id", (req, res)=>{
     const {id} = req.params
     const {title, text} = req.body
@@ -49,7 +49,7 @@ app.post("/api/edit/:id", (req, res)=>{
 // Delete
 app.post("/api/delete/:id",(req,res)=>{
     const {params:{id}} = req;
-    const sqlQuery = "DELETE FROM board WHERE id=?";
+    const sqlQuery = "DELETE FROM Board WHERE id=?";
     db.execute(sqlQuery,[id], (err, result)=>{
         res.send(result)
     });

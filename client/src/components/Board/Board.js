@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import styles from './board.module.css';
 
 const Board = ({content:{id, title, date}, }) => {
     // Time Formatter
@@ -22,17 +23,15 @@ const Board = ({content:{id, title, date}, }) => {
         }
     };
     return(
-        <Link style={{width:'100%'}} to={`/read/${id}`}>
-            <div>
-                <td style={{width:'100%'}} >
-                    <span>{id}</span>
-                </td>
-                <td>
-                    <span>{title}</span>
-                </td>
-                <td>
-                    <span>{timeFormatter(date)}</span>
-                </td>
+        <Link className={styles.link} to={`/read/${id}`}>
+            <div className={styles.id}>
+                <span>{id}</span>
+            </div>
+            <div className={styles.title}>
+                <span>{title}</span>
+            </div>
+            <div className={styles.date}>
+                <span>{timeFormatter(date)}</span>
             </div>
         </Link>
     )

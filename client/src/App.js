@@ -1,5 +1,5 @@
-import Home from "./routes/Home";
-import Read from "./routes/Read";
+import Home from "./routes/Home/Home";
+import Read from "./routes/Read/Read";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Axios from "axios";

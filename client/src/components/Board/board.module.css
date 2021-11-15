@@ -1,0 +1,8 @@
+.link {
+    width: 100%;
+    display:flex;
+}
+.id,.title,.date{}
+.id {
+    padding: 2em 1em;
+}
