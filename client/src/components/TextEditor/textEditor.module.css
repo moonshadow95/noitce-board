@@ -1,0 +1,26 @@
+.editorContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em 0;
+}
+.title{
+    font-size: 1.2rem;
+    margin: 1em;
+    padding: 0.5em;
+    width: 400px;
+}
+.btnContainer{
+}
+.btn{
+    padding: 1em 2em;
+    color: #fff;
+    background-color: #000;
+    cursor: pointer;
+    transition: all 100ms ease-in;
+    border: 1px solid #000;
+}
+.btn:hover{
+    background-color: #fff;
+    color: #000;
+}

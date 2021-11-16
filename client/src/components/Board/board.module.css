@@ -1,8 +1,35 @@
 .link {
     width: 100%;
     display:flex;
+    justify-content: space-between;
+    transition: all 100ms ease-in;
 }
-.id,.title,.date{}
+.link:hover {
+    background-color: #000;
+    color: #fff;
+}
+.link:hover .id {
+    border-right: 1px solid #fff;
+}
+.link:hover .date {
+    border-left: 1px solid #fff;
+}
+.id,.title,.date{
+    padding: 1rem 1rem;
+}
 .id {
-    padding: 2em 1em;
+    font-size: 0.8rem;
+    border-right:1px solid #000;
+    transition: all 100ms ease-in;
+}
+.title {
+    flex: 1;
+    padding-left: 2em;
+}
+.date {
+    min-width: 90px;
+    border-left: 1px solid #000;
+    text-align: right;
+    font-size: 0.8rem;
+    transition: all 100ms ease-in;
 }

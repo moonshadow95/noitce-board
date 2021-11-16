@@ -23,7 +23,6 @@ const Home = (props) => {
                 <header className={styles.header}>
                     <h1 className={styles.title}>Notice</h1>
                 </header>
-                { writing && <TextEditor isEdit={false} /> }
                 <ul className={styles.list}>
                     {viewContent.map((content,index) =>
                         <li key={index} className={styles.item}>
@@ -31,6 +30,7 @@ const Home = (props) => {
                         </li>
                     )}
                 </ul>
+                { writing && <TextEditor isEdit={false} /> }
                 <div className={styles.btnContainer}>
                     <button className={styles.btn} onClick={onWriteClick}>{writing ? "작성 취소" : "글 작성하기"}</button>
                 </div>

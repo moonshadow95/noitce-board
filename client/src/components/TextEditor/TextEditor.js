@@ -62,8 +62,8 @@ const TextEditor = ({isEdit, selected}) => {
             { isEdit ?
                 // 글 수정
                 <>
-                    <div>
-                        <input type="text" placeholder='제목을 입력하세요.' value={newTitle || ''} name='title' onChange={onEdit}/>
+                    <div className={styles.editorContainer}>
+                        <input className={styles.title}  type="text" placeholder='제목을 입력하세요.' value={newTitle || ''} name='title' onChange={onEdit}/>
                         <CKEditor
                             editor={ClassicEditor}
                             data={selected.text}
@@ -73,12 +73,12 @@ const TextEditor = ({isEdit, selected}) => {
                     }}
                         />
                     </div>
-                    <button onClick={onEditSubmit}>완료</button>
+                    <button className={styles.btn} onClick={onEditSubmit}>완료</button>
                 </> :
                 // 글 작성
                 <>
-                    <div>
-                        <input type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
+                    <div className={styles.editorContainer}>
+                        <input className={styles.title} type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
                         <CKEditor
                             editor={ClassicEditor}
                             data=""
@@ -88,8 +88,8 @@ const TextEditor = ({isEdit, selected}) => {
                         }}
                         />
                     </div>
-                    <div>
-                        <button onClick={onSubmit}>완료</button>
+                    <div className={styles.btnContainer}>
+                        <button className={styles.btn} onClick={onSubmit}>작성 완료</button>
                     </div>
                 </>}
         </>

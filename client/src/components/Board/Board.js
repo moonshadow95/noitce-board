@@ -16,10 +16,10 @@ const Board = ({content:{id, title, date}, }) => {
         if (days < 2) return `${Math.floor(days)}일 전`;
         if (days >= 2) {
             const dateObj = new Date(createdAt);
-            const year = dateObj.getFullYear();
+            const year = dateObj.getFullYear().toString().substr(2,3);
             const month = dateObj.getMonth() + 1;
             const date = dateObj.getDate();
-            return `${year}년 ${month}월 ${date}일`;
+            return `${year}.${month}.${date}`;
         }
     };
     return(

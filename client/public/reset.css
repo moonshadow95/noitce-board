@@ -56,3 +56,15 @@ button {
 body{
     font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
 }
+* {
+    box-sizing: border-box;
+}
+
+.ck-editor__editable,
+.ck-editor__editable:focus {
+    width: 100%;
+    min-height: 300px !important;
+}
+.ck-editor {
+    max-width: 95%;
+}

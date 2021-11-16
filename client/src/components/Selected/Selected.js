@@ -49,28 +49,25 @@ const Selected = ({selected}) => {
 
     return(
         <main>
-            { !editing ?
-                <section>
-                    <header>
-                        <h1>{selected.title}</h1>
-                    </header>
-                    <div>
-                        <div>
-                            <small>{timeFormatter(selected.date)}</small>
-                        </div>
-                        <div>
-                            {HTMLReactParser(selected.text)}
-                        </div>
-                    </div>
-                    <div>
-                        <button id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
-                    </div>
-                </section> :
-                <section>
-                    <TextEditor isEdit={true} selected={selected} />
-                </section>
-            }
-            <button onClick={onEditClick}>{editing ? "취소" : "글 수정하기" }</button>
+            <section className={styles.section}>
+                <header className={styles.header}>
+                    <h1 className={styles.title}>{selected.title}</h1>
+                </header>
+                <div className={styles.date}>
+                    <small>{timeFormatter(selected.date)}</small>
+                </div>
+                <div className={styles.text}>
+                    {HTMLReactParser(selected.text)}
+                </div>
+                <div className={styles.btnContainer}>
+                    <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기" }</button>
+                    <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
+                </div>
+                {editing &&
+                <>
+                <TextEditor isEdit={true} selected={selected} />
+                <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기" }</button></>}
+            </section>
         </main>
     )
 };

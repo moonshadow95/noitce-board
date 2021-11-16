@@ -12,14 +12,17 @@
 .header{
     font-size: 3rem;
     font-weight: 700;
-    padding: 2em;
+    padding: 0.5em;
+    margin: 5rem;
+    border: 2px solid #000;
 }
-.title{}
 .list{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    min-width: 400px;
     max-width: 80%;
+    box-shadow: 0px 6px 8px 1px rgba(0,0,0,0.2);
+    background-color: #fff;
 }
 .item{
     display: flex;
@@ -28,5 +31,18 @@
     border-bottom: none;
 }
 .item:last-child{border-bottom: 1px solid #000}
-.btnContainer{}
-.btn{}
+.btnContainer{
+    margin: 0.5em 0;
+}
+.btn{
+    padding: 1em 2em;
+    color: #fff;
+    background-color: #000;
+    cursor: pointer;
+    transition: all 100ms ease-in;
+    border: 1px solid #000;
+}
+.btn:hover{
+    background-color: #fff;
+    color: #000;
+}
