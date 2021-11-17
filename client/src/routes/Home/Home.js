@@ -21,7 +21,7 @@ const Home = (props) => {
         <main className={styles.main}>
             <section className={styles.section}>
                 <header className={styles.header}>
-                    <h1 className={styles.title}>Notice</h1>
+                    <h1 className={styles.title}>ictus</h1>
                 </header>
                 <ul className={styles.list}>
                     {viewContent.map((content,index) =>
@@ -30,10 +30,10 @@ const Home = (props) => {
                         </li>
                     )}
                 </ul>
-                { writing && <TextEditor isEdit={false} /> }
-                <div className={styles.btnContainer}>
-                    <button className={styles.btn} onClick={onWriteClick}>{writing ? "작성 취소" : "글 작성하기"}</button>
-                </div>
+                { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick}/> }
+                { !writing && <div className="btnContainer noBorder">
+                    <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
+                </div>}
             </section>
         </main>
     );

@@ -53,18 +53,31 @@ button {
     padding: 0;
 }
 
+/* Common Styles */
 body{
     font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
 }
 * {
     box-sizing: border-box;
 }
-
 .ck-editor__editable,
 .ck-editor__editable:focus {
     width: 100%;
     min-height: 300px !important;
+    line-height: 1.4em;
 }
 .ck-editor {
-    max-width: 95%;
+    width: 100% !important;
+}
+.btnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    padding: 1em 0;
+    width: 100%;
+    border-top: 1px solid #000;
+}
+.noBorder {
+    border:none;
 }

@@ -2,15 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2em 0;
+    margin: 2em 0 ;
+    width: 80vw;
 }
 .title{
     font-size: 1.2rem;
     margin: 1em;
     padding: 0.5em;
-    width: 400px;
-}
-.btnContainer{
+    width: 100%;
 }
 .btn{
     padding: 1em 2em;

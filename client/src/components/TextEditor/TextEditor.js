@@ -6,7 +6,7 @@ import Axios from "axios";
 import styles from './textEditor.module.css';
 
 
-const TextEditor = ({isEdit, selected}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
     const [newTitle, setNewTitle] = useState()
     const [content, setContent] = useState()
     const navigate = useNavigate();
@@ -73,7 +73,10 @@ const TextEditor = ({isEdit, selected}) => {
                     }}
                         />
                     </div>
-                    <button className={styles.btn} onClick={onEditSubmit}>완료</button>
+                    <div className="btnContainer">
+                        <button className={styles.btn} onClick={onEditSubmit}>완료</button>
+                        <button className={styles.btn} onClick={onCancelClick}>취소</button>
+                    </div>
                 </> :
                 // 글 작성
                 <>
@@ -88,8 +91,9 @@ const TextEditor = ({isEdit, selected}) => {
                         }}
                         />
                     </div>
-                    <div className={styles.btnContainer}>
+                    <div className="btnContainer noBorder">
                         <button className={styles.btn} onClick={onSubmit}>작성 완료</button>
+                        <button className={styles.btn} onClick={onWriteClick}>작성 취소</button>
                     </div>
                 </>}
         </>
