@@ -52,7 +52,6 @@ const Selected = ({selected}) => {
         <main>
             {/*Nav*/}
             <Navigation />
-
             {/*Section*/}
             <section className={styles.section}>
                 {!editing && <>
@@ -72,7 +71,9 @@ const Selected = ({selected}) => {
                 </>
                 }
                 {editing && <>
-                    <TextEditor isEdit={true} selected={selected} onCancelClick={onEditClick}/>
+                    <TextEditor
+                        isEdit={true} selected={selected} onCancelClick={onEditClick} onEditClick={onEditClick}
+                    />
                 </>}
             </section>
         </main>

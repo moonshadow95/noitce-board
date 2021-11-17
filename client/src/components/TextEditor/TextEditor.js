@@ -7,7 +7,7 @@ import styles from './textEditor.module.css';
 
 
 const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
-    const [newTitle, setNewTitle] = useState()
+    const [newTitle, setNewTitle] = useState({selected})
     const [content, setContent] = useState()
     const navigate = useNavigate();
 
@@ -45,8 +45,8 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
     useEffect(()=>{
         if(isEdit) {
             setContent({
-                title: '',
-                text: '',
+                title: selected.title,
+                text: selected.text,
                 createdAt: '',
             })
             setNewTitle(selected.title)
@@ -54,7 +54,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
         else{
             setContent(selected)
         }
-    },[])
+    }, [isEdit, selected])
 
 
     return (
