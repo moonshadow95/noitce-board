@@ -1,0 +1,17 @@
+.nav{
+    position: sticky;
+    left: 0;
+    top: 0.5rem;
+    z-index: 10;
+    margin: 2rem 1rem;
+}
+.link{
+    padding: 0.5em 1em;
+    border: var(--border-common);
+    background: var(--color-ictus);
+    color: var(--color-white);
+    transition: color var(--animation-duration) ease-in-out;
+}
+.link:hover{
+    opacity: 0.7;
+}

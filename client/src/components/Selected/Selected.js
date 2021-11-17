@@ -4,6 +4,7 @@ import HTMLReactParser from "html-react-parser";
 import TextEditor from "../TextEditor/TextEditor";
 import { useNavigate } from "react-router-dom";
 import styles from './selected.module.css';
+import Navigation from "../Navigation/Navigation";
 
 const Selected = ({selected}) => {
     const [editing, setEditing] = useState(false);
@@ -49,6 +50,10 @@ const Selected = ({selected}) => {
 
     return(
         <main>
+            {/*Nav*/}
+            <Navigation />
+
+            {/*Section*/}
             <section className={styles.section}>
                 {!editing && <>
                     <header className={styles.header}>

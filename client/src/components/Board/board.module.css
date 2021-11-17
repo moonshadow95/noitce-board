@@ -5,14 +5,14 @@
     transition: all 100ms ease-in;
 }
 .link:hover {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--color-black);
+    color: var(--color-white);
 }
 .link:hover .id {
-    border-right: 1px solid #fff;
+    border-right: var(--border-common);
 }
 .link:hover .date {
-    border-left: 1px solid #fff;
+    border-left: var(--border-common);
 }
 .link div:not(.title) {
     display:flex;
@@ -24,7 +24,7 @@
 }
 .id {
     font-size: 0.8rem;
-    border-right:1px solid #000;
+    border-right:var(--border-common);
     transition: all 100ms ease-in;
 }
 .title {
@@ -33,7 +33,7 @@
 }
 .date {
     min-width: 90px;
-    border-left: 1px solid #000;
+    border-left: var(--border-common);
     text-align: right;
     font-size: 0.8rem;
     transition: all 100ms ease-in;

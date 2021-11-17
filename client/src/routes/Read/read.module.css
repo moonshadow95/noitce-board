@@ -18,7 +18,7 @@
     width: 64px;
     height: 64px;
     margin: 8px;
-    border: 10px solid #000;
+    border: 10px solid var(--color-black);
     border-left-color: transparent;
     border-bottom-color: transparent;
     border-right-color: transparent;

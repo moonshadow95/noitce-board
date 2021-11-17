@@ -3,6 +3,7 @@ import Board from "../../components/Board/Board";
 import Axios from "axios";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import styles from './home.module.css';
+import Navigation from "../../components/Navigation/Navigation";
 
 const Home = (props) => {
     const [writing, setWriting] = useState(false);
