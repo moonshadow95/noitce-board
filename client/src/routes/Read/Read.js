@@ -1,17 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import { useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Selected from "../../components/Selected/Selected";
 import NotFound from "../NotFound/NotFound";
 import styles from './read.module.css';
 
 const Read = ({viewContent}) => {
-    const [selected, setSelected] = useState();
+    const [selected, setSelected] = useState({});
     const [loading, setLoading] = useState(true)
     const {id} = useParams();
+    const navigate = useNavigate();
     useEffect(()=>{
         setSelected(viewContent.find((item)=> item.id === parseInt(id)))
         setLoading(prev=>!prev)
-    },[id])
+
+    },[id, viewContent])
+
+    if(!selected){
+        navigate('/')
+    }
 
     return (
         loading ?

@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import Board from "../../components/Board/Board";
-import Axios from "axios";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import styles from './home.module.css';
-import Navigation from "../../components/Navigation/Navigation";
+import Axios from "axios";
 
-const Home = (props) => {
+const Home = ({boardContent}) => {
     const [writing, setWriting] = useState(false);
-    const [viewContent,setViewContent] = useState([])
+    const [viewContent,setViewContent] = useState(boardContent)
     const onWriteClick = () => {
         setWriting(prev=>!prev)
     }
-
     useEffect(()=>{
-        Axios.get('http://localhost:8080/api/get').then((response)=>
+        Axios.get('http://localhost:8080/boards/get').then((response)=>
             setViewContent(response.data)
         )
-    },[viewContent])
-
+    },[])
     return(
         <main className={styles.main}>
             <section className={styles.section}>

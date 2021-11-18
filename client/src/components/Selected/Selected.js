@@ -20,7 +20,7 @@ const Selected = ({selected}) => {
         const ok = window.confirm("삭제하시겠습니까?");
         if(ok){
             const {target:{id}} = event;
-            Axios.post(`http://localhost:8080/api/delete/${id}`)
+            Axios.post(`http://localhost:8080/boards/delete/${id}`)
                 .then(() => {
                     navigate('/')
                     alert('삭제되었습니다.')

@@ -19,7 +19,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
 
     // Create
     const onSubmit = () => {
-        Axios.post('http://localhost:8080/api/insert', {
+        Axios.post('http://localhost:8080/boards/insert', {
             title: content.title,
             text: content.text,
         }).then(() => {
@@ -34,10 +34,11 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
     }
     const onEditSubmit = () => {
         setContent({...content},)
-        Axios.post(`http://localhost:8080/api/edit/${selected.id}`, {
+        Axios.post(`http://localhost:8080/boards/edit/${selected.id}`, {
             title: newTitle,
             text: content.text,
-        }).then((result)=>{
+        }).then(()=>{
+
             navigate("/")
         })
     }
