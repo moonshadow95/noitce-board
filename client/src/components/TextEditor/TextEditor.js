@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from "react-router-dom";
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
@@ -9,7 +8,6 @@ import styles from './textEditor.module.css';
 const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
     const [newTitle, setNewTitle] = useState({selected})
     const [content, setContent] = useState()
-    const navigate = useNavigate();
 
     // Input Text
     const onChange = event => {
@@ -38,8 +36,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
             title: newTitle,
             text: content.text,
         }).then(()=>{
-
-            navigate("/")
+            window.location.replace('/');
         })
     }
 

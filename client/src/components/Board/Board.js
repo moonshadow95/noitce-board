@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import styles from './board.module.css';
 
-const Board = ({content:{id, title, date}, }) => {
+const Board = ({content:{id, title, text, date}, }) => {
     // Time Formatter
     const timeFormatter = (createdAt) => {
         const milliSeconds = new Date() - new Date(createdAt);

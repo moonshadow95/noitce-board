@@ -18,7 +18,7 @@ const Read = ({viewContent}) => {
     if(!selected){
         navigate('/')
     }
-
+    
     return (
         loading ?
             <div className={styles.container}>
