@@ -1,5 +1,4 @@
 import express from 'express';
-import {db} from "../db/database.js";
 import {createBoard, edit, getAll, getById, remove} from "../Controller/boardController.js";
 
 

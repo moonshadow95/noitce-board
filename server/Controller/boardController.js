@@ -5,7 +5,7 @@ export const createBoard = (req, res)=>{
     const {title, text} = req.body
     const sqlQuery = "INSERT INTO Board (title, text) VALUES (?,?)";
     db.execute(sqlQuery, [title, text],(err,result)=>{
-        res.send(result)
+        res.status(201).send(result)
     })
 }
 
@@ -20,7 +20,7 @@ export const getAll = (req,res)=>{
 // Get By id
 export const getById = (req, res)=>{
     const {id} = req.params
-    const sqlQuery = `SELECT * FROM board id WHERE id=${id}`;
+    const sqlQuery = `SELECT * FROM Board id WHERE id=${id}`;
     const content =  db.execute(sqlQuery)
     if(content){
         res.sendStatus(200);
@@ -33,7 +33,7 @@ export const getById = (req, res)=>{
 export const edit = (req, res)=>{
     const {id} = req.params
     const {title, text} = req.body
-    const sqlQuery = `UPDATE board SET title=?,text=? WHERE id=?`
+    const sqlQuery = `UPDATE Board SET title=?,text=? WHERE id=?`
     db.execute(sqlQuery, [title, text, id], (err, result) => {
         res.sendStatus(200)
     })

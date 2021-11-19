@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from "helmet";
 import morgan  from 'morgan';
 import boardRouter from './Router/boards.js';
+import authRouter from './Router/auth.js'
 
 const app = express();
 const PORT = 8080;
@@ -15,6 +16,7 @@ app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/boards', boardRouter)
+app.use('/auth', authRouter)
 
 app.use((req, res,next)=>{
     res.sendStatus(404);
