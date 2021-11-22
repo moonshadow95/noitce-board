@@ -1,4 +1,5 @@
 import {db} from "../db/database.js";
+import * as boardRepository from '../data/board.js';
 
 // Create
 export const createBoard = (req, res)=>{
@@ -11,32 +12,26 @@ export const createBoard = (req, res)=>{
 
 // Read
 // Get all
-export const getAll = (req,res)=>{
-    const sqlQuery = "SELECT * FROM Board ORDER BY date DESC;";
-    db.execute(sqlQuery, (err,result)=>{
-        res.status(200).send(result)
-    })
-}
-// Get By id
-export const getById = (req, res)=>{
-    const {id} = req.params
-    const sqlQuery = `SELECT * FROM Board id WHERE id=${id}`;
-    const content =  db.execute(sqlQuery)
-    if(content){
-        res.sendStatus(200);
-    }else{
-        res.sendStatus(404);
-    }
+export async function getAll(req,res){
+    const boards = await boardRepository.getBoardAll();
+    res.status(200).send(boards)
 }
 
 // Update
-export const edit = (req, res)=>{
-    const {id} = req.params
+export async function edit(req, res){
+    const id = parseInt(req.params.id);
     const {title, text} = req.body
-    const sqlQuery = `UPDATE Board SET title=?,text=? WHERE id=?`
-    db.execute(sqlQuery, [title, text, id], (err, result) => {
-        res.sendStatus(200)
-    })
+    console.log(title, text)
+    const board = await boardRepository.getBoardById(id);
+    if(!board){
+        return res.sendStatus(404).json({message:`${id}번 게시물이 없습니다.`})
+    }
+    // 로그인된 유저가 작성자인지 확인
+    // if(board.userId !== req.userId){
+    //     return res.sendStatus(403)
+    // }
+    const updated = await boardRepository.update(id, title, text);
+    res.status(200).json(updated)
 }
 
 // Delete

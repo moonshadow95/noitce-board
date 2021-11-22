@@ -1,12 +1,11 @@
 import express from 'express';
-import {createBoard, edit, getAll, getById, remove} from "../Controller/boardController.js";
+import {createBoard, edit, getAll, remove} from "../Controller/boardController.js";
 
 
 const boardRouter = express.Router();
 
 boardRouter.post('/insert', createBoard)
 boardRouter.get('/get', getAll)
-boardRouter.get('/get/:id',getById)
 boardRouter.post("/edit/:id", edit)
 boardRouter.post("/delete/:id",remove)
 

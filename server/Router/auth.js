@@ -1,4 +1,5 @@
 import express from 'express';
+import {} from 'express-async-errors';
 import {body} from 'express-validator';
 import {validate} from '../middleware/validator.js';
 import {signup, login} from '../Controller/authController.js'
