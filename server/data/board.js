@@ -17,3 +17,7 @@ export async function update(id, title, text) {
         .execute(`UPDATE Board SET title=?,text=? WHERE id=?`, [title, text, id])
         .then(()=> getBoardById(id))
 }
+
+export async function remove(id) {
+    return db.execute("DELETE FROM Board WHERE id=?", [id])
+}

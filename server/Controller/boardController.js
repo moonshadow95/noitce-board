@@ -14,7 +14,7 @@ export const createBoard = (req, res)=>{
 // Get all
 export async function getAll(req,res){
     const boards = await boardRepository.getBoardAll();
-    res.status(200).send(boards)
+    res.status(200).sendStatus(boards)
 }
 
 // Update
@@ -24,21 +24,26 @@ export async function edit(req, res){
     console.log(title, text)
     const board = await boardRepository.getBoardById(id);
     if(!board){
-        return res.sendStatus(404).json({message:`${id}번 게시물이 없습니다.`})
+        return res.send(404).json({message:`${id}번 게시물이 없습니다.`})
     }
     // 로그인된 유저가 작성자인지 확인
-    // if(board.userId !== req.userId){
-    //     return res.sendStatus(403)
-    // }
+    if(board.userId !== req.userId){
+        return res.sendStatus(403)
+    }
     const updated = await boardRepository.update(id, title, text);
     res.status(200).json(updated)
 }
 
 // Delete
-export const remove = (req,res)=>{
+export async function remove(req,res){
     const {params:{id}} = req;
-    const sqlQuery = "DELETE FROM Board WHERE id=?";
-    db.execute(sqlQuery,[id], (err, result)=>{
-        res.send(result)
-    });
+    const board = await boardRepository.getBoardById(id);
+    if(!board){
+        return res.status(404).json({message: `${id}번 게시물을 찾지 못했습니다.`})
+    }
+    if(board.userId !== req.userId){
+        return res.sendStatus(403)
+    }
+    await boardRepository.remove(id)
+    res.sendStatus(204);
 }
