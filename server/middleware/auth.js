@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../data/auth.js';
 
-const AUTH_ERROR = {message: 'Authentication Error'}
+const AUTH_ERROR = {message: '로그인 후 이용할 수 있습니다.'}
 
 export const isAuth = async(req,res,next)=>{
     const authHeader = req.get('Authorization');

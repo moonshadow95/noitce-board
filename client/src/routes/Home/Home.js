@@ -12,10 +12,25 @@ const Home = ({boardContent}) => {
     const onWriteClick = () => {
         setWriting(prev=>!prev)
     }
-    useEffect(()=>{
-        Axios.get('http://localhost:8080/boards/get').then((response)=>
-            setViewContent(response.data)
-        )
+
+    let data;
+    // Get Headers
+    const getHeaders = () => {
+        const token = localStorage.getItem('token')
+        return {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    useEffect(async ()=>{
+        data = await Axios({
+            method: "GET",
+            url:'http://localhost:8080/boards/get',
+            headers: getHeaders(),
+        })
+        setViewContent(data.data)
+        // Axios.get('http://localhost:8080/boards/get').then((response)=>
+        //     setViewContent(response.data)
     },[])
     return(
         <main className={styles.main}>
@@ -36,7 +51,7 @@ const Home = ({boardContent}) => {
                         <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
                     </div>}
                 </section> :
-                <Auth />
+                <Auth setIsAuth={setIsAuth}/>
             }
         </main>
     );

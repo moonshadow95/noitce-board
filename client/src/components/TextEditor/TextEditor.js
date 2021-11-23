@@ -15,16 +15,32 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
         setContent({...content, [name]:value})
     }
 
-    // Create
-    const onSubmit = () => {
-        Axios.post('http://localhost:8080/boards/insert', {
-            title: content.title,
-            text: content.text,
-        }).then(() => {
-            alert('저장되었습니다.')
-        })
+    // Get Headers
+    const getHeaders = () => {
+        const token = localStorage.getItem('token')
+        return {
+            Authorization: `Bearer ${token}`
+        }
     }
 
+    // Create
+    const onSubmit = async() => {
+        let data;
+        try {
+            data =await Axios({
+                method:'POST',
+                url: 'http://localhost:8080/boards/insert',
+                data: {
+                    'title': content.title,
+                    'text': content.text,
+
+                },
+                headers: getHeaders()
+            })
+        } catch(error){
+            console.log(error.response.data.message)
+        }
+    }
     // Edit
     const onEdit  = (event) => {
         const {value} = event.target;

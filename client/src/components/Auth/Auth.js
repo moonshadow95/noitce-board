@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './auth.module.css';
 import Axios from "axios";
 
-const Auth = (props) => {
+const Auth = ({setIsAuth}) => {
     const [username, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [newAccount, setNewAccount] = useState(false);
@@ -35,11 +35,13 @@ const Auth = (props) => {
                     'username':username,
                     'password':password
                 })
-                console.log(data)
             }
+            localStorage.setItem('token', data.data.token);
+            setIsAuth(true)
         } catch (error) {
             setError(error.response.data.message)
         }
+
     };
     const toggleAccount = () => {
         setNewAccount((prev) => !prev);

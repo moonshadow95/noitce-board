@@ -2,19 +2,16 @@ import {db} from "../db/database.js";
 import * as boardRepository from '../data/board.js';
 
 // Create
-export const createBoard = (req, res)=>{
+export async function createBoard(req, res){
     const {title, text} = req.body
-    const sqlQuery = "INSERT INTO Board (title, text) VALUES (?,?)";
-    db.execute(sqlQuery, [title, text],(err,result)=>{
-        res.status(201).send(result)
-    })
+    const board = await boardRepository.create(title, text, req.userId)
+    res.status(201).json(board)
 }
 
 // Read
-// Get all
 export async function getAll(req,res){
     const boards = await boardRepository.getBoardAll();
-    res.status(200).sendStatus(boards)
+    res.status(200).send(boards)
 }
 
 // Update

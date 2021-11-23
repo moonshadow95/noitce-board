@@ -18,6 +18,12 @@ export async function update(id, title, text) {
         .then(()=> getBoardById(id))
 }
 
+export async function create(title, text, userId){
+    return db
+        .execute("INSERT INTO Board (title, text, userId) VALUES (?,?,?)", [title, text, userId])
+        .then(result => getBoardById(result[0].insertId))
+}
+
 export async function remove(id) {
     return db.execute("DELETE FROM Board WHERE id=?", [id])
 }
