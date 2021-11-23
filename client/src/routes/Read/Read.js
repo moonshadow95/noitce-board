@@ -17,6 +17,7 @@ const Read = ({viewContent}) => {
 
     if(!selected){
         navigate('/')
+        window.location.reload()
     }
     
     return (

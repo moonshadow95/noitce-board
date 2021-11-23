@@ -1,0 +1,40 @@
+.container {
+    border: 1px solid red;
+
+}
+.authContainer{
+    border: 1px solid blue;
+
+}
+.formContainer{
+    border: 1px green;
+    height: 97vh;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+}
+.form{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+}
+.input{
+    width: 200px;
+    height: 40px;
+    margin-bottom: 1em;
+    text-indent: 1em;
+    font-size: 1.1rem;
+}
+.submitBtn{
+    background: none;
+    border: var(--border-common);
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+}
+.error{}
+.switch{}
+.active{}
+.active{}

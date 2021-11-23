@@ -17,22 +17,28 @@ const Auth = (props) => {
             setPassword(value);
         }
     };
-    const onSumbit = async (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
+        let data;
         try {
-            let data;
-            if (true) {
-                data = Axios.post('http://localhost:8080/auth/signup',{
+            // 로그인? 회원가입?
+            if (newAccount) {
+                // 회원가입
+                data = await Axios.post('http://localhost:8080/auth/signup',{
+                    'username':username,
+                    'password':password,
+                })
+                alert(`${username}님, 가입되었습니다.`)
+            } else {
+                // 로그인
+                data = await Axios.post('http://localhost:8080/auth/login', {
                     'username':username,
                     'password':password
-                }).then(() => {
-                    alert('가입되었습니다.')
                 })
-            } else {
-                // Login
+                console.log(data)
             }
         } catch (error) {
-            setError(error.message);
+            setError(error.response.data.message)
         }
     };
     const toggleAccount = () => {
@@ -40,9 +46,9 @@ const Auth = (props) => {
     };
     return (
         <div className={styles.container}>
-            <div className={styles.auth__container}>
-                <div className={styles.form__container}>
-                    <form className={styles.form} onSubmit={onSumbit}>
+            <div className={styles.authContainer}>
+                <div className={styles.formContainer}>
+                    <form className={styles.form} onSubmit={onSubmit}>
                         <input
                             className={styles.input}
                             name="username"
@@ -62,7 +68,7 @@ const Auth = (props) => {
                             onChange={onChange}
                         />
                         <input
-                            className={styles.submit__btn}
+                            className={styles.submitBtn}
                             type="submit"
                             value={newAccount ? "계정 생성" : "로그인"}
                         />

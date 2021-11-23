@@ -6,6 +6,12 @@ export async function findByUsername(username){
         .then(result=>result[0][0]);
 }
 
+export async function findById(id){
+    return db
+        .execute('SELECT * FROM Users WHERE id=?', [id])
+        .then(result=>result[0][0]);
+}
+
 export async function createUser(user){
     const {username, password} = user;
     return db
