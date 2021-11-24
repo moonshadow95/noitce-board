@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './auth.module.css';
 import Axios from "axios";
 
-const Auth = ({setIsAuth}) => {
+const Auth = ({setIsAuth, authService}) => {
     const [username, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [newAccount, setNewAccount] = useState(false);
@@ -17,27 +17,41 @@ const Auth = ({setIsAuth}) => {
             setPassword(value);
         }
     };
+    // Get Headers
+    const getHeaders = () => {
+        const token = localStorage.getItem('token')
+        return {
+            Authorization: `Bearer ${token}`
+        }
+    }
     const onSubmit = async (event) => {
         event.preventDefault();
-        let data;
+        let response;
         try {
             // 로그인? 회원가입?
             if (newAccount) {
                 // 회원가입
-                data = await Axios.post('http://localhost:8080/auth/signup',{
+                response = await Axios.post('http://localhost:8080/auth/signup',{
                     'username':username,
                     'password':password,
                 })
                 alert(`${username}님, 가입되었습니다.`)
             } else {
                 // 로그인
-                data = await Axios.post('http://localhost:8080/auth/login', {
-                    'username':username,
-                    'password':password
+                response = await Axios({
+                    method: "POST",
+                    url: 'http://localhost:8080/auth/login',
+                    data:{
+                        'username':username,
+                        'password':password,
+                    },
+                    headers: getHeaders(),
                 })
+                localStorage.setItem('token', response.data.token);
+                authService.me()
+                    .then(result=>setIsAuth(result.data))
+                    .catch(console.error);
             }
-            localStorage.setItem('token', data.data.token);
-            setIsAuth(true)
         } catch (error) {
             setError(error.response.data.message)
         }

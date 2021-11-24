@@ -5,15 +5,13 @@ import styles from './home.module.css';
 import Axios from "axios";
 import Auth from "../../components/Auth/Auth";
 
-const Home = ({boardContent}) => {
-    const [isAuth, setIsAuth] = useState(false)
+const Home = ({user, authService, boardContent}) => {
+    const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false);
     const [viewContent,setViewContent] = useState(boardContent)
     const onWriteClick = () => {
         setWriting(prev=>!prev)
     }
-
-    let data;
     // Get Headers
     const getHeaders = () => {
         const token = localStorage.getItem('token')
@@ -21,20 +19,21 @@ const Home = ({boardContent}) => {
             Authorization: `Bearer ${token}`
         }
     }
-
-    useEffect(async ()=>{
-        data = await Axios({
+    async function getBoards() {
+        const response = await Axios({
             method: "GET",
-            url:'http://localhost:8080/boards/get',
+            url: 'http://localhost:8080/boards/get',
             headers: getHeaders(),
         })
-        setViewContent(data.data)
-        // Axios.get('http://localhost:8080/boards/get').then((response)=>
-        //     setViewContent(response.data)
-    },[])
+        setViewContent(response.data)
+    }
+    useEffect(()=>{
+        getBoards().then(r => r)
+        setIsAuth(user)
+    },[user])
     return(
         <main className={styles.main}>
-            { isAuth ?
+            { isAuth !== undefined ?
                 <section className={styles.section}>
                     <header className={styles.header}>
                         <h1 className={styles.title}>ictus</h1>
@@ -51,7 +50,7 @@ const Home = ({boardContent}) => {
                         <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
                     </div>}
                 </section> :
-                <Auth setIsAuth={setIsAuth}/>
+                <Auth setIsAuth={setIsAuth} authService={authService}/>
             }
         </main>
     );

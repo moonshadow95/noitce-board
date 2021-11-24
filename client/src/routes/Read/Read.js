@@ -14,11 +14,11 @@ const Read = ({viewContent}) => {
         setLoading(prev=>!prev)
 
     },[id, viewContent])
-
-    if(!selected){
-        navigate('/')
-        window.location.reload()
-    }
+    //
+    // if(!selected){
+    //     navigate('/')
+    //     window.location.reload()
+    // }
     
     return (
         loading ?

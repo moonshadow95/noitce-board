@@ -6,7 +6,7 @@ import {isAuth} from "../middleware/auth.js";
 const boardRouter = express.Router();
 
 boardRouter.post('/insert', isAuth, createBoard)
-boardRouter.get('/get', isAuth, getAll)
+boardRouter.get('/get', getAll)
 boardRouter.post("/edit/:id", isAuth, edit)
 boardRouter.post("/delete/:id", isAuth,remove)
 

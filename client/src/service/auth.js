@@ -1,3 +1,4 @@
+import Axios from 'axios';
 export default class AuthService {
     constructor(http, tokenStorage){
         this.http = http;
@@ -27,8 +28,9 @@ export default class AuthService {
 
     async me() {
         const token = this.tokenStorage.getToken();
-        return this.http.fetch('/auth/me',{
+        return Axios({
             method:"POST",
+            url:this.http+'/auth/me',
             headers: {Authorization: `Bearer ${token}`}
         })
     }
