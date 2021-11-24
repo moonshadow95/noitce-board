@@ -14,11 +14,16 @@ export async function getAll(req,res){
     res.status(200).send(boards)
 }
 
+export async function getById(req,res){
+    const {params:{id}} = req
+    const board = await boardRepository.getBoardById(id)
+    res.status(200).send(board)
+}
+
 // Update
 export async function edit(req, res){
     const id = parseInt(req.params.id);
     const {title, text} = req.body
-    console.log(title, text)
     const board = await boardRepository.getBoardById(id);
     if(!board){
         return res.send(404).json({message:`${id}번 게시물이 없습니다.`})

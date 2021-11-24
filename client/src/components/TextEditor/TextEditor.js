@@ -3,11 +3,13 @@ import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
 import styles from './textEditor.module.css';
+import {useNavigate} from "react-router-dom";
 
 
 const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
     const [newTitle, setNewTitle] = useState({selected})
     const [content, setContent] = useState()
+    const navigate = useNavigate();
 
     // Input Text
     const onChange = event => {
@@ -24,36 +26,36 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
     }
 
     // Create
-    const onSubmit = async() => {
-        let data;
-        try {
-            data =await Axios({
-                method:'POST',
-                url: 'http://localhost:8080/boards/insert',
-                data: {
-                    'title': content.title,
-                    'text': content.text,
-
-                },
-                headers: getHeaders()
-            })
-        } catch(error){
-            console.log(error.response.data.message)
-        }
+    async function onSubmit(){
+        await Axios({
+            method:'POST',
+            url: 'http://localhost:8080/boards/insert',
+            data: {
+                'title': content.title,
+                'text': content.text,
+            },
+            headers: getHeaders()
+        }).catch(error=>console.log(error.response.data.message))
     }
     // Edit
     const onEdit  = (event) => {
         const {value} = event.target;
         setNewTitle(value)
     }
-    const onEditSubmit = () => {
+    async function onEditSubmit(){
         setContent({...content},)
-        Axios.post(`http://localhost:8080/boards/edit/${selected.id}`, {
-            title: newTitle,
-            text: content.text,
-        }).then(()=>{
-            window.location.replace('/');
+        const response = await Axios({
+            method:'PUT',
+            url:`http://localhost:8080/boards/edit/${selected.id}`,
+            data:{
+                'title': newTitle,
+                'text': content.text
+            },
+            headers:getHeaders(),
         })
+        console.log(response)
+        alert('수정되었습니다.')
+        navigate(`/read/${selected.id}`);
     }
 
     useEffect(()=>{

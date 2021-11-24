@@ -21,7 +21,7 @@ function App({authService} ) {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home user={user} authService={authService} boardContent={boardContent}/>} />
-                <Route path="/read/:id" element={<Read user={user} viewContent={boardContent}/>}/>
+                <Route path="/boards/get/:id" element={<Read user={user}/>}/>
             </Routes>
         </BrowserRouter>
     );

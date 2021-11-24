@@ -23,7 +23,7 @@ const Board = ({content:{id, title, text, date}, }) => {
         }
     };
     return(
-        <Link className={styles.link} to={`/read/${id}`}>
+        <Link className={styles.link} to={`/boards/get/${id}`}>
             <div className={styles.id}>
                 <span>{id}</span>
             </div>

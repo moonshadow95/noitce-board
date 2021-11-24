@@ -3,23 +3,36 @@ import {useNavigate, useParams} from "react-router-dom";
 import Selected from "../../components/Selected/Selected";
 import NotFound from "../NotFound/NotFound";
 import styles from './read.module.css';
+import Axios from "axios";
 
-const Read = ({viewContent}) => {
-    const [selected, setSelected] = useState({});
-    const [loading, setLoading] = useState(true)
+const Read = (props) => {
     const {id} = useParams();
+    const [selected, setSelected] = useState('');
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate();
-    useEffect(()=>{
-        setSelected(viewContent.find((item)=> item.id === parseInt(id)))
+    // Get Headers
+    const getHeaders = () => {
+        const token = localStorage.getItem('token')
+        return {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    async function getSelected(id){
+        const response = await Axios({
+            method:'GET',
+            url:`http://localhost:8080/boards/get/${id}`,
+        })
+        setSelected(response.data)
         setLoading(prev=>!prev)
-
-    },[id, viewContent])
-    //
-    // if(!selected){
-    //     navigate('/')
-    //     window.location.reload()
-    // }
-    
+    }
+    useEffect(()=>{
+        getSelected(id)
+        // setSelected(viewContent.find((item)=> item.id === parseInt(id)))
+        // if(!selected){
+        //     navigate('/')
+        //     window.location.reload()
+        // }
+    },[])
     return (
         loading ?
             <div className={styles.container}>
