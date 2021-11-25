@@ -14,6 +14,7 @@
     max-width: 800px;
     border: none;
     border-bottom: var(--border-common);
+    background-color: none;
 
 }
 .title:focus{

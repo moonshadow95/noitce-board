@@ -23,7 +23,7 @@ function App({authService} ) {
             <GlobalStyle />
             <Routes>
                 <Route path="/" element={<Home user={user} authService={authService} boardContent={boardContent}/>} />
-                <Route path="/boards/get/:id" element={<Read user={user}/>}/>
+                <Route path="/boards/get/:id" element={<Read authService={authService}/>}/>
             </Routes>
         </BrowserRouter>
     );

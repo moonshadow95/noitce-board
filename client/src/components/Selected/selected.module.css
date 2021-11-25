@@ -13,21 +13,25 @@
     justify-content: center;
     align-items: center;
 }
-.title, .date, .text{
+.title, .meta, .text{
     width: 100%;
 }
 .title{
     font-size: 2rem;
-    padding: 1em;
+    padding: 0.8em 1em;
+    line-height: 1.2em;
 }
-.date{
+.meta{
     font-size: 0.9rem;
-    padding: 1em 0;
+    padding: 0.8em 0;
     border-top: var(--border-common);
     border-bottom: var(--border-common);
 }
-.date small {
+.meta small {
     margin-left: 2rem;
+}
+.date {
+    margin-bottom: 0.5em;
 }
 .text{
     line-height: 1.4em;

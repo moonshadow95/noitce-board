@@ -69,8 +69,9 @@ const Selected = ({selected, isOwner}) => {
                     <header className={styles.header}>
                         <h1 className={styles.title}>{selected.title}</h1>
                     </header>
-                    <div className={styles.date}>
-                        <small>{timeFormatter(selected.date)}</small>
+                    <div className={styles.meta}>
+                        <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
+                        <div className={styles.owner}><small>{selected.owner}</small></div>
                     </div>
                     <div className={styles.text}>
                         {HTMLReactParser(selected.text)}

@@ -15,10 +15,10 @@
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     margin: 8px;
-    border: 10px solid var(--color-black);
+    border: 7px solid var(--color-black);
     border-left-color: transparent;
     border-bottom-color: transparent;
     border-right-color: transparent;

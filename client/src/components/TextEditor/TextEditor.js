@@ -33,6 +33,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards}) 
             data: {
                 'title': content.title,
                 'text': content.text,
+                // 'owner': req.
             },
             headers: getHeaders()
         }).catch(error=>console.log(error.response.data.message))

@@ -29,9 +29,10 @@ const Home = ({user, authService, boardContent}) => {
     },[])
 
     useEffect(()=>{
+        authService.me()
         getBoards()
         setIsAuth(user)
-    },[getBoards,user])
+    },[getBoards,user,authService])
     return(
         <main className={styles.main}>
             { isAuth !== undefined ?

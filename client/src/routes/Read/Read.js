@@ -4,12 +4,14 @@ import Selected from "../../components/Selected/Selected";
 import NotFound from "../NotFound/NotFound";
 import styles from './read.module.css';
 import Axios from "axios";
+import {useNavigate} from "react-router-dom";
 
-const Read = (props) => {
+const Read = ({authService}) => {
     const {id} = useParams();
     const [selected, setSelected] = useState('');
     const [loading, setLoading] = useState(true);
     const [isOwner, setIsOwner] = useState(false);
+    const navigate = useNavigate();
     // Get Headers
     const getHeaders = () => {
         const token = localStorage.getItem('token')
@@ -30,8 +32,8 @@ const Read = (props) => {
         return setLoading(prev=>!prev)
     },[])
     useEffect(()=>{
-        getSelected(id)
-    },[id,getSelected])
+        authService.me().then(r => getSelected(id)).catch(err => navigate('/'))
+    },[authService,id,navigate, getSelected])
     return (
         loading ?
             <div className={styles.container}>
