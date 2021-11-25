@@ -6,19 +6,32 @@
     width: 100%;
     max-width: 800px;
 }
+.titleContainer{
+    position: relative;
+    border: 2px solid rgba(0,0,0,0.4);
+    border-radius: var(--border-radius);
+    width: 90%;
+    margin-bottom: 1em;
+}
 .title{
     font-size: 1.4rem;
-    margin: 1em 0;
-    padding: 0.5em;
     width: 90%;
     max-width: 800px;
     border: none;
-    border-bottom: var(--border-common);
     background-color: none;
-
+    padding: 0.8em 0 0.8em 1em;
+    width: 100%;
+    height: 100%;
 }
-.title:focus{
-
+.titlePlaceHolder{
+    position: absolute;
+    top: -6px;
+    background: #fff;
+    padding: 0 0.3em;
+    left: 10px;
+}
+.title:focus + .titlePlaceHolder{
+    color: #0e7fe1;
 }
 .btn{
     padding: 1em 2em;

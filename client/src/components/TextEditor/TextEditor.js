@@ -79,7 +79,10 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards}) 
                 // 글 수정
                 <>
                     <div className={styles.editorContainer}>
-                        <input className={styles.title}  type="text" placeholder='제목을 입력하세요.' value={newTitle || ''} name='title' onChange={onEdit}/>
+                        <div className={styles.titleContainer}>
+                            <input className={styles.title}  type="text" value={newTitle || ''} name='title' onChange={onEdit}/>
+                            <span className={styles.titlePlaceHolder}>제목을 입력하세요</span>
+                        </div>
                         <CKEditor
                             editor={ClassicEditor}
                             data={selected.text}
@@ -97,7 +100,10 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards}) 
                 // 글 작성
                 <>
                     <div className={styles.editorContainer}>
-                        <input className={styles.title} type="text" placeholder='제목을 입력하세요.' name='title' onChange={onChange}/>
+                        <div className={styles.titleContainer}>
+                            <input className={styles.title} type="text" name='title' onChange={onChange}/>
+                            <span className={styles.titlePlaceHolder}>제목을 입력하세요</span>
+                        </div>
                         <CKEditor
                             editor={ClassicEditor}
                             data=""
