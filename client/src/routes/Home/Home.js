@@ -35,25 +35,27 @@ const Home = ({user, authService, boardContent}) => {
     },[getBoards,user,authService])
     return(
         <main className={styles.main}>
-            { isAuth !== undefined ?
-                <section className={styles.section}>
-                    <header className={styles.header}>
-                        <h1 className={styles.title}>ictus</h1>
-                    </header>
-                    <ul className={styles.list}>
-                        {viewContent.map((content,index) =>
-                            <li key={index} className={styles.item}>
-                                <Board content={content} />
-                            </li>
-                        )}
-                    </ul>
-                    { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick} getBoards={getBoards }/> }
-                    { !writing && <div className="btnContainer noBorder">
-                        <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
-                    </div>}
-                </section> :
-                <Auth setIsAuth={setIsAuth} authService={authService}/>
-            }
+            <header className={styles.header}>
+                <h1 className={styles.title}>ictus</h1>
+            </header>
+            <section className={styles.section}>
+                { isAuth !== undefined ?
+                    <>
+                        <ul className={styles.list}>
+                            {viewContent.map((content,index) =>
+                                <li key={index} className={styles.item}>
+                                    <Board content={content} />
+                                </li>
+                            )}
+                        </ul>
+                        { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick} getBoards={getBoards }/> }
+                        { !writing && <div className="btnContainer noBorder">
+                            <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
+                        </div>}
+                    </>
+                    : <Auth setIsAuth={setIsAuth} authService={authService}/>
+                }
+            </section>
         </main>
     );
 }

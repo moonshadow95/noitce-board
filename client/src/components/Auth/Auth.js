@@ -83,16 +83,16 @@ const Auth = ({setIsAuth, authService}) => {
                             value={password}
                             onChange={onChange}
                         />
-                        <input
-                            className={styles.submitBtn}
-                            type="submit"
-                            value={newAccount ? "계정 생성" : "로그인"}
-                        />
                         {error && (
                             <div className={styles.error}>
                                 <span>{error}</span>
                             </div>
                         )}
+                        <input
+                            className={styles.submitBtn}
+                            type="submit"
+                            value="확인"
+                        />
                     </form>
                     <span onClick={toggleAccount} className={styles.switch}>
                         {!newAccount ? (
