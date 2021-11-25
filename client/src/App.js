@@ -1,5 +1,6 @@
 import Home from "./routes/Home/Home";
 import Read from "./routes/Read/Read";
+import GlobalStyle from './components/GlobalStyles/GlobalStyles.js';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Axios from "axios";
@@ -19,6 +20,7 @@ function App({authService} ) {
     },[authService])
     return (
         <BrowserRouter>
+            <GlobalStyle />
             <Routes>
                 <Route path="/" element={<Home user={user} authService={authService} boardContent={boardContent}/>} />
                 <Route path="/boards/get/:id" element={<Read user={user}/>}/>
