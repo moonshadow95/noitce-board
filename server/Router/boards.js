@@ -7,7 +7,7 @@ const boardRouter = express.Router();
 
 boardRouter.post('/insert', isAuth, createBoard)
 boardRouter.get('/get', getAll)
-boardRouter.get('/get/:id', getById)
+boardRouter.get('/get/:id', isAuth, getById)
 boardRouter.put("/edit/:id", isAuth, edit)
 boardRouter.delete("/delete/:id", isAuth,remove)
 

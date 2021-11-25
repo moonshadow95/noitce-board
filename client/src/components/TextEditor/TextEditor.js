@@ -56,7 +56,6 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
         alert('수정되었습니다.')
         navigate('/')
     }
-
     useEffect(()=>{
         if(isEdit) {
             setContent({

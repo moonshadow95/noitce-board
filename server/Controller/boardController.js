@@ -16,7 +16,11 @@ export async function getAll(req,res){
 
 export async function getById(req,res){
     const {params:{id}} = req
-    const board = await boardRepository.getBoardById(id)
+    let board = await boardRepository.getBoardById(id)
+    if(board.userId === req.userId){
+        board['isOwner'] = true
+        return res.status(200).send(board)
+    }
     res.status(200).send(board)
 }
 

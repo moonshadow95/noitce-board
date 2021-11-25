@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './selected.module.css';
 import Navigation from "../Navigation/Navigation";
 
-const Selected = ({selected}) => {
+const Selected = ({selected, isOwner}) => {
     const [editing, setEditing] = useState(false);
     const navigate = useNavigate();
     // Get Headers
@@ -18,7 +18,9 @@ const Selected = ({selected}) => {
     }
     // Edit
     const onEditClick = (event) => {
-        setEditing(prev => !prev)
+        if(isOwner){
+            setEditing(prev => !prev)
+        }
     }
     // Delete
     async function deleteBoard(id){

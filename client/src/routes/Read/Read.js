@@ -8,25 +8,30 @@ import Axios from "axios";
 const Read = (props) => {
     const {id} = useParams();
     const [selected, setSelected] = useState('');
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [isOwner, setIsOwner] = useState(false);
     // Get Headers
-
+    const getHeaders = () => {
+        const token = localStorage.getItem('token')
+        return {
+            Authorization: `Bearer ${token}`
+        }
+    }
     async function getSelected(id){
         const response = await Axios({
             method:'GET',
             url:`http://localhost:8080/boards/get/${id}`,
+            headers: getHeaders()
         })
         setSelected(response.data)
         setLoading(prev=>!prev)
+        if(response.data.isOwner === true){
+            setIsOwner(prev => !prev)
+        }
     }
     useEffect(()=>{
         getSelected(id)
-        // setSelected(viewContent.find((item)=> item.id === parseInt(id)))
-        // if(!selected){
-        //     navigate('/')
-        //     window.location.reload()
-        // }
-    },[])
+    },[id])
     return (
         loading ?
             <div className={styles.container}>
@@ -37,7 +42,7 @@ const Read = (props) => {
                     <div></div>
                 </div>
             </div>:
-            selected ? <Selected selected={selected}/> :
+            selected ? <Selected selected={selected} isOwner={isOwner}/> :
                 <NotFound />
     );
 }
