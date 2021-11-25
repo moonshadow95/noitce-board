@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Board from "../../components/Board/Board";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import styles from './home.module.css';
@@ -19,18 +19,19 @@ const Home = ({user, authService, boardContent}) => {
             Authorization: `Bearer ${token}`
         }
     }
-    async function getBoards() {
+    const getBoards = useCallback(async() => {
         const response = await Axios({
             method: "GET",
             url: 'http://localhost:8080/boards/get',
             headers: getHeaders(),
         })
-        setViewContent(response.data)
-    }
+        return setViewContent(response.data)
+    },[])
+
     useEffect(()=>{
-        getBoards().then(r => r)
+        getBoards()
         setIsAuth(user)
-    },[user])
+    },[getBoards,user])
     return(
         <main className={styles.main}>
             { isAuth !== undefined ?

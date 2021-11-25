@@ -44,7 +44,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
     }
     async function onEditSubmit(){
         setContent({...content},)
-        const response = await Axios({
+        await Axios({
             method:'PUT',
             url:`http://localhost:8080/boards/edit/${selected.id}`,
             data:{
@@ -53,9 +53,8 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
             },
             headers:getHeaders(),
         })
-        console.log(response)
         alert('수정되었습니다.')
-        navigate(`/read/${selected.id}`);
+        navigate('/')
     }
 
     useEffect(()=>{
@@ -63,7 +62,6 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick}) => {
             setContent({
                 title: selected.title,
                 text: selected.text,
-                createdAt: '',
             })
             setNewTitle(selected.title)
         }
