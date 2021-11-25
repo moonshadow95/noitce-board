@@ -46,7 +46,7 @@ const Home = ({user, authService, boardContent}) => {
                             </li>
                         )}
                     </ul>
-                    { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick}/> }
+                    { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick} getBoards={getBoards }/> }
                     { !writing && <div className="btnContainer noBorder">
                         <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
                     </div>}
