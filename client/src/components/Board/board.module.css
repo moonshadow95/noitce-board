@@ -26,6 +26,7 @@
     font-size: 0.8rem;
     border-right:var(--border-common);
     transition: all 100ms ease-in;
+    width: 50px;
 }
 .title {
     flex: 1;

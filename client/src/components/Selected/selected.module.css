@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     border: var(--border-common);
+    border-radius: var(--border-radius);
     margin: 1rem;
 }
 .header {
@@ -42,9 +43,11 @@
     cursor: pointer;
     transition: all var(--animation-duration) ease-in;
     border: var(--border-common);
+    border-radius: var(--border-radius)
 }
 .btnOuter {
 }
 .btn:hover{
     background-color: darkred;
+    transform: var(--button-hover)
 }

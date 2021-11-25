@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { useParams} from "react-router-dom";
 import Selected from "../../components/Selected/Selected";
 import NotFound from "../NotFound/NotFound";
@@ -17,21 +17,21 @@ const Read = (props) => {
             Authorization: `Bearer ${token}`
         }
     }
-    async function getSelected(id){
+    const getSelected = useCallback(async(id) =>{
         const response = await Axios({
             method:'GET',
             url:`http://localhost:8080/boards/get/${id}`,
             headers: getHeaders()
         })
-        setSelected(response.data)
-        setLoading(prev=>!prev)
         if(response.data.isOwner === true){
             setIsOwner(prev => !prev)
         }
-    }
+        setSelected(response.data)
+        return setLoading(prev=>!prev)
+    },[])
     useEffect(()=>{
         getSelected(id)
-    },[id])
+    },[id,getSelected])
     return (
         loading ?
             <div className={styles.container}>

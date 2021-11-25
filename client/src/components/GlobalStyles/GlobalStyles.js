@@ -17,9 +17,11 @@ const globalStyles = createGlobalStyle`
     --color-black: #333;
     --color-white: #fff;
     --color-ictus: linear-gradient(135deg, #0B53FE, #45DBEA);
-    --box-shadow: 0px 6px 8px 1px rgba(0,0,0,0.2);
+    --box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
     --animation-duration: 100ms;
     --border-common: 1px solid #000;
+    --border-radius: 0.2em;
+    --button-hover:scaleY(1.05);
   }
   /*Common*/
   * {
@@ -40,8 +42,9 @@ const globalStyles = createGlobalStyle`
     line-height: 1.4em;
   }
   .ck-editor {
-    width: 100% !important;
+    width: 90% !important;
   }
+
   .btnContainer{
     display: flex;
     align-items: center;

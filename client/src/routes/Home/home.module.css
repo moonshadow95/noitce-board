@@ -19,6 +19,8 @@
     padding: 0.6em 0.8em;
     border: var(--border-common);
     background: var(--color-ictus);
+    border-radius: var(--border-radius);
+
 }
 .title{
     background: none;
@@ -37,28 +39,32 @@
     display: flex;
     flex-direction: column;
     max-width: 80%;
-    box-shadow: var(--box-shadow);
     background-color: var(--color-white);
     margin-bottom: 50px;
+    gap: 0.6em;
 }
 .item{
     display: flex;
     width: 100%;
     border: var(--border-common);
-    border-bottom: var(--border-common);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: all var(--animation-duration) ease-in-out;
 }
-.item:last-child{
-    border-bottom: var(--border-common);
+.item:hover{
+    transform: translate(0.1em, 0.1em)
 }
 .btn{
     padding: 1em 2em;
     color: var(--color-white);
     background-color: var(--color-black);
     cursor: pointer;
-    transition: all var(--animation-duration) ease-in;
+    transition: all var(--animation-duration) ease-in-out;
     border: var(--border-common);
+    border-radius: var(--border-radius);
 }
 .btn:hover{
     background-color: var(--color-white);
     color: var(--color-black);
+    transform: var(--button-hover)
 }

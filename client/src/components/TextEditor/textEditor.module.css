@@ -7,11 +7,17 @@
     max-width: 800px;
 }
 .title{
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     margin: 1em 0;
     padding: 0.5em;
-    width: 100%;
+    width: 90%;
     max-width: 800px;
+    border: none;
+    border-bottom: var(--border-common);
+
+}
+.title:focus{
+
 }
 .btn{
     padding: 1em 2em;
