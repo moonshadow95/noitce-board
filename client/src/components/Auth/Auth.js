@@ -40,11 +40,11 @@ const Auth = ({setIsAuth, authService ,setBanner, setIsAlert}) => {
             authService.me()
                 .then(result=>setIsAuth(result.data))
                 .catch(console.error);
+            window.location.reload();
         } catch (error) {
             setIsAlert(true)
             setBanner(error.response.data.message)
         }
-
     };
 
     // 회원가입
@@ -61,7 +61,6 @@ const Auth = ({setIsAuth, authService ,setBanner, setIsAlert}) => {
             setPassword("")
         } catch (error) {
             setIsAlert(true)
-            console.log(error.response.data.message)
             setBanner(error.response.data.message)
         }
     }

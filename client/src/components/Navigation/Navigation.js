@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './navgation.module.css';
+import {useNavigate} from "react-router-dom";
 
-const Navigation = (props) => {
+const Navigation = ({authService,user}) => {
+    const navigate = useNavigate()
     const goHome = () => {
-        window.location.replace("/")
+        navigate("/")
+    }
+    const onLogout = () =>{
+        authService.logout()
+        window.location.reload();
     }
     return(
         <nav className={styles.nav}>
-            <span className={styles.link} onClick={goHome}>Back</span>
+            { window.location.pathname === "/" ||
+            <span className={styles.home} onClick={goHome}>Back</span>
+            }
+            { user &&
+            <span className={styles.logout} onClick={onLogout}>Logout</span>
+            }
         </nav>
     );
 }

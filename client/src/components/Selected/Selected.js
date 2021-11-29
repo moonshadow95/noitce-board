@@ -4,7 +4,6 @@ import HTMLReactParser from "html-react-parser";
 import TextEditor from "../TextEditor/TextEditor";
 import { useNavigate } from "react-router-dom";
 import styles from './selected.module.css';
-import Navigation from "../Navigation/Navigation";
 
 const Selected = ({selected, isOwner, setBanner, setIsAlert}) => {
     const [editing, setEditing] = useState(false);
@@ -64,8 +63,6 @@ const Selected = ({selected, isOwner, setBanner, setIsAlert}) => {
     };
     return(
         <main>
-            {/*Nav*/}
-            <Navigation />
             {/*Section*/}
             <section className={styles.section}>
                 {!editing && <>
@@ -89,7 +86,12 @@ const Selected = ({selected, isOwner, setBanner, setIsAlert}) => {
                 }
                 {editing && <>
                     <TextEditor
-                        isEdit={true} selected={selected} onCancelClick={onEditClick} onEditClick={onEditClick}
+                        isEdit={true}
+                        selected={selected}
+                        onCancelClick={onEditClick}
+                        onEditClick={onEditClick}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}
                     />
                 </>}
             </section>

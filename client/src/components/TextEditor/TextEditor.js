@@ -6,7 +6,7 @@ import styles from './textEditor.module.css';
 import {useNavigate} from "react-router-dom";
 
 
-const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, user}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, user, setBanner, setIsAlert}) => {
     const [newTitle, setNewTitle] = useState({selected})
     const [content, setContent] = useState()
     const navigate = useNavigate();
@@ -27,19 +27,25 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
 
     // Create
     async function onSubmit(){
-        await Axios({
-            method:'POST',
-            url: 'http://localhost:8080/boards/insert',
-            data: {
-                'title': content.title,
-                'text': content.text,
-                'owner': user
-            },
-            headers: getHeaders()
-        }).catch(error=>console.log(error.response.data.message))
+        try{
+            await Axios({
+                method:'POST',
+                url: 'http://localhost:8080/boards/insert',
+                data: {
+                    'title': content.title,
+                    'text': content.text,
+                    'owner': user
+                },
+                headers: getHeaders()
+            })
+            setIsAlert(false)
+            setBanner('작성되었습니다.')
+        }catch(error){
+            setIsAlert(true)
+            setBanner(error.response.data.message)
+        }
         getBoards()
         onWriteClick()
-        alert('작성되었습니다.')
     }
     // Edit
     const onEdit  = (event) => {

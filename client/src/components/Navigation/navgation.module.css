@@ -4,8 +4,11 @@
     top: 1rem;
     z-index: 10;
     margin: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.link{
+.home, .logout{
     padding: 0.5em 1em;
     border: var(--border-common);
     background: var(--color-ictus);
@@ -13,6 +16,9 @@
     transition: color var(--animation-duration) ease-in-out;
     border-radius:var(--border-radius);
     cursor: pointer;
+}
+.logout{
+    margin-left: auto;
 }
 .link:hover{
     opacity: 0.7;

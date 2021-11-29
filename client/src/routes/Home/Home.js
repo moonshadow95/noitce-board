@@ -5,10 +5,10 @@ import styles from './home.module.css';
 import Axios from "axios";
 import Auth from "../../components/Auth/Auth";
 
-const Home = ({user, authService, setBanner, setIsAlert}) => {
+const Home = ({user, authService, setBanner, setIsAlert, boardContent}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false);
-    const [viewContent,setViewContent] = useState({})
+    const [viewContent,setViewContent] = useState(boardContent)
     const onWriteClick = () => {
         setWriting(prev=>!prev)
     }
@@ -46,7 +46,13 @@ const Home = ({user, authService, setBanner, setIsAlert}) => {
                                 </li>
                             )}
                         </ul>
-                        { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick} getBoards={getBoards} user={user}/> }
+                        { writing && <TextEditor
+                            isEdit={false}
+                            onWriteClick={onWriteClick}
+                            getBoards={getBoards}
+                            user={user}
+                            setBanner={setBanner}
+                            setIsAlert={setIsAlert}/> }
                         { !writing && <div className="btnContainer noBorder">
                             <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
                         </div>}
