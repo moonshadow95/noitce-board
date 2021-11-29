@@ -30,9 +30,16 @@ const Home = ({user, authService, boardContent, setBanner, setIsAlert}) => {
 
     useEffect(()=>{
         authService.me().catch()
-        getBoards()
+        getBoards().catch(error=>{
+            setIsAlert(true); setBanner(error.response.data.message)
+        })
         setIsAuth(user)
-    },[getBoards,user,authService,])
+        return ()=>{
+            setIsAlert();
+            setBanner('');
+            setViewContent(boardContent)
+        }
+    },[getBoards,user,authService,setIsAlert,setBanner,boardContent])
     return(
         <main className={styles.main}>
             <div className={styles.header}>
