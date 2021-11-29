@@ -6,7 +6,7 @@ import styles from './read.module.css';
 import Axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-const Read = ({authService}) => {
+const Read = ({authService, setBanner, setIsAlert}) => {
     const {id} = useParams();
     const [selected, setSelected] = useState('');
     const [loading, setLoading] = useState(true);
@@ -44,7 +44,11 @@ const Read = ({authService}) => {
                     <div></div>
                 </div>
             </div>:
-            selected ? <Selected selected={selected} isOwner={isOwner}/> :
+            selected ? <Selected
+                    selected={selected}
+                    isOwner={isOwner}
+                    setBanner={setBanner}
+                    setIsAlert={setIsAlert}/> :
                 <NotFound />
     );
 }

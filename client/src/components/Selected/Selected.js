@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './selected.module.css';
 import Navigation from "../Navigation/Navigation";
 
-const Selected = ({selected, isOwner}) => {
+const Selected = ({selected, isOwner, setBanner, setIsAlert}) => {
     const [editing, setEditing] = useState(false);
     const navigate = useNavigate();
     // Get Headers
@@ -76,10 +76,12 @@ const Selected = ({selected, isOwner}) => {
                     <div className={styles.text}>
                         {HTMLReactParser(selected.text)}
                     </div>
+                    {isOwner &&
                     <div className="btnContainer">
-                        <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기" }</button>
+                        <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>
                         <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
                     </div>
+                    }
                 </>
                 }
                 {editing && <>
