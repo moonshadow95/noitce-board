@@ -38,8 +38,9 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
                 },
                 headers: getHeaders()
             })
-            setIsAlert(false)
-            setBanner('작성되었습니다.')
+            window.confirm('작성되었습니다.')
+            // setIsAlert(false)
+            // setBanner('작성되었습니다.')
         }catch(error){
             setIsAlert(true)
             setBanner(error.response.data.message)
