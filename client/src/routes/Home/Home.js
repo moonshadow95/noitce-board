@@ -5,10 +5,10 @@ import styles from './home.module.css';
 import Axios from "axios";
 import Auth from "../../components/Auth/Auth";
 
-const Home = ({user, authService, boardContent, setBanner, setIsAlert}) => {
+const Home = ({user, authService, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false);
-    const [viewContent,setViewContent] = useState(boardContent)
+    const [viewContent,setViewContent] = useState({})
     const onWriteClick = () => {
         setWriting(prev=>!prev)
     }
@@ -25,21 +25,12 @@ const Home = ({user, authService, boardContent, setBanner, setIsAlert}) => {
             url: 'http://localhost:8080/boards/get',
             headers: getHeaders(),
         })
-        return setViewContent(response.data)
+        return setViewContent(prev=> [...response.data])
     },[])
-
-    useEffect(()=>{
-        authService.me().catch()
-        getBoards().catch(error=>{
-            setIsAlert(true); setBanner(error.response.data.message)
-        })
-        setIsAuth(user)
-        return ()=>{
-            setIsAlert();
-            setBanner('');
-            setViewContent(boardContent)
-        }
-    },[getBoards,user,authService,setIsAlert,setBanner,boardContent])
+    useEffect( ()=>{
+        getBoards()
+        setIsAuth(prev=>user)
+    },[getBoards,user])
     return(
         <main className={styles.main}>
             <div className={styles.header}>

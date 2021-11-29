@@ -36,8 +36,11 @@ const Selected = ({selected, isOwner, setBanner, setIsAlert}) => {
         if(ok){
             const {target:{id}} = event;
             deleteBoard(id)
-                .catch(err=>console.log(err.message))
+                .catch(err=>setBanner(err.response.data.message))
                 .then(navigate('/'))
+        }else{
+            setBanner('권한이 없습니다.')
+            setIsAlert(true)
         }
     }
     // Time Formatter

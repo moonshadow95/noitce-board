@@ -1,11 +1,13 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 import styles from './navgation.module.css';
 
 const Navigation = (props) => {
+    const goHome = () => {
+        window.location.replace("/")
+    }
     return(
         <nav className={styles.nav}>
-            <Link className={styles.link} to="/">Back</Link>
+            <span className={styles.link} onClick={goHome}>Back</span>
         </nav>
     );
 }
