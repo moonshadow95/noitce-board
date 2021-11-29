@@ -8,13 +8,13 @@
 }
 .titleContainer{
     position: relative;
-    border: 2px solid rgba(0,0,0,0.4);
+    border: 2px solid #C4C4C4;
     border-radius: var(--border-radius);
     width: 90%;
     margin-bottom: 1em;
 }
 .title{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     width: 90%;
     max-width: 800px;
     border: none;
@@ -35,13 +35,8 @@
 }
 .btn{
     padding: 1em 2em;
-    color:var(--color-black);
-    background-color: var(--color-white);
+    color:var(--color-white);
+    background-color: var(--color-black);
     cursor: pointer;
-    transition: all var(--animation-duration) ease-in;
     border: 1px solid #000;
-}
-.btn:hover{
-    background-color:var(--color-black);
-    color: var(--color-white);
 }

@@ -21,7 +21,7 @@ const globalStyles = createGlobalStyle`
     --animation-duration: 100ms;
     --border-common: 1px solid #000;
     --border-radius: 0.2em;
-    --button-hover:scaleY(1.05);
+    --button-hover: translate(0.2em, 0.2em);
   }
   /*Common*/
   * {
@@ -53,6 +53,15 @@ const globalStyles = createGlobalStyle`
     padding: 1em 0;
     width: 100%;
     border-top: 1px solid #000;
+  }
+  .btnContainer button {
+    transition: all var(--animation-duration) ease-in-out;
+    box-shadow: var(--box-shadow);
+  }
+  .btnContainer button:hover {
+    transform: var(--button-hover);
+    background-color: var(--color-white);
+    color: var(--color-black);
   }
   .noBorder {
     border:none;

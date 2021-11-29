@@ -18,9 +18,9 @@ export async function update(id, title, text) {
         .then(()=> getBoardById(id))
 }
 
-export async function create(title, text, userId){
+export async function create(title, text, userId, owner){
     return db
-        .execute("INSERT INTO Board (title, text, userId) VALUES (?,?,?)", [title, text, userId])
+        .execute("INSERT INTO Board (title, text, userId, owner) VALUES (?,?,?,?)", [title, text, userId, owner])
         .then(result => getBoardById(result[0].insertId))
 }
 

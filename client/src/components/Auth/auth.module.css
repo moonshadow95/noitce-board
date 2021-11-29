@@ -23,42 +23,27 @@
     font-size: 1.1rem;
     border-radius:var(--border-radius);
 }
-.submitBtn{
+
+.formBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    font-size: 0.9rem;
+}
+.submitBtn, .switch{
     background: none;
     border: var(--border-common);
     padding: 0.8em 0;
     cursor: pointer;
-    width: 100px;
+    width: 80px;
     border-radius:var(--border-radius);
     transition: all var(--animation-duration) ease-in-out;
+    height: 35px;
+    color: var(--color-black);
+    text-align: center;
 }
-.submitBtn:hover {
-    transform: scale(1.1);
+.submitBtn:hover, .switch:hover {
     background-color: var(--color-black);
     color: var(--color-white);
-}
-.error{
-    color: red;
-    padding: 1em;
-}
-.switch{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-    border: var(--border-common);
-    width: 150px;
-    border-radius:var(--border-radius);
-    padding: 1em 0;
-    margin-top: 1em;
-    cursor: pointer;
-}
-.switch span {
-    transition: all var(--animation-duration) ease-in-out;
-}
-.switch span:not(.active){
-    transform:scale(0.8);
-}
-.active{
-    transform: scale(1.1);
 }

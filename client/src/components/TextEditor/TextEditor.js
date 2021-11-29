@@ -6,7 +6,7 @@ import styles from './textEditor.module.css';
 import {useNavigate} from "react-router-dom";
 
 
-const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, user}) => {
     const [newTitle, setNewTitle] = useState({selected})
     const [content, setContent] = useState()
     const navigate = useNavigate();
@@ -33,12 +33,13 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards}) 
             data: {
                 'title': content.title,
                 'text': content.text,
-                // 'owner': req.
+                'owner': user
             },
             headers: getHeaders()
         }).catch(error=>console.log(error.response.data.message))
         getBoards()
         onWriteClick()
+        alert('작성되었습니다.')
     }
     // Edit
     const onEdit  = (event) => {

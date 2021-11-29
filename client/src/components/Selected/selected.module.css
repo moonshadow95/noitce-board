@@ -17,9 +17,10 @@
     width: 100%;
 }
 .title{
-    font-size: 2rem;
+    font-size: 1.6rem;
     padding: 0.8em 1em;
     line-height: 1.2em;
+/*    글씨 가운데 위치하게   */
 }
 .meta{
     font-size: 0.9rem;

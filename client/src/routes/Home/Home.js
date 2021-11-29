@@ -5,7 +5,7 @@ import styles from './home.module.css';
 import Axios from "axios";
 import Auth from "../../components/Auth/Auth";
 
-const Home = ({user, authService, boardContent}) => {
+const Home = ({user, authService, boardContent, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false);
     const [viewContent,setViewContent] = useState(boardContent)
@@ -29,15 +29,15 @@ const Home = ({user, authService, boardContent}) => {
     },[])
 
     useEffect(()=>{
-        authService.me()
+        authService.me().catch()
         getBoards()
         setIsAuth(user)
-    },[getBoards,user,authService])
+    },[getBoards,user,authService,])
     return(
         <main className={styles.main}>
-            <header className={styles.header}>
+            <div className={styles.header}>
                 <h1 className={styles.title}>ictus</h1>
-            </header>
+            </div>
             <section className={styles.section}>
                 { isAuth !== undefined ?
                     <>
@@ -48,12 +48,12 @@ const Home = ({user, authService, boardContent}) => {
                                 </li>
                             )}
                         </ul>
-                        { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick} getBoards={getBoards }/> }
+                        { writing && <TextEditor isEdit={false}  onWriteClick={onWriteClick} getBoards={getBoards} user={user}/> }
                         { !writing && <div className="btnContainer noBorder">
                             <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
                         </div>}
                     </>
-                    : <Auth setIsAuth={setIsAuth} authService={authService}/>
+                    : <Auth setIsAuth={setIsAuth} authService={authService} setBanner={setBanner} setIsAlert={setIsAlert}/>
                 }
             </section>
         </main>

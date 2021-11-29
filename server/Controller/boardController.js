@@ -1,10 +1,12 @@
 import {db} from "../db/database.js";
 import * as boardRepository from '../data/board.js';
+import * as userRepository from '../data/auth.js'
 
 // Create
 export async function createBoard(req, res){
     const {title, text} = req.body
-    const board = await boardRepository.create(title, text, req.userId)
+    const owner = await userRepository.findById(req.userId)
+    const board = await boardRepository.create(title, text, req.userId, owner.username)
     res.status(201).json(board)
 }
 
