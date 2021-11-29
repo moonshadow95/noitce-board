@@ -19,9 +19,23 @@
     width: 200px;
     height: 40px;
     margin-bottom: 1em;
-    text-indent: 1em;
+    text-indent: 0.4em;
     font-size: 1.1rem;
     border-radius:var(--border-radius);
+}
+.input:focus + .placeholder{
+    color: #0e7fe1;
+
+}
+.inputContainer{
+    position: relative;
+}
+.placeholder{
+    position: absolute;
+    top: -6px;
+    background: #fff;
+    padding: 0 0.3em;
+    left: 10px;
 }
 
 .formBtnContainer{

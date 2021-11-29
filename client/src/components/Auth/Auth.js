@@ -71,24 +71,28 @@ const Auth = ({setIsAuth, authService ,setBanner, setIsAlert}) => {
                 <div className={styles.authContainer}>
                     <div className={styles.formContainer}>
                         <form className={styles.form} onSubmit={onLogin}>
-                            <input
-                                className={styles.input}
-                                name="username"
-                                type="text"
-                                placeholder="이름"
-                                required
-                                value={username}
-                                onChange={onChange}
-                            />
-                            <input
-                                className={styles.input}
-                                name="password"
-                                type="password"
-                                placeholder="비밀번호"
-                                required
-                                value={password}
-                                onChange={onChange}
-                            />
+                            <div className={styles.inputContainer}>
+                                <input
+                                    className={styles.input}
+                                    name="username"
+                                    type="text"
+                                    required
+                                    value={username}
+                                    onChange={onChange}
+                                />
+                                <span className={styles.placeholder}>이름</span>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    className={styles.input}
+                                    name="password"
+                                    type="password"
+                                    required
+                                    value={password}
+                                    onChange={onChange}
+                                />
+                                <span className={styles.placeholder}>비밀번호</span>
+                            </div>
                             <div className={styles.formBtnContainer}>
                                 <input
                                     className={styles.submitBtn}
