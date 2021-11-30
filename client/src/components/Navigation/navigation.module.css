@@ -1,12 +1,15 @@
 .nav{
     position: sticky;
     left: 0;
-    top: 1rem;
+    top: 0;
     z-index: 10;
-    margin: 2rem 1rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: color var(--animation-duration) ease-in-out;
+    background: rgba(255,255,255,0.7);
+    border-bottom: var(--border-common);
 }
 .home, .logout{
     padding: 0.5em 1em;
