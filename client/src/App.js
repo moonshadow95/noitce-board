@@ -31,20 +31,22 @@ function App({authService} ) {
     return (
         <BrowserRouter>
             <GlobalStyle />
-            <Navigation authService={authService} user={user}/>
+            {user && <Navigation authService={authService} user={user}/>}
             <Banner text={banner} isAlert={isAlert}/>
             <Routes>
-                <Route path="/" element={<Home
-                    user={user}
-                    authService={authService}
-                    boardContent={boardContent}
-                    setBanner={setBanner}
-                    setIsAlert={setIsAlert}
+                <Route path="/" element={
+                    <Home
+                        user={user}
+                        authService={authService}
+                        boardContent={boardContent}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}
                 />} />
-                <Route path="/boards/get/:id" element={<Read
-                    authService={authService}
-                    setBanner={setBanner}
-                    setIsAlert={setIsAlert}
+                <Route path="/boards/get/:id" element={
+                    <Read
+                        authService={authService}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}
                 />}/>
             </Routes>
         </BrowserRouter>

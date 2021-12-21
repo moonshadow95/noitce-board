@@ -4,11 +4,14 @@ import TextEditor from "../../components/TextEditor/TextEditor";
 import styles from './home.module.css';
 import Axios from "axios";
 import Auth from "../../components/Auth/Auth";
+import Paging from "../../components/Paging/Paging";
 
 const Home = ({user, authService, setBanner, setIsAlert, boardContent}) => {
     const [isAuth, setIsAuth] = useState(undefined)
-    const [writing, setWriting] = useState(false);
+    const [writing, setWriting] = useState(false)
     const [viewContent,setViewContent] = useState(boardContent)
+    const [page, setPage] = useState(1)
+    const itemsPerPage = 10
     const onWriteClick = () => {
         setWriting(prev=>!prev)
     }
@@ -31,6 +34,9 @@ const Home = ({user, authService, setBanner, setIsAlert, boardContent}) => {
         getBoards()
         setIsAuth(prev=>user)
     },[getBoards,user])
+    const pagination = (array, page, itemsPerPage) =>
+        array.slice((page-1)*itemsPerPage, (page-1)*itemsPerPage+itemsPerPage)
+
     return(
         <main className={styles.main}>
             <div className={styles.header}>
@@ -40,7 +46,7 @@ const Home = ({user, authService, setBanner, setIsAlert, boardContent}) => {
                 { isAuth !== undefined ?
                     <>
                         <ul className={styles.list}>
-                            {viewContent.map((content,index) =>
+                            {pagination(viewContent, page, itemsPerPage).map((content,index) =>
                                 <li key={index} className={styles.item}>
                                     <Board content={content} />
                                 </li>
@@ -59,6 +65,7 @@ const Home = ({user, authService, setBanner, setIsAlert, boardContent}) => {
                     </>
                     : <Auth setIsAuth={setIsAuth} authService={authService} setBanner={setBanner} setIsAlert={setIsAlert}/>
                 }
+                {user && <Paging page={page} setPage={setPage} totalCount={boardContent.length} itemsPerPage={itemsPerPage}/>}
             </section>
         </main>
     );

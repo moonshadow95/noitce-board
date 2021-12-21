@@ -35,7 +35,7 @@
     line-height: 1.2em;
 }
 .meta {
-    min-width: 90px;
+    min-width: 120px;
     border-left: var(--border-common);
     text-align: right;
     font-size: 0.8rem;
@@ -44,6 +44,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0.6rem;
+    padding: 0 4px;
 }
 .meta span {
 }
