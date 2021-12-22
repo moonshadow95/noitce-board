@@ -16,11 +16,15 @@
     align-items: center;
     justify-content: center;
 }
+
 .slickItem {
     display: flex;
     align-items: center;
     justify-content:center;
     height: 300px;
     width: 100%;
-    background-color: cornflowerblue;
+    padding: 0.5em;
+    border-left: 1px solid #333;
+    transform: translateX(-1px);
+
 }

@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Review from "../../components/Review/Review";
 
 const Gourmet = ({authService}) => {
     const navigate = useNavigate();
@@ -20,29 +21,7 @@ const Gourmet = ({authService}) => {
     },[])
     return(
         <section className={styles.slickContainer}>
-            <div className={styles.slick}>
-                <h2 className={styles.slickTitle}>최근 등록 리뷰</h2>
-                <Slider {...settings}>
-                    <div className={styles.slickItem}>
-                        <h3>1</h3>
-                    </div>
-                    <div className={styles.slickItem}>
-                        <h3>2</h3>
-                    </div>
-                    <div className={styles.slickItem}>
-                        <h3>3</h3>
-                    </div>
-                    <div className={styles.slickItem}>
-                        <h3>4</h3>
-                    </div>
-                    <div className={styles.slickItem}>
-                        <h3>5</h3>
-                    </div>
-                    <div className={styles.slickItem}>
-                        <h3>6</h3>
-                    </div>
-                </Slider>
-            </div>
+            <Review/>
             <div className={styles.slick}>
                 <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
                 <Slider {...settings}>

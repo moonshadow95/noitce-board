@@ -71,6 +71,9 @@ const globalStyles = createGlobalStyle`
     width: 85%;
     margin: auto;
   }
+  .slick-list{
+    border: 1px solid #333;
+  }
   .slick-prev::before,
   .slick-next::before {
     color: #000;
