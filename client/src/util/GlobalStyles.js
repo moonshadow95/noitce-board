@@ -66,6 +66,16 @@ const globalStyles = createGlobalStyle`
   .noBorder {
     border:none;
   }
+// slick
+  .slick-slider{
+    width: 85%;
+    margin: auto;
+  }
+  .slick-prev::before,
+  .slick-next::before {
+    color: #000;
+  }
+  
 `;
 
 export default globalStyles;
