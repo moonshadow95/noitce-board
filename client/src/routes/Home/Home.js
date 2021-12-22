@@ -5,7 +5,8 @@ import styles from './home.module.css';
 import Axios from "axios";
 import Auth from "../../components/Auth/Auth";
 import Paging from "../../components/Paging/Paging";
-import Map from '../../components/Map/Map'
+import MapContainer from '../../components/Map/MapContainer'
+import SearchPlace from "../../components/Map/SearchPlace";
 
 const Home = ({user, authService, setBanner, setIsAlert, boardContent}) => {
     const [isAuth, setIsAuth] = useState(undefined)
@@ -67,7 +68,7 @@ const Home = ({user, authService, setBanner, setIsAlert, boardContent}) => {
                     : <Auth setIsAuth={setIsAuth} authService={authService} setBanner={setBanner} setIsAlert={setIsAlert}/>
                 }
                 {user && <Paging page={page} setPage={setPage} totalCount={boardContent.length} itemsPerPage={itemsPerPage}/>}
-                <Map />
+                <SearchPlace />
             </section>
         </main>
     );
