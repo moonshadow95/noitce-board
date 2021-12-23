@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 
-const MapContainer = ({searchPlace}) => {
+const MapContainer = ({searchPlace:{name,id}}) => {
 const { kakao } = window;
 
     useEffect(() => {
         let infowindow = new kakao.maps.InfoWindow({zIndex:1});
-        const container = document.getElementById('myMap');
+        const container = document.getElementById(`myMap${id}`);
         const options = {
             center: new kakao.maps.LatLng(37.48308613407299, 126.87710497557258),
             level: 3
@@ -16,12 +16,12 @@ const { kakao } = window;
         const ps = new kakao.maps.services.Places();
 
         // 키워드로 장소를 검색
-        ps.keywordSearch(searchPlace, placesSearchCB);
+
+        ps.keywordSearch(name, placesSearchCB);
 
         // 키워드 검색 완료 시 호출되는 콜백함수
         function placesSearchCB (data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
-
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가
                 let bounds = new kakao.maps.LatLngBounds();
@@ -30,12 +30,10 @@ const { kakao } = window;
                     displayMarker(data[i]);
                     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                 }
-
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정
                 map.setBounds(bounds);
             }
         }
-
         // 지도에 마커를 표시하는 함수
         function displayMarker(place) {
 
@@ -52,12 +50,11 @@ const { kakao } = window;
                 infowindow.open(map, marker);
             });
         }
-    }, [searchPlace]);
-
+    }, [name]);
     return (
-        <div id='myMap' style={{
-            width: '500px',
-            height: '500px'
+        <div id={`myMap${id}`} style={{
+            width: '100%',
+            height: '100%'
         }}></div>
     );
 }

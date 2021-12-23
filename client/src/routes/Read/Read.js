@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import { useParams} from "react-router-dom";
 import Selected from "../../components/Selected/Selected";
 import NotFound from "../NotFound/NotFound";
-import styles from './read.module.css';
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Axios from "axios";
 import {useNavigate} from "react-router-dom";
 
@@ -36,14 +36,7 @@ const Read = ({authService, setBanner, setIsAlert}) => {
     },[authService,id,navigate, getSelected])
     return (
         loading ?
-            <div className={styles.container}>
-                <div className={styles.spinner}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>:
+            <LoadingSpinner />:
             selected ? <Selected
                     selected={selected}
                     isOwner={isOwner}

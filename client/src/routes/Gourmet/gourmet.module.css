@@ -1,7 +1,11 @@
+.slickTitle {
+    font-size: 1.4rem;
+}
+
 .slickContainer{
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 90vh;
 }
 
 .slickTitle{
@@ -16,6 +20,9 @@
     align-items: center;
     justify-content: center;
 }
+.slick:first-child{
+    border-bottom: 1px solid #000;
+}
 
 .slickItem {
     display: flex;
@@ -24,7 +31,5 @@
     height: 300px;
     width: 100%;
     padding: 0.5em;
-    border-left: 1px solid #333;
-    transform: translateX(-1px);
 
 }

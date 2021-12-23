@@ -4,36 +4,44 @@
     justify-content: space-between;
     transition: all 100ms ease-in;
 }
+
 .link:hover {
     background-color: var(--color-black);
     color: var(--color-white);
 }
+
 .link:hover .id {
     border-right: var(--border-common);
 }
+
 .link:hover .date {
     border-left: var(--border-common);
 }
+
 .link div:not(.title) {
     display:flex;
     align-items: center;
     justify-content: center;
 }
+
 .id,.title,.date{
     padding: 1rem 1rem;
 }
+
 .id {
     font-size: 0.8rem;
     border-right:var(--border-common);
     transition: all 100ms ease-in;
     width: 50px;
 }
+
 .title {
     flex: 1;
     padding-left: 2em;
     text-align: center;
     line-height: 1.2em;
 }
+
 .meta {
     min-width: 120px;
     border-left: var(--border-common);
@@ -46,5 +54,6 @@
     gap: 0.6rem;
     padding: 0 4px;
 }
+
 .meta span {
 }

@@ -12,7 +12,7 @@ const Snack = ({user, authService, setBanner, setIsAlert, boardContent}) => {
     const [viewContent,setViewContent] = useState(boardContent)
     const [page, setPage] = useState(1)
     const navigate = useNavigate();
-    const itemsPerPage = 10
+    const itemsPerPage = 12
     const onWriteClick = () => {
         setWriting(prev=>!prev)
     }

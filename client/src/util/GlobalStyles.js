@@ -7,11 +7,13 @@ const globalStyles = createGlobalStyle`
     color: inherit;
     text-decoration: none;
   }
+  
   button {
     border: none;
     background: none;
     padding: 0;
   }
+  
   /*Color*/
   :root {
     --color-black: #333;
@@ -23,24 +25,29 @@ const globalStyles = createGlobalStyle`
     --border-radius: 0.2em;
     --button-hover: translate(0.2em, 0.2em);
   }
+  
   /*Common*/
   * {
     box-sizing: border-box;
   }
+  
   body{
     font-family: 'Noto Sans KR', 'Noto Sans', sans-serif;
     color: var(--color-black);
   }
+  
   main {
     max-width: 1000px;
     margin: auto;
   }
+  
   .ck-editor__editable,
   .ck-editor__editable:focus {
     width: 100%;
     min-height: 300px !important;
     line-height: 1.4em;
   }
+  
   .ck-editor {
     width: 90% !important;
   }
@@ -54,31 +61,46 @@ const globalStyles = createGlobalStyle`
     width: 100%;
     border-top: 1px solid #000;
   }
+  
   .btnContainer button {
     transition: all var(--animation-duration) ease-in-out;
     box-shadow: var(--box-shadow);
   }
+  
   .btnContainer button:hover {
     transform: var(--button-hover);
     background-color: var(--color-white);
     color: var(--color-black);
   }
+  
   .noBorder {
     border:none;
   }
+  
 // slick
   .slick-slider{
     width: 85%;
-    margin: auto;
+    margin: 60px ;
   }
+  
   .slick-list{
     border: 1px solid #333;
   }
+  
+  .slick-slide{
+    border-left: 1px solid #000;
+    transform: translateX(-1px);
+  }
+  
+  .slick-slide:last-child {
+    border-right: 1px solid #000;
+  }
+  
   .slick-prev::before,
   .slick-next::before {
     color: #000;
   }
-  
+
 `;
 
 export default globalStyles;

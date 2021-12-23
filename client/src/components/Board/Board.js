@@ -7,9 +7,6 @@ const Board = ({content:{id, title, text, date, owner}, }) => {
 
     return(
         <Link className={styles.link} to={`/boards/get/${id}`}>
-            {/*<div className={styles.id}>*/}
-            {/*    <span>{id}</span>*/}
-            {/*</div>*/}
             <div className={styles.title}>
                 <span>{title}</span>
             </div>

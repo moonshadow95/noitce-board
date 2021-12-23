@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MapContainer from "./MapContainer";
 
-const SearchPlace = () => {
+const SearchPlace = ({keyword}) => {
     const [inputText, setInputText] = useState("");
     const [place, setPlace] = useState("");
 
