@@ -1,0 +1,35 @@
+.container{
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 2em;
+}
+
+.link {
+    position: relative;
+    font-size: 1.4rem;
+    text-align: center;
+    border: var(--border-common);
+    border-radius: var(--border-radius);
+    width: 35vw;
+    height: 35vw;
+    line-height: 35vw;
+    margin: 0.6em 0;
+    color: transparent;
+    transition: all var(--animation-duration) ease-in-out;
+}
+.link:hover{
+    background-color: var(--color-black);
+    transform: var(--button-hover);
+    color: var(--color-white);
+}
+
+.icon {
+    position:absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}

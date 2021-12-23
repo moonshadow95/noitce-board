@@ -8,8 +8,8 @@ import Banner from "./components/Banner/Banner";
 import Navigation from "./components/Navigation/Navigation";
 import styles from "./routes/Snack/snack.module.css";
 import Auth from "./components/Auth/Auth";
-import SearchPlace from "./components/Map/SearchPlace";
 import Gourmet from "./routes/Gourmet/Gourmet";
+import Home from './routes/Home/Home'
 
 function App({authService} ) {
     const [boardContent,setBoardContent] = useState([])
@@ -41,10 +41,7 @@ function App({authService} ) {
             <Banner text={banner} isAlert={isAlert}/>
             <Routes>
                 <Route path="/" element={
-                    user ? <>
-                        <Link to='/boards'>간식게시판</Link>
-                        <Link to='/gourmet'>맛집지도</Link>
-                    </> :<>
+                    user ? <Home /> :<>
                         <div className={styles.header}>
                             <h1 className={styles.title}>ictus</h1>
                         </div>
