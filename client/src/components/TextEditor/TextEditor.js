@@ -4,13 +4,17 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
 import styles from './textEditor.module.css';
 import {useNavigate} from "react-router-dom";
-
+import Rating from "react-rating";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar} from "@fortawesome/free-solid-svg-icons";
+import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
 const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, user, setBanner, setIsAlert}) => {
     const [newTitle, setNewTitle] = useState({selected})
     const [content, setContent] = useState()
+    const [rating, setRating] = useState(0)
     const navigate = useNavigate();
-
+    const baseURL = 'http://localhost:8080'
     // Input Text
     const onChange = event => {
         const {name, value} = event.target
@@ -27,15 +31,27 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
 
     // Create
     async function onSubmit(){
+        let dataObj;
+        if(window.location.href.includes('snack')){
+            dataObj={
+                'title': content.title,
+                'text': content.text,
+                'owner': user,
+            }
+        }else{
+            dataObj={
+                'title': content.title,
+                'text': content.text,
+                'owner': user,
+                'rate': rating,
+                'coords': '123.12414,121.5142'
+            }
+        }
         try{
             await Axios({
                 method:'POST',
-                url: 'http://localhost:8080/boards/insert',
-                data: {
-                    'title': content.title,
-                    'text': content.text,
-                    'owner': user
-                },
+                url: `${baseURL}/${window.location.href.includes('snack') ?  'snack' : 'review'}/insert`,
+                data: dataObj,
                 headers: getHeaders()
             })
             window.confirm('작성되었습니다.')
@@ -57,7 +73,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
         setContent({...content},)
         await Axios({
             method:'PUT',
-            url:`http://localhost:8080/boards/edit/${selected.id}`,
+            url:`${baseURL}/snack/edit/${selected.id}`,
             data:{
                 'title': newTitle,
                 'text': content.text
@@ -79,7 +95,8 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
             setContent(selected)
         }
     }, [isEdit, selected])
-
+    // Rate
+    const onRateClick = (event) => setRating(event)
 
     return (
         <>
@@ -89,7 +106,9 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
                     <div className={styles.editorContainer}>
                         <div className={styles.titleContainer}>
                             <input className={styles.title}  type="text" value={newTitle || ''} name='title' onChange={onEdit}/>
-                            <span className={styles.titlePlaceHolder}>제목을 입력하세요</span>
+                            <span className={styles.titlePlaceHolder}>
+                                {window.location.href.includes('snack') ? '제목을 입력하세요':'상호명을 입력하세요'}
+                            </span>
                         </div>
                         <CKEditor
                             editor={ClassicEditor}
@@ -110,7 +129,28 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
                     <div className={styles.editorContainer}>
                         <div className={styles.titleContainer}>
                             <input className={styles.title} type="text" name='title' onChange={onChange}/>
-                            <span className={styles.titlePlaceHolder}>제목을 입력하세요</span>
+                            <span className={styles.titlePlaceHolder}>
+                                {window.location.href.includes('snack') ? '제목을 입력하세요':'상호명을 입력하세요'}
+                            </span>
+                        </div>
+                        <div>
+                            <span>별점 </span>
+                            <Rating
+                                initialRating={rating}
+                                emptySymbol={
+                                    <FontAwesomeIcon
+                                        icon={faStarEmpty}
+                                        style={{ color: "rgb(253, 186, 73)" }}
+                                />}
+                                fullSymbol={
+                                    <FontAwesomeIcon
+                                        icon={faStar}
+                                        style={{ color: "rgb(253, 186, 73)" }}
+                                    />
+                                }
+                                fractions={2}
+                                onClick={onRateClick}
+                            />
                         </div>
                         <CKEditor
                             editor={ClassicEditor}

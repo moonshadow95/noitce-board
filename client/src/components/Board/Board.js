@@ -6,10 +6,10 @@ import Paging from "../Paging/Paging";
 import {useNavigate} from "react-router-dom";
 import Axios from "axios";
 
-const Board = ({user, authService, setBanner, setIsAlert, boardContent}) => {
+const Board = ({user, authService, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false)
-    const [viewContent,setViewContent] = useState(boardContent)
+    const [viewContent,setViewContent] = useState([])
     const [page, setPage] = useState(1)
     const navigate = useNavigate();
     const itemsPerPage = 12
@@ -18,7 +18,7 @@ const Board = ({user, authService, setBanner, setIsAlert, boardContent}) => {
     }
     const pagination = (array, page, itemsPerPage) =>
         array.slice((page-1)*itemsPerPage, (page-1)*itemsPerPage+itemsPerPage)
-
+    const baseURL = 'http://localhost:8080'
     // Get Headers
     const getHeaders = () => {
         const token = localStorage.getItem('token')
@@ -27,12 +27,9 @@ const Board = ({user, authService, setBanner, setIsAlert, boardContent}) => {
         }
     }
     const getBoards = useCallback(async() => {
-        if(window.location.href.includes('review')){
-            return setViewContent(prev => [...boardContent])
-        }
         const response = await Axios({
             method: "GET",
-            url: 'http://localhost:8080/boards/get',
+            url: `${baseURL}/${window.location.href.includes('snack')?'snack':'review'}/get`,
             headers: getHeaders(),
         })
         return setViewContent(prev=> [...response.data])
@@ -66,7 +63,7 @@ const Board = ({user, authService, setBanner, setIsAlert, boardContent}) => {
                     { !writing && <div className="btnContainer noBorder">
                         <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
                     </div>}
-                    <Paging page={page} setPage={setPage} totalCount={boardContent.length} itemsPerPage={itemsPerPage}/>
+                    <Paging page={page} setPage={setPage} totalCount={viewContent.length} itemsPerPage={itemsPerPage}/>
                 </>
             </section>
         </main>

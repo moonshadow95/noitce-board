@@ -4,8 +4,9 @@ import cors from 'cors';
 import morgan  from 'morgan';
 import helmet from "helmet";
 import 'express-async-errors';
-import boardRouter from './Router/boards.js';
+import snackRouter from './Router/snack.js';
 import authRouter from './Router/auth.js'
+import reviewRouter from "./Router/review.js";
 
 const app = express();
 const PORT = 8080;
@@ -16,7 +17,8 @@ app.use(cors());
 app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/boards', boardRouter)
+app.use('/snack', snackRouter)
+app.use('/review', reviewRouter)
 app.use('/auth', authRouter)
 
 app.use((req, res,next)=>{

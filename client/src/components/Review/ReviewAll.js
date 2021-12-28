@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-import styles from "../../routes/Snack/snack.module.css";
-import BoardItem from "../Board/BoardItem";
+import React from 'react';
 import Board from "../Board/Board";
 
 const ReviewAll = ({user, authService, setBanner, setIsAlert, boardContent}) => {

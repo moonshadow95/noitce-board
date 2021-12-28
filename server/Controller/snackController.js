@@ -1,57 +1,57 @@
 import {db} from "../db/database.js";
-import * as boardRepository from '../data/board.js';
+import * as snackRepository from '../data/snack.js';
 import * as userRepository from '../data/auth.js'
 
 // Create
-export async function createBoard(req, res){
+export async function createSnack(req, res){
     const {title, text} = req.body
     const owner = await userRepository.findById(req.userId)
-    const board = await boardRepository.create(title, text, req.userId, owner.username)
-    res.status(201).json(board)
+    const snack = await snackRepository.create(title, text, req.userId, owner.username)
+    res.status(201).json(snack)
 }
 
 // Read
 export async function getAll(req,res){
-    const boards = await boardRepository.getBoardAll();
-    res.status(200).send(boards)
+    const snacks = await snackRepository.getSnackAll();
+    res.status(200).send(snacks)
 }
 
 export async function getById(req,res){
     const {params:{id}} = req
-    let board = await boardRepository.getBoardById(id)
-    if(board.userId === req.userId){
-        board['isOwner'] = true
-        return res.status(200).send(board)
+    let snack = await snackRepository.getSnackById(id)
+    if(snack.userId === req.userId){
+        snack['isOwner'] = true
+        return res.status(200).send(snack)
     }
-    res.status(200).send(board)
+    res.status(200).send(snack)
 }
 
 // Update
 export async function edit(req, res){
     const id = parseInt(req.params.id);
     const {title, text} = req.body
-    const board = await boardRepository.getBoardById(id);
-    if(!board){
+    const snack = await snackRepository.getSnackById(id);
+    if(!snack){
         return res.send(404).json({message:`${id}번 게시물이 없습니다.`})
     }
     // 로그인된 유저가 작성자인지 확인
-    if(board.userId !== req.userId){
+    if(snack.userId !== req.userId){
         return res.sendStatus(403)
     }
-    const updated = await boardRepository.update(id, title, text);
+    const updated = await snackRepository.update(id, title, text);
     res.status(200).json(updated)
 }
 
 // Delete
 export async function remove(req,res){
     const {params:{id}} = req;
-    const board = await boardRepository.getBoardById(id);
-    if(!board){
+    const snack = await snackRepository.getSnackById(id);
+    if(!snack){
         return res.status(404).json({message: `${id}번 게시물을 찾지 못했습니다.`})
     }
-    if(board.userId !== req.userId){
+    if(snack.userId !== req.userId){
         return res.sendStatus(403)
     }
-    await boardRepository.remove(id)
+    await snackRepository.remove(id)
     res.sendStatus(204);
 }

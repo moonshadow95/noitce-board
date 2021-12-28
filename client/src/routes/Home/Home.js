@@ -1,12 +1,10 @@
 import React from 'react';
 import styles from './home.module.css'
 import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 const Home = (props) => (
     <div className={styles.container}>
-        <Link className={styles.link} to='/boards'>
+        <Link className={styles.link} to='/snack'>
             간식 게시판
             <img className={styles.icon} src="https://img.icons8.com/ios/150/000000/potato-chips.png" alt="간식 아이콘"/>
         </Link>
