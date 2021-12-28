@@ -1,21 +1,75 @@
-import React from 'react';
-import {Link} from "react-router-dom";
-import styles from './board.module.css';
-import timeFormatter from "../../util/date";
+import React, {useCallback, useEffect, useState} from 'react';
+import styles from "../../routes/Snack/snack.module.css";
+import BoardItem from "./BoardItem";
+import TextEditor from "../TextEditor/TextEditor";
+import Paging from "../Paging/Paging";
+import {useNavigate} from "react-router-dom";
+import Axios from "axios";
 
-const Board = ({content:{id, title, text, date, owner}, }) => {
+const Board = ({user, authService, setBanner, setIsAlert, boardContent}) => {
+    const [isAuth, setIsAuth] = useState(undefined)
+    const [writing, setWriting] = useState(false)
+    const [viewContent,setViewContent] = useState(boardContent)
+    const [page, setPage] = useState(1)
+    const navigate = useNavigate();
+    const itemsPerPage = 12
+    const onWriteClick = () => {
+        setWriting(prev=>!prev)
+    }
+    const pagination = (array, page, itemsPerPage) =>
+        array.slice((page-1)*itemsPerPage, (page-1)*itemsPerPage+itemsPerPage)
+
+    // Get Headers
+    const getHeaders = () => {
+        const token = localStorage.getItem('token')
+        return {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const getBoards = useCallback(async() => {
+        if(window.location.href.includes('review')){
+            return setViewContent(prev => [...boardContent])
+        }
+        const response = await Axios({
+            method: "GET",
+            url: 'http://localhost:8080/boards/get',
+            headers: getHeaders(),
+        })
+        return setViewContent(prev=> [...response.data])
+    },[])
+    useEffect(()=>{
+        authService.me().catch(err => navigate('/'))
+    },[])
+    useEffect( ()=>{
+        getBoards()
+        setIsAuth(prev=>user)
+    },[getBoards,user])
 
     return(
-        <Link className={styles.link} to={`/boards/get/${id}`}>
-            <div className={styles.title}>
-                <span>{title}</span>
-            </div>
-            <div className={styles.meta}>
-                <span>{timeFormatter(date)}</span>
-                <span>{owner}</span>
-            </div>
-        </Link>
-    )
-};
+        <main className={styles.main}>
+            <section className={styles.section}>
+                <>
+                    <ul className={styles.list}>
+                        {pagination(viewContent, page, itemsPerPage).map((content,index) =>
+                            <li key={index} className={styles.item}>
+                                <BoardItem content={content} />
+                            </li>
+                        )}
+                    </ul>
+                    { writing && <TextEditor
+                        isEdit={false}
+                        onWriteClick={onWriteClick}
+                        getBoards={getBoards}
+                        user={user}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}/> }
+                    { !writing && <div className="btnContainer noBorder">
+                        <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
+                    </div>}
+                    <Paging page={page} setPage={setPage} totalCount={boardContent.length} itemsPerPage={itemsPerPage}/>
+                </>
+            </section>
+        </main>
+)};
 
 export default Board;

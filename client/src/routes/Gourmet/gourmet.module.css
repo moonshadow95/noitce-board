@@ -14,6 +14,7 @@
 }
 
 .slick{
+    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -32,4 +33,24 @@
     width: 100%;
     padding: 0.5em;
 
+}
+
+.buttonContainer{
+    position: absolute;
+    top: 2em;
+    right: 2em;
+}
+
+.buttonContainer button {
+    border: var(--border-common);
+    border-radius: var(--border-radius);
+    padding: 0.4em 0.6em;
+    margin: 0 0.4em;
+    cursor: pointer;
+    transition: all var(--animation-duration) ease-in-out;
+}
+.buttonContainer button:hover{
+    background-color: var(--color-black);
+    color: var(--color-white);
+    transform: var(--button-hover)
 }

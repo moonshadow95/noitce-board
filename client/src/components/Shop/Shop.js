@@ -6,60 +6,29 @@ import StaticMap from "../Map/StaticMap";
 import styles from "../../routes/Gourmet/gourmet.module.css";
 import Slider from "react-slick";
 import StarRatingComponent from 'react-star-rating-component-new';
+import {Link} from "react-router-dom";
 
 
-const Shop = (props) => {
-    const ShopDB=[
-        {
-            id:1,
-            name:'롯데리아',
-            rate:5,
-            coords:[33.450001,126.570467],
-        },
-        {
-            id:2,
-            name:'맘스터치',
-            rate:3,
-            coords:[33.450001,126.575],
-        },
-        {
-            id:3,
-            name:'롤로랄라',
-            rate:4,
-            coords:[33.450001,126.57048],
-        },
-        {
-            id:4,
-            name:'맥도날드',
-            rate:4,
-            coords:[33.450001,126.57048],
-        },
-        {
-            id:5,
-            name:'버거킹',
-            rate:4,
-            coords:[33.450001,126.57048],
-        },
-        {
-            id:6,
-            name:'한촌 설렁탕',
-            rate:4,
-            coords:[33.450001,126.57048],
-        }
-    ]
+const Shop = ({data}) => {
     const settings = {
         dots: true,
         arrows: true,
         infinite: false,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 1
     };
     return(
         <div className={styles.slick}>
+            <div className={styles.buttonContainer}>
+                <Link to='./shops'>
+                    <button>전체보기</button>
+                </Link>
+                <button>작성하기</button>
+            </div>
             <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
             <Slider {...settings}>
-                {ShopDB.map((review)=>
+                {data.map((review)=>
                     <div className={styles.slickItem} key={review.id}>
                         <h2>{review.name}</h2>
                         <StarRatingComponent

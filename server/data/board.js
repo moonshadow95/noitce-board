@@ -2,7 +2,7 @@ import {db} from "../db/database.js";
 
 export async function getBoardAll(){
     return db
-        .execute("SELECT * FROM Board ORDER BY date DESC;")
+        .execute("SELECT * FROM Board ORDER BY date DESC")
         .then(result=>result[0])
 }
 
@@ -20,10 +20,10 @@ export async function update(id, title, text) {
 
 export async function create(title, text, userId, owner){
     return db
-        .execute("INSERT INTO Board (title, text, userId, owner) VALUES (?,?,?,?)", [title, text, userId, owner])
+        .execute("INSERT INTO BoardItem (title, text, userId, owner) VALUES (?,?,?,?)", [title, text, userId, owner])
         .then(result => getBoardById(result[0].insertId))
 }
 
 export async function remove(id) {
-    return db.execute("DELETE FROM Board WHERE id=?", [id])
+    return db.execute("DELETE FROM BoardItem WHERE id=?", [id])
 }

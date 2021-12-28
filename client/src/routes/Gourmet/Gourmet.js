@@ -7,15 +7,16 @@ import "slick-carousel/slick/slick-theme.css";
 import Review from "../../components/Review/Review";
 import Shop from "../../components/Shop/Shop";
 
-const Gourmet = ({authService}) => {
+const Gourmet = ({authService, data}) => {
+
     const navigate = useNavigate();
     useEffect(()=>{
         authService.me().catch(err => navigate('/'))
     },[])
     return(
         <section className={styles.slickContainer}>
-            <Review />
-            <Shop />
+            <Review data={data}/>
+            <Shop data={data}/>
         </section>
 
 )};

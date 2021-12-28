@@ -95,12 +95,18 @@ const globalStyles = createGlobalStyle`
   .slick-slide:last-child {
     border-right: 1px solid #000;
   }
-  
+  .slick-prev,
+  .slick-next{
+    transform: scale(1.3);
+  }
   .slick-prev::before,
   .slick-next::before {
     color: #000;
   }
-
+  
+  .slick-dots {
+    bottom: -50px;
+  }
 `;
 
 export default globalStyles;
