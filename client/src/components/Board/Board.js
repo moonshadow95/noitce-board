@@ -6,7 +6,7 @@ import Paging from "../Paging/Paging";
 import {useNavigate} from "react-router-dom";
 import Axios from "axios";
 
-const Board = ({user, authService, setBanner, setIsAlert}) => {
+const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false)
     const [viewContent,setViewContent] = useState([])
@@ -18,25 +18,17 @@ const Board = ({user, authService, setBanner, setIsAlert}) => {
     }
     const pagination = (array, page, itemsPerPage) =>
         array.slice((page-1)*itemsPerPage, (page-1)*itemsPerPage+itemsPerPage)
-    const baseURL = 'http://localhost:8080'
-    // Get Headers
-    const getHeaders = () => {
-        const token = localStorage.getItem('token')
-        return {
-            Authorization: `Bearer ${token}`
-        }
-    }
+
+    // 게시판 가져오기
     const getBoards = useCallback(async() => {
-        const response = await Axios({
-            method: "GET",
-            url: `${baseURL}/${window.location.href.includes('snack')?'snack':'review'}/get`,
-            headers: getHeaders(),
-        })
-        return setViewContent(prev=> [...response.data])
-    },[])
+        const response = await boardService.getBoard()
+        return setViewContent(prev=> [...response])
+    },[boardService])
+
     useEffect(()=>{
         authService.me().catch(err => navigate('/'))
-    },[])
+    },[authService,navigate])
+
     useEffect( ()=>{
         getBoards()
         setIsAuth(prev=>user)

@@ -6,7 +6,10 @@ import Rate from "../Rate/Rate";
 
 const BoardItem = ({content}) => {
     return(
-        <Link className={styles.link} to={`/boards/get/${content.id}`}>
+        <Link
+            className={styles.link}
+            to={`./${content.id}`}
+        >
             <div className={styles.title}>
                 <span>{content.title}</span>
                 {content.rate && <Rate value={content.rate}/>}

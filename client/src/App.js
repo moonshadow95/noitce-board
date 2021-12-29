@@ -13,73 +13,18 @@ import Home from './routes/Home/Home'
 import ReviewAll from "./components/Review/ReviewAll";
 import ShopAll from "./components/Shop/ShopAll";
 
-const fakeDB=[
-    {
-        id:1,
-        title:'롯데리아',
-        rate:5,
-        coords:[33.450001,126.570467],
-        text:'안고, 내는 못할 평화스러운 산야에 인도하겠다는 않는 황금시대다. 없는 작고 희망의 얼음 쓸쓸하랴? 때까지 인생의 청춘은 철환하였는가?',
-        owner:'임철종',
-        date: new Date()
-    },
-    {
-        id:2,
-        title:'맘스터치',
-        rate:3,
-        coords:[33.450001,126.575],
-        text:'사람은 간에 넣는 사막이다. 유소년에게서 청춘의 인생을 목숨을 끓는다.',
-        owner:'임철종',
-        date: new Date()
-    },
-    {
-        id:3,
-        title:'롤로랄라',
-        rate:4,
-        coords:[33.448,126.57],
-        text:'넣는 산야에 수 황금시대다. 가진 미인을 귀는 품에 트고, 가장 이 간에 꽃이 아름다우냐? 스며들어 바로 우리 것이다. 실현에 과실이 무엇을 봄바람이다.',
-        owner:'임철종',
-        date: new Date()
-    },
-    {
-        id:4,
-        title:'맥도날드',
-        rate:4,
-        coords:[33.450001,126.57048],
-        text:'넣는 산야에 수 황금시대다. 가진 미인을 귀는 품에 트고, 가장 이 간에 꽃이 아름다우냐? 스며들어 바로 우리 것이다. 실현에 과실이 무엇을 봄바람이다.',
-        owner:'임철종',
-        date: new Date()
-    },
-    {
-        id:5,
-        title:'버거킹',
-        rate:4,
-        coords:[33.450001,126.57048],
-        text:'넣는 산야에 수 황금시대다. 가진 미인을 귀는 품에 트고, 가장 이 간에 꽃이 아름다우냐? 스며들어 바로 우리 것이다. 실현에 과실이 무엇을 봄바람이다.',
-        owner:'임철종',
-        date: new Date()
-    },
-    {
-        id:6,
-        title:'한촌 설렁탕',
-        rate:4,
-        coords:[33.450001,126.57048],
-        text:'넣는 산야에 수 황금시대다. 가진 미인을 귀는 품에 트고, 가장 이 간에 꽃이 아름다우냐? 스며들어 바로 우리 것이다. 실현에 과실이 무엇을 봄바람이다.',
-        owner:'임철종',
-        date: new Date()
-    }
-]
-
-function App({authService} ) {
+function App({authService, boardService} ) {
     const [user, setUser] = useState(undefined)
     const [banner, setBanner] = useState('')
     const [isAuth, setIsAuth] = useState(undefined)
     const [isAlert, setIsAlert] = useState()
     const getUser = useCallback(async()=>{
-        try {const user  = await authService.me()
+        try {
+            const user  = await authService.me()
             setUser(user.data)
         }
         catch(error){
+            console.log(error.message)
         }
         return user
     },[user, authService])
@@ -110,11 +55,12 @@ function App({authService} ) {
                     <Snack
                         user={user}
                         authService={authService}
+                        boardService={boardService}
                         setBanner={setBanner}
                         setIsAlert={setIsAlert}
                     />}
                 />
-                <Route path="/snack/get/:id" element={
+                <Route path="/snack/:id" element={
                     <Read
                         authService={authService}
                         setBanner={setBanner}
@@ -123,7 +69,9 @@ function App({authService} ) {
                 />
                 {/* 맛집 게시판 */}
                 <Route path='/gourmet' element={
-                    <Gourmet data={fakeDB} authService={authService} />}
+                    <Gourmet
+                        /*data={}*/
+                        authService={authService} />}
                 />
                 <Route path='/gourmet/reviews' element={
                     <ReviewAll
@@ -133,7 +81,9 @@ function App({authService} ) {
                         setIsAlert={setIsAlert}/>}
                 />
                 <Route path='/gourmet/shops' element={
-                    <ShopAll data={fakeDB}/>}
+                    <ShopAll
+                        // data={}
+                    />}
                 />
             </Routes>
         </BrowserRouter>

@@ -6,24 +6,28 @@ export default class AuthService {
     }
 
     async signup(username, password){
-        const data = await this.http.fetch('/auth/signup',{
+        await Axios({
             method:"POST",
-            body: JSON.stringify({
-                username,
-                password,
-            })
+            url:this.http+'/auth/signup',
+            data:{
+                'username':username,
+                'password':password,
+            },
         })
-        this.tokenStorage.saveToken(data.token)
-        return data
     }
 
     async login(username, password){
-        const data = await this.http.fetch('/auth/login',{
+        const {data} = await Axios({
             method:"POST",
-            body: JSON.stringify({username, password})
+            url:this.http+'/auth/login',
+            data:{
+                'username':username,
+                'password':password,
+            },
+            headers:this.getHeaders()
         })
         this.tokenStorage.saveToken(data.token)
-        return data
+        window.location.reload();
     }
 
     async me() {
@@ -37,5 +41,12 @@ export default class AuthService {
 
     async logout() {
         this.tokenStorage.clearToken();
+    }
+
+    async getHeaders() {
+        const token = localStorage.getItem('token')
+        return {
+            Authorization: `Bearer ${token}`
+        }
     }
 }
