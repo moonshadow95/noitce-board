@@ -60,9 +60,10 @@ function App({authService, boardService} ) {
                         setIsAlert={setIsAlert}
                     />}
                 />
-                <Route path="/snack/:id" element={
+                <Route path='/snack/:id' element={
                     <Read
                         authService={authService}
+                        boardService={boardService}
                         setBanner={setBanner}
                         setIsAlert={setIsAlert}
                     />}

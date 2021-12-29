@@ -7,10 +7,10 @@ export default class BoardService {
     }
 
     async getBoard(id) {
-        // const query = id ? `?id=${id}` : '';
+        const param = id ? id : '';
         const {data} = await Axios({
             method: 'GET',
-            url:`${this.http+window.location.href.includes('snack')?'snack':'review'}/get`,
+            url:`${this.http}/${window.location.href.includes('snack')?'snack':'review'}/get/${param}`,
             headers: this.getHeaders(),
         });
         return data

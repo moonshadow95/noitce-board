@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import timeFormatter from "../../util/date";
 import styles from './selected.module.css';
 
-const Selected = ({selected, isOwner, setBanner, setIsAlert}) => {
+const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert}) => {
     const [editing, setEditing] = useState(false);
     const navigate = useNavigate();
     // Get Headers
@@ -35,12 +35,9 @@ const Selected = ({selected, isOwner, setBanner, setIsAlert}) => {
         const ok = window.confirm("삭제하시겠습니까?");
         if(ok){
             const {target:{id}} = event;
-            deleteBoard(id)
+            boardService.deleteBoard(id)
                 .catch(err=>setBanner(err.response.data.message))
-                .then(navigate('/'))
-        }else{
-            setBanner('권한이 없습니다.')
-            setIsAlert(true)
+                .then(navigate(-1))
         }
     }
     return(

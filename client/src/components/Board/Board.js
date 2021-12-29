@@ -4,7 +4,6 @@ import BoardItem from "./BoardItem";
 import TextEditor from "../TextEditor/TextEditor";
 import Paging from "../Paging/Paging";
 import {useNavigate} from "react-router-dom";
-import Axios from "axios";
 
 const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)

@@ -1,48 +1,37 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { useParams} from "react-router-dom";
 import Selected from "../../components/Selected/Selected";
-import NotFound from "../NotFound/NotFound";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-import Axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-const Read = ({authService, setBanner, setIsAlert}) => {
+const Read = ({authService, setBanner, setIsAlert, boardService}) => {
     const {id} = useParams();
     const [selected, setSelected] = useState('');
-    const [loading, setLoading] = useState(true);
     const [isOwner, setIsOwner] = useState(false);
     const navigate = useNavigate();
-    // Get Headers
-    const getHeaders = () => {
-        const token = localStorage.getItem('token')
-        return {
-            Authorization: `Bearer ${token}`
-        }
-    }
+
+    // 선택된 게시물 가져오기
     const getSelected = useCallback(async(id) =>{
-        const response = await Axios({
-            method:'GET',
-            url:`http://localhost:8080/boards/get/${id}`,
-            headers: getHeaders()
-        })
-        if(response.data.isOwner === true){
-            setIsOwner(prev => !prev)
+        const response = await boardService.getBoard(id)
+        if(response.isOwner === true){
+            setIsOwner(true)
         }
-        setSelected(response.data)
-        return setLoading(prev=>!prev)
-    },[])
+        return setSelected(response)
+    },[boardService])
     useEffect(()=>{
-        authService.me().then(r => getSelected(id)).catch(err => navigate('/'))
+        getSelected(id)
+        authService.me().then(r => getSelected(id)).catch(err => navigate('/snack'))
     },[authService,id,navigate, getSelected])
     return (
-        loading ?
-            <LoadingSpinner />:
-            selected ? <Selected
-                    selected={selected}
-                    isOwner={isOwner}
-                    setBanner={setBanner}
-                    setIsAlert={setIsAlert}/> :
-                <NotFound />
+        selected ?
+            <Selected
+                selected={selected}
+                isOwner={isOwner}
+                setBanner={setBanner}
+                setIsAlert={setIsAlert}
+                boardService={boardService}
+            /> :
+            <LoadingSpinner />
     );
 }
 
