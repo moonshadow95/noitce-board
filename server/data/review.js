@@ -12,9 +12,9 @@ export async function getReviewById(id){
         .then(result => result[0][0])
 }
 
-export async function update(id, title, text) {
+export async function update(id, title,rate, text, coords) {
     return db
-        .execute(`UPDATE Review SET title=?,text=? WHERE id=?`, [title, text, id])
+        .execute(`UPDATE Review SET title=?,rate=?,text=?,coords=? WHERE id=?`, [title, rate, text, coords, id])
         .then(()=> getReviewById(id))
 }
 

@@ -62,7 +62,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                 'title': content.title,
                 'text': content.text,
                 'owner': user,
-                'rate': content.rating,
+                'rate': rating,
                 'coords': '123.12414,121.5142'
             }
         }

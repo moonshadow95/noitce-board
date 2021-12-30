@@ -29,7 +29,7 @@ export async function getById(req,res){
 // Update
 export async function edit(req, res){
     const id = parseInt(req.params.id);
-    const {title, text} = req.body
+    const {title, rate, text, coords} = req.body
     const review = await reviewRepository.getReviewById(id);
     if(!review){
         return res.send(404).json({message:`${id}번 게시물이 없습니다.`})
@@ -38,7 +38,7 @@ export async function edit(req, res){
     if(review.userId !== req.userId){
         return res.sendStatus(403)
     }
-    const updated = await reviewRepository.update(id, title, text);
+    const updated = await reviewRepository.update(id, title, rate, text, coords);
     res.status(200).json(updated)
 }
 

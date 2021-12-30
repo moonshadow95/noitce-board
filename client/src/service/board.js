@@ -39,7 +39,7 @@ export default class BoardService {
     async updateBoard(id, dataObj) {
         const {data} = await Axios({
             method: 'PUT',
-            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'review'}/edit/${id}`,
+            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'gourmet'}/edit/${id}`,
             data: dataObj,
             headers: this.getHeaders(),
         })
