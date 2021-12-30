@@ -9,11 +9,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
-const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, user, setBanner, setIsAlert}) => {
-    const [newTitle, setNewTitle] = useState({selected})
-    const [content, setContent] = useState()
+const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert}) => {
+    const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
+    const isSnack = useState(window.location.href.includes('snack'))
     const navigate = useNavigate();
+    let dataObj;
     const baseURL = 'http://localhost:8080'
     // Input Text
     const onChange = event => {
@@ -31,7 +32,6 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
 
     // Create
     async function onSubmit(){
-        let dataObj;
         if(window.location.href.includes('snack')){
             dataObj={
                 'title': content.title,
@@ -48,12 +48,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
             }
         }
         try{
-            await Axios({
-                method:'POST',
-                url: `${baseURL}/${window.location.href.includes('snack') ?  'snack' : 'review'}/insert`,
-                data: dataObj,
-                headers: getHeaders()
-            })
+            await boardService.postBoard(dataObj)
             window.confirm('작성되었습니다.')
             // setIsAlert(false)
             // setBanner('작성되었습니다.')
@@ -65,37 +60,27 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
         onWriteClick()
     }
     // Edit
-    const onEdit  = (event) => {
-        const {value} = event.target;
-        setNewTitle(value)
-    }
     async function onEditSubmit(){
-        setContent({...content},)
-        await Axios({
-            method:'PUT',
-            url:`${baseURL}/snack/edit/${selected.id}`,
-            data:{
-                'title': newTitle,
-                'text': content.text
-            },
-            headers:getHeaders(),
-        })
+        if(window.location.href.includes('snack')){
+            dataObj={
+                'title': content.title,
+                'text': content.text,
+                'owner': user,
+            }
+        }else{
+            dataObj={
+                'title': content.title,
+                'text': content.text,
+                'owner': user,
+                'rate': content.rating,
+                'coords': '123.12414,121.5142'
+            }
+        }
+        setContent({...dataObj})
+        await boardService.updateBoard(selected.id, dataObj)
         alert('수정되었습니다.')
-        navigate('/')
+        navigate(-1)
     }
-    useEffect(()=>{
-        if(isEdit) {
-            setContent({
-                title: selected.title,
-                text: selected.text,
-            })
-            setNewTitle(selected.title)
-        }
-        else{
-            setContent(selected)
-        }
-    }, [isEdit, selected])
-    // Rate
     const onRateClick = (event) => setRating(event)
 
     return (
@@ -105,7 +90,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
                 <>
                     <div className={styles.editorContainer}>
                         <div className={styles.titleContainer}>
-                            <input className={styles.title}  type="text" value={newTitle || ''} name='title' onChange={onEdit}/>
+                            <input className={styles.title}  type="text" value={content.title || ''} name='title' onChange={onChange}/>
                             <span className={styles.titlePlaceHolder}>
                                 {window.location.href.includes('snack') ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
@@ -133,6 +118,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
                                 {window.location.href.includes('snack') ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
+                        {isSnack ||
                         <div>
                             <span>별점 </span>
                             <Rating
@@ -151,7 +137,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, getBoards, u
                                 fractions={2}
                                 onClick={onRateClick}
                             />
-                        </div>
+                        </div>}
                         <CKEditor
                             editor={ClassicEditor}
                             data=""

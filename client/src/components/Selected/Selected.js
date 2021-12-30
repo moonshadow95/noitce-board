@@ -9,13 +9,6 @@ import styles from './selected.module.css';
 const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert}) => {
     const [editing, setEditing] = useState(false);
     const navigate = useNavigate();
-    // Get Headers
-    const getHeaders = () => {
-        const token = localStorage.getItem('token')
-        return {
-            Authorization: `Bearer ${token}`
-        }
-    }
     // Edit
     const onEditClick = (event) => {
         if(isOwner){
@@ -23,14 +16,6 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert}) => {
         }
     }
     // Delete
-    async function deleteBoard(id){
-        await Axios({
-            method: "DELETE",
-            url:`http://localhost:8080/boards/delete/${id}`,
-            headers: getHeaders(),
-        })
-    }
-
     const onDeleteClick =(event)=>{
         const ok = window.confirm("삭제하시겠습니까?");
         if(ok){
@@ -67,6 +52,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert}) => {
                     <TextEditor
                         isEdit={true}
                         selected={selected}
+                        boardService={boardService}
                         onCancelClick={onEditClick}
                         onEditClick={onEditClick}
                         setBanner={setBanner}

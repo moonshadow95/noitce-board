@@ -19,7 +19,6 @@ export async function getAll(req,res){
 export async function getById(req,res){
     const {params:{id}} = req
     let snack = await snackRepository.getSnackById(id)
-    console.log(snack)
     if(snack.userId === req.userId){
         snack['isOwner'] = true
         return res.status(200).send(snack)

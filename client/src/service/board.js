@@ -12,37 +12,44 @@ export default class BoardService {
             method: 'GET',
             url:`${this.http}/${window.location.href.includes('snack')?'snack':'review'}/get/${param}`,
             headers: this.getHeaders(),
-        });
+        })
         return data
     }
 
-    async postBoard(text) {
-        return this.http.fetch(`/board`, {
+    async postBoard(dataObj) {
+        const {data} = await Axios({
             method: 'POST',
+            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'review'}/insert`,
+            data: dataObj,
             headers: this.getHeaders(),
-            body: JSON.stringify({ text, username: 'ellie', name: 'Ellie' }),
-        });
+        })
+        return data
     }
 
-    async deleteBoard(tweetId) {
-        return this.http.fetch(`/board/${tweetId}`, {
+    async deleteBoard(id) {
+        const {data} = await Axios({
             method: 'DELETE',
+            url: `${this.http}/${window.location.href.includes('snack')?'snack':'review'}/delete/${id}`,
             headers: this.getHeaders(),
-        });
+        })
+        console.log(data)
+        return data
     }
 
-    async updateBoard(tweetId, text) {
-        return this.http.fetch(`/board/${tweetId}`, {
+    async updateBoard(id, dataObj) {
+        const {data} = await Axios({
             method: 'PUT',
+            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'review'}/edit/${id}`,
+            data: dataObj,
             headers: this.getHeaders(),
-            body: JSON.stringify({ text }),
-        });
+        })
+        return data
     }
 
     getHeaders() {
         const token = this.tokenStorage.getToken();
         return {
             Authorization: `Bearer ${token}`,
-        };
+        }
     }
 }

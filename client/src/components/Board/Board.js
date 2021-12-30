@@ -47,6 +47,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                     { writing && <TextEditor
                         isEdit={false}
                         onWriteClick={onWriteClick}
+                        boardService={boardService}
                         getBoards={getBoards}
                         user={user}
                         setBanner={setBanner}
