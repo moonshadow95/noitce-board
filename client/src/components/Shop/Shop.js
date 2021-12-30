@@ -28,9 +28,9 @@ const Shop = ({data}) => {
             </div>
             <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
             <Slider {...settings}>
-                {data.map((review)=>
+                {data.slice(0,6).map((review)=>
                     <div className={styles.slickItem} key={review.id}>
-                        <h2>{review.name}</h2>
+                        <h2>{review.title}</h2>
                         <StarRatingComponent
                             name="productRating"
                             editing={false}

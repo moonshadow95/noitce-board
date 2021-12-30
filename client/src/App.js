@@ -18,6 +18,8 @@ function App({authService, boardService} ) {
     const [banner, setBanner] = useState('')
     const [isAuth, setIsAuth] = useState(undefined)
     const [isAlert, setIsAlert] = useState()
+    const [data, setData] = useState();
+
     const getUser = useCallback(async()=>{
         try {
             const user  = await authService.me()
@@ -28,10 +30,12 @@ function App({authService, boardService} ) {
         }
         return user
     },[user, authService])
+
     useEffect(()=>{
         getUser()
         setIsAuth(prev=>user)
-    },[])
+    },[getUser, user])
+
     return (
         <BrowserRouter>
             {/* 로그인 상태시 내비게이션 바 표시 */}
@@ -71,15 +75,25 @@ function App({authService, boardService} ) {
                 {/* 맛집 게시판 */}
                 <Route path='/gourmet' element={
                     <Gourmet
-                        /*data={}*/
-                        authService={authService} />}
+                        authService={authService}
+                        boardService={boardService}
+                    />}
                 />
                 <Route path='/gourmet/reviews' element={
                     <ReviewAll
                         user={user}
                         authService={authService}
+                        boardService={boardService}
                         setBanner={setBanner}
                         setIsAlert={setIsAlert}/>}
+                />
+                <Route path='/gourmet/reviews/:id' element={
+                    <Read
+                        authService={authService}
+                        boardService={boardService}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}
+                    />}
                 />
                 <Route path='/gourmet/shops' element={
                     <ShopAll

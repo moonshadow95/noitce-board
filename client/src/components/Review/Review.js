@@ -3,6 +3,7 @@ import styles from "../../routes/Gourmet/gourmet.module.css";
 import Slider from "react-slick";
 import {Link} from "react-router-dom";
 import Rate from "../Rate/Rate";
+import HTMLReactParser from "html-react-parser";
 
 const Review = ({data}) => {
 
@@ -24,13 +25,12 @@ const Review = ({data}) => {
             </div>
             <h2 className={styles.slickTitle}>최근 등록 리뷰</h2>
             <Slider {...settings}>
-                {data.map((review)=>
+                {data.slice(0,6).map((review)=>
                     <div className={styles.slickItem} key={review.id}>
-                        <h2>{review.name}</h2>
+                        <h2>{review.title}</h2>
                         <Rate value={review.rate} />
-                        <p>{review.text}</p>
+                        {HTMLReactParser(review.text)}
                     </div>
-
                 )}
             </Slider>
         </div>

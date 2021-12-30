@@ -1,11 +1,11 @@
 import React from 'react';
 import Board from "../Board/Board";
 
-const ReviewAll = ({user, authService, setBanner, setIsAlert, boardContent}) => {
+const ReviewAll = ({user, authService, boardService, setBanner, setIsAlert, boardContent}) => {
     return(
         <Board user={user}
                authService={authService}
-               boardContent={boardContent}
+               boardService={boardService}
                setBanner={setBanner}
                setIsAlert={setIsAlert}/>
 )};

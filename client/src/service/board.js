@@ -10,7 +10,7 @@ export default class BoardService {
         const param = id ? id : '';
         const {data} = await Axios({
             method: 'GET',
-            url:`${this.http}/${window.location.href.includes('snack')?'snack':'review'}/get/${param}`,
+            url:`${this.http}/${window.location.href.includes('snack')?'snack':'gourmet'}/get/${param}`,
             headers: this.getHeaders(),
         })
         return data

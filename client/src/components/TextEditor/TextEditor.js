@@ -11,28 +11,18 @@ import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
 const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert}) => {
     const [content, setContent] = useState(selected)
-    const [rating, setRating] = useState(0)
-    const isSnack = useState(window.location.href.includes('snack'))
+    const [rating, setRating] = useState(selected.rate)
+    const isSnack = window.location.href.includes('snack')
     const navigate = useNavigate();
     let dataObj;
-    const baseURL = 'http://localhost:8080'
     // Input Text
     const onChange = event => {
         const {name, value} = event.target
         setContent({...content, [name]:value})
     }
-
-    // Get Headers
-    const getHeaders = () => {
-        const token = localStorage.getItem('token')
-        return {
-            Authorization: `Bearer ${token}`
-        }
-    }
-
     // Create
     async function onSubmit(){
-        if(window.location.href.includes('snack')){
+        if(isSnack){
             dataObj={
                 'title': content.title,
                 'text': content.text,
@@ -61,7 +51,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
     }
     // Edit
     async function onEditSubmit(){
-        if(window.location.href.includes('snack')){
+        if(isSnack){
             dataObj={
                 'title': content.title,
                 'text': content.text,
@@ -92,9 +82,31 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                         <div className={styles.titleContainer}>
                             <input className={styles.title}  type="text" value={content.title || ''} name='title' onChange={onChange}/>
                             <span className={styles.titlePlaceHolder}>
-                                {window.location.href.includes('snack') ? '제목을 입력하세요':'상호명을 입력하세요'}
+                                {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
+                        {isSnack ||
+                        <div className={styles.ratingContainer}>
+                            <span className={styles.ratingPlaceHolder}>별점</span>
+                            <Rating
+                                initialRating={rating}
+                                emptySymbol={
+                                    <FontAwesomeIcon
+                                        icon={faStarEmpty}
+                                        size={"lg"}
+                                        style={{ color: "rgb(253, 186, 73)"}}
+                                    />}
+                                fullSymbol={
+                                    <FontAwesomeIcon
+                                        icon={faStar}
+                                        size={"lg"}
+                                        style={{ color: "rgb(253, 186, 73)"}}
+                                    />
+                                }
+                                fractions={2}
+                                onClick={onRateClick}
+                            />
+                        </div>}
                         <CKEditor
                             editor={ClassicEditor}
                             data={selected.text}
@@ -115,7 +127,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                         <div className={styles.titleContainer}>
                             <input className={styles.title} type="text" name='title' onChange={onChange}/>
                             <span className={styles.titlePlaceHolder}>
-                                {window.location.href.includes('snack') ? '제목을 입력하세요':'상호명을 입력하세요'}
+                                {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
                         {isSnack ||

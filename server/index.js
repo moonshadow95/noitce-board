@@ -18,7 +18,7 @@ app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/snack', snackRouter)
-app.use('/review', reviewRouter)
+app.use('/gourmet', reviewRouter)
 app.use('/auth', authRouter)
 
 app.use((req, res,next)=>{
