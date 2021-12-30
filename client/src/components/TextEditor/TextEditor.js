@@ -11,7 +11,7 @@ import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
 const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert}) => {
     const [content, setContent] = useState(selected)
-    const [rating, setRating] = useState(selected.rate)
+    const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
     const navigate = useNavigate();
     let dataObj;
@@ -130,7 +130,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                                 {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
-                        {isSnack ||
+                        {!isSnack &&
                         <div>
                             <span>별점 </span>
                             <Rating

@@ -19,7 +19,7 @@ export default class BoardService {
     async postBoard(dataObj) {
         const {data} = await Axios({
             method: 'POST',
-            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'review'}/insert`,
+            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'gourmet'}/insert`,
             data: dataObj,
             headers: this.getHeaders(),
         })
@@ -29,7 +29,7 @@ export default class BoardService {
     async deleteBoard(id) {
         const {data} = await Axios({
             method: 'DELETE',
-            url: `${this.http}/${window.location.href.includes('snack')?'snack':'review'}/delete/${id}`,
+            url: `${this.http}/${window.location.href.includes('snack')?'snack':'gourmet'}/delete/${id}`,
             headers: this.getHeaders(),
         })
         console.log(data)
