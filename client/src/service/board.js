@@ -32,7 +32,6 @@ export default class BoardService {
             url: `${this.http}/${window.location.href.includes('snack')?'snack':'gourmet'}/delete/${id}`,
             headers: this.getHeaders(),
         })
-        console.log(data)
         return data
     }
 

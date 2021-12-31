@@ -9,10 +9,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
-const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert, setIsWrite}) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
+    const isReview = window.location.href.includes('review')
     const navigate = useNavigate();
     let dataObj;
     // Input Text
@@ -22,32 +23,40 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
     }
     // Create
     async function onSubmit(){
-        if(isSnack){
-            dataObj={
-                'title': content.title,
-                'text': content.text,
-                'owner': user,
-            }
-        }else{
-            dataObj={
-                'title': content.title,
-                'text': content.text,
-                'owner': user,
-                'rate': rating,
-                'coords': '123.12414,121.5142'
-            }
+        if(!content){
+            return;
         }
         try{
+            if(isSnack){
+                dataObj={
+                    'title': content.title,
+                    'text': content.text || '',
+                    'owner': user,
+                }
+            }else{
+                dataObj={
+                    'title': content.title,
+                    'text': content.text || '',
+                    'owner': user,
+                    'rate': rating,
+                    'coords': '123.12414,121.5142'
+                }
+            }
             await boardService.postBoard(dataObj)
             window.confirm('작성되었습니다.')
             // setIsAlert(false)
             // setBanner('작성되었습니다.')
         }catch(error){
-            setIsAlert(true)
-            setBanner(error.response.data.message)
+            // setIsAlert(true)
+            // setBanner(error.response.data.message)
+            console.log(error)
         }
-        getBoards()
-        onWriteClick()
+        if(isSnack || isReview){
+            getBoards()
+            onWriteClick()
+        }else{
+            setIsWrite(prev=>!prev)
+        }
     }
     // Edit
     async function onEditSubmit(){

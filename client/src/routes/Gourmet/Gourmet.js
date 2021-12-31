@@ -7,7 +7,7 @@ import Review from "../../components/Review/Review";
 import Shop from "../../components/Shop/Shop";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
-const Gourmet = ({authService, boardService}) => {
+const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     const navigate = useNavigate();
     const [data, setData] = useState();
 
@@ -24,7 +24,12 @@ const Gourmet = ({authService, boardService}) => {
     return(
         <>{data ?
             <section className={styles.slickContainer}>
-                <Review data={data}/>
+                <Review
+                    data={data}
+                    boardService={boardService}
+                    setIsAlert={setIsAlert}
+                    setBanner={setBanner}
+                />
                 <Shop data={data}/>
             </section>:
             <LoadingSpinner/>

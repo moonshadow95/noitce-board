@@ -18,11 +18,11 @@
 }
 .title{
     font-size: 1.6rem;
-    padding: 0.8em 1em;
+    padding: 1em;
     line-height: 1.2em;
     display: flex;
-    align-items: center;
-    gap: 1em;
+    flex-direction: column;
+    gap: 0.4em;
 /*    글씨 가운데 위치하게   */
 }
 .meta{

@@ -34,7 +34,7 @@ function App({authService, boardService} ) {
     useEffect(()=>{
         getUser()
         setIsAuth(prev=>user)
-    },[getUser, user])
+    },[])
 
     return (
         <BrowserRouter>
@@ -77,6 +77,8 @@ function App({authService, boardService} ) {
                     <Gourmet
                         authService={authService}
                         boardService={boardService}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}
                     />}
                 />
                 <Route path='/gourmet/reviews' element={

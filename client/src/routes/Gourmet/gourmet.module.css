@@ -27,12 +27,22 @@
 
 .slickItem {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content:center;
     height: 300px;
     width: 100%;
-    padding: 0.5em;
-
+    position: relative;
+    transition: all var(--animation-duration) ease-in-out;
+}
+.slickItem:hover{
+    background-color: var(--color-black);
+}
+.slickItem:hover .hoverBtn{
+    opacity: 1;
+}
+.slickItem:hover .reviewTitle{
+    color:var(--color-white);
 }
 
 .buttonContainer{
@@ -53,4 +63,45 @@
     background-color: var(--color-black);
     color: var(--color-white);
     transform: var(--button-hover)
+}
+
+/*Recent Review*/
+.reviewTitle{
+    font-size: 1.6rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.reviewMeta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+}
+.hoverBtn{
+    position: absolute;
+    top: 60%;
+    left: center;
+    opacity: 0;
+    border: var(--border-common);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    padding: 1em 2em;
+    color: var(--color-black);
+    background-color: var(--color-white);
+    transition: all var(--animation-duration) ease-in-out;
+}
+/* Popup */
+.popup{
+    position: absolute;
+    top:10%;
+    right:10%;
+    border: var(--border-common);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    z-index: 9999;
+    padding: 2em 4em;
 }
