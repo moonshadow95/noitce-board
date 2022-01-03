@@ -87,7 +87,8 @@ function App({authService, boardService} ) {
                         authService={authService}
                         boardService={boardService}
                         setBanner={setBanner}
-                        setIsAlert={setIsAlert}/>}
+                        setIsAlert={setIsAlert}
+                    />}
                 />
                 <Route path='/gourmet/reviews/:id' element={
                     <Read
@@ -99,7 +100,11 @@ function App({authService, boardService} ) {
                 />
                 <Route path='/gourmet/shops' element={
                     <ShopAll
-                        // data={}
+                        user={user}
+                        authService={authService}
+                        boardService={boardService}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}
                     />}
                 />
             </Routes>

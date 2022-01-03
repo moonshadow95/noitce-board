@@ -24,14 +24,14 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
         return setViewContent(prev=> [...response])
     },[boardService])
 
-    useEffect(()=>{
-        authService.me().catch(err => navigate('/'))
-    },[authService,navigate])
-
     useEffect( ()=>{
         getBoards()
         setIsAuth(prev=>user)
     },[getBoards,user])
+    // 로그인 확인
+    useEffect(()=>{
+        authService.me().catch(err => navigate('/'))
+    },[authService,navigate])
 
     return(
         <main className={styles.main}>
