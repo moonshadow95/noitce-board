@@ -12,11 +12,13 @@ const BoardItem = ({content}) => {
         >
             <div className={styles.title}>
                 <span>{content.title}</span>
-                {content.rate && <Rate value={content.rate}/>}
             </div>
             <div className={styles.meta}>
-                <span>{timeFormatter(content.date)}</span>
-                <span>{content.owner}</span>
+                {(content.rate || content.rate === 0 ) ? <Rate value={content.rate}/>
+                    :<>
+                        <span>{timeFormatter(content.date)}</span>
+                        <span>{content.owner}</span>
+                    </>}
             </div>
         </Link>
     )

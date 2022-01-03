@@ -80,7 +80,8 @@ const globalStyles = createGlobalStyle`
 // slick
   .slick-slider{
     width: 85%;
-    margin: 60px ;
+    margin-top: 20px ;
+    margin-bottom: 60px;
   }
   
   .slick-list{

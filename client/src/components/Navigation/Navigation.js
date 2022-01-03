@@ -18,7 +18,7 @@ const Navigation = ({authService,user}) => {
             <span className={styles.home} onClick={goHome}>홈</span>
             }
             { window.location.pathname ==='/' ? "" :(window.location.pathname ==="/gourmet" ?
-                <Link to='/boards'>간식 게시판</Link> :
+                <Link to='/snack'>간식 게시판</Link> :
                 <Link to='/gourmet'>맛집 지도</Link>)}
             { user &&
             <span className={styles.logout} onClick={onLogout}>로그아웃</span>

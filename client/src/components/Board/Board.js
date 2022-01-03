@@ -4,13 +4,16 @@ import BoardItem from "./BoardItem";
 import TextEditor from "../TextEditor/TextEditor";
 import Paging from "../Paging/Paging";
 import {useNavigate} from "react-router-dom";
+import MapContainer from "../Map/MapContainer";
 
 const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false)
     const [viewContent,setViewContent] = useState([])
+    const [titleAndCoords,setTitleAndCoords] = useState([])
     const [page, setPage] = useState(1)
     const navigate = useNavigate();
+    const isShop = window.location.href.includes('shops')
     const itemsPerPage = 12
     const onWriteClick = () => {
         setWriting(prev=>!prev)
@@ -21,6 +24,13 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     // 게시판 가져오기
     const getBoards = useCallback(async() => {
         const response = await boardService.getBoard()
+        if(isShop){
+            const data = response.map(item=>{
+                const titles=item.title;
+                const coords=item.coords.split(',');
+                return {title:titles, coords:coords.map(item=>parseFloat(item))}
+            })
+            setTitleAndCoords([...data])}
         return setViewContent(prev=> [...response])
     },[boardService])
 
@@ -34,7 +44,9 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     },[authService,navigate])
 
     return(
-        <main className={styles.main}>
+        <main className={`${styles.main} ${isShop && styles.shopsMain}`}>
+            { isShop &&
+            <MapContainer searchPlace={{name:'',id:''}} titleAndCoords={titleAndCoords}/>}
             <section className={styles.section}>
                 <>
                     <ul className={styles.list}>

@@ -14,7 +14,8 @@ const Review = ({data, boardService, setBanner, setIsAlert}) => {
         infinite: false,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+
     };
     const onWriteClick=()=>{
         setIsWrite(prev=>!prev)
