@@ -6,6 +6,17 @@
     width: 100%;
     max-width: 800px;
 }
+.editorContainerShops {
+    position:absolute;
+    bottom: 150px;
+    z-index: 999;
+    background-color: var(--color-white);
+    width:450px;
+    box-shadow: var(--box-shadow);
+    border: var(--border-common);
+    border-radius: var(--border-radius);
+    padding: 2em 0;
+}
 .titleContainer{
     position: relative;
     border: 2px solid #C4C4C4;

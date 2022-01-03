@@ -54,7 +54,7 @@ const Shop = ({data}) => {
                             )}
                             starCount={5}
                             value={review.rate}/>
-                        <StaticMap shop={review}/>
+                        <StaticMap shop={review} key={review.id}/>
                     </div>
                 )}
             </Slider>

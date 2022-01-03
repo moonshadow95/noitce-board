@@ -31,8 +31,8 @@ const Review = ({data, boardService, setBanner, setIsAlert}) => {
             <h2 className={styles.slickTitle}>최근 등록 리뷰</h2>
             <Slider {...settings}>
                 {data.slice(0,6).map((review)=>
-                    <Link to={`./reviews/${review.id}`}>
-                        <div className={styles.slickItem} key={review.id}>
+                    <Link to={`./reviews/${review.id}`} key={review.id}>
+                        <div className={styles.slickItem}>
                             <h2 className={styles.reviewTitle}>{review.title}</h2>
                             <Rate value={review.rate} />
                             <div className={styles.reviewMeta}>

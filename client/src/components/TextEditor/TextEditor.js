@@ -15,6 +15,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
     const isSnack = window.location.href.includes('snack')
     const isReview = window.location.href.includes('review')
     const navigate = useNavigate();
+    const isShops = window.location.href.includes('shops')
     let dataObj;
     // Input Text
     const onChange = event => {
@@ -132,7 +133,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                 </> :
                 // 글 작성
                 <>
-                    <div className={styles.editorContainer}>
+                    <div className={`${styles.editorContainer} ${isShops && styles.editorContainerShops}`}>
                         <div className={styles.titleContainer}>
                             <input className={styles.title} type="text" name='title' onChange={onChange}/>
                             <span className={styles.titlePlaceHolder}>

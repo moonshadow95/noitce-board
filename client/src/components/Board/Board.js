@@ -12,7 +12,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [viewContent,setViewContent] = useState([])
     const [titleAndCoords,setTitleAndCoords] = useState([])
     const [page, setPage] = useState(1)
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const isShop = window.location.href.includes('shops')
     const itemsPerPage = 12
     const onWriteClick = () => {
@@ -46,7 +46,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     return(
         <main className={`${styles.main} ${isShop && styles.shopsMain}`}>
             { isShop &&
-            <MapContainer searchPlace={{name:'',id:''}} titleAndCoords={titleAndCoords}/>}
+            <MapContainer searchPlace={{name:'',id:''}₩₩} titleAndCoords={titleAndCoords}/>}
             <section className={styles.section}>
                 <>
                     <ul className={styles.list}>
@@ -56,17 +56,18 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                             </li>
                         )}
                     </ul>
-                    { writing && <TextEditor
-                        isEdit={false}
-                        onWriteClick={onWriteClick}
-                        boardService={boardService}
-                        getBoards={getBoards}
-                        user={user}
-                        setBanner={setBanner}
-                        setIsAlert={setIsAlert}/> }
-                    { !writing && <div className="btnContainer noBorder">
-                        <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
-                    </div>}
+                    { writing ?
+                        <TextEditor
+                            isEdit={false}
+                            onWriteClick={onWriteClick}
+                            boardService={boardService}
+                            getBoards={getBoards}
+                            user={user}
+                            setBanner={setBanner}
+                            setIsAlert={setIsAlert}/> :
+                        <div className="btnContainer noBorder">
+                            <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
+                        </div>}
                     <Paging page={page} setPage={setPage} totalCount={viewContent.length} itemsPerPage={itemsPerPage}/>
                 </>
             </section>
