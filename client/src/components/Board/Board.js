@@ -18,6 +18,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const isShops = window.location.href.includes('shops')
     const itemsPerPage = 12
     const onWriteClick = () => {
+        setKeyword('')
         setWriting(prev=>!prev)
     }
     const pagination = (array, page, itemsPerPage) =>
@@ -35,7 +36,6 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
             setTitleAndCoords([...data])}
         return setViewContent(prev=> [...response])
     },[boardService])
-
     useEffect( ()=>{
         getBoards()
         setIsAuth(prev=>user)

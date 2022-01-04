@@ -45,9 +45,11 @@ const { kakao } = window;
 
                 // 마커에 클릭이벤트를 등록
                 kakao.maps.event.addListener(marker, 'click', function () {
+
                     // 클릭한 마커의 이름으로 title input value
                     setKeyword(place.place_name)
                     setPlaceObj(place)
+
                     // 마커를 클릭하면 장소명이 인포윈도우에 표출
                     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                     infowindow.open(map, marker);
@@ -63,7 +65,7 @@ const { kakao } = window;
         let positions = titleAndCoords.map(item=>{
             const title = item.title;
             const latlngs = item.coords;
-            return {title, latlng: new kakao.maps.LatLng(latlngs[0],latlngs[1])}
+            return {title, latlng: new kakao.maps.LatLng(latlngs[1], latlngs[0])}
         })
 
         const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png'
