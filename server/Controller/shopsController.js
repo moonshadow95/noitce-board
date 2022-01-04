@@ -1,24 +1,32 @@
 import {db} from "../db/database.js";
-import * as reviewRepository from '../data/review.js';
+import * as shopsRepository from '../data/shops.js';
 import * as userRepository from '../data/auth.js'
 
 // Create
-export async function createReview(req, res){
-    const {title, text, rate, coords} = req.body
-    const owner = await userRepository.findById(req.userId)
-    const review = await reviewRepository.create(title, text, rate, coords, req.userId, owner.username)
+export async function createShops(req, res){
+    const {
+        id,
+        place_name:title,
+        road_address_name:address,
+        phone,
+        owner,
+        rate,
+        place_url:url,
+    } = req.body
+    const coords = req.body.x + req.body.y
+    const review = await shopsRepository.create(id,title,address,phone,coords,owner,rate,url)
     res.status(201).json(review)
 }
 
 // Read
 export async function getAll(req,res){
-    const reviews = await reviewRepository.getReviewAll();
+    const reviews = await shopsRepository.getShopsAll();
     res.status(200).send(reviews)
 }
 
 export async function getById(req,res){
     const {params:{id}} = req
-    let review = await reviewRepository.getReviewById(id)
+    let review = await shopsRepository.getShopsById(id)
     if(review.userId === req.userId){
         review['isOwner'] = true
         return res.status(200).send(review)
@@ -30,7 +38,7 @@ export async function getById(req,res){
 export async function edit(req, res){
     const id = parseInt(req.params.id);
     const {title, rate, text, coords} = req.body
-    const review = await reviewRepository.getReviewById(id);
+    const review = await shopsRepository.getShopsById(id);
     if(!review){
         return res.send(404).json({message:`${id}번 게시물이 없습니다.`})
     }
@@ -38,20 +46,20 @@ export async function edit(req, res){
     if(review.userId !== req.userId){
         return res.sendStatus(403)
     }
-    const updated = await reviewRepository.update(id, title, rate, text, coords);
+    const updated = await shopsRepository.update(id, title, rate, text, coords);
     res.status(200).json(updated)
 }
 
 // Delete
 export async function remove(req,res){
     const {params:{id}} = req;
-    const review = await reviewRepository.getReviewById(id);
+    const review = await shopsRepository.getShopsById(id);
     if(!review){
         return res.status(404).json({message: `${id}번 게시물을 찾지 못했습니다.`})
     }
     if(review.userId !== req.userId){
         return res.sendStatus(403)
     }
-    await reviewRepository.remove(id)
+    await shopsRepository.remove(id)
     res.sendStatus(204);
 }

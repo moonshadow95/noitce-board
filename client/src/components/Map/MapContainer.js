@@ -1,22 +1,22 @@
 import React, {useEffect} from "react";
 
-const MapContainer = ({searchPlace:{name,id}, titleAndCoords}) => {
+const MapContainer = ({keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
 const { kakao } = window;
     useEffect(() => {
         let infowindow = new kakao.maps.InfoWindow({zIndex:1});
-        const container = document.getElementById(`myMap${id}`);
+        const container = document.getElementById(`myMap`);
         const options = {
             center: new kakao.maps.LatLng(37.48308613407299, 126.87710497557258),
             level: 4
         };
         const map = new kakao.maps.Map(container, options);
-        if(name || id){
+        if(keyword){
             // 장소 검색 객체를 생성
             const ps = new kakao.maps.services.Places();
 
             // 키워드로 장소를 검색
 
-            ps.keywordSearch(name, placesSearchCB);
+            ps.keywordSearch(keyword, placesSearchCB);
 
             // 키워드 검색 완료 시 호출되는 콜백함수
             function placesSearchCB(data, status, pagination) {
@@ -45,7 +45,9 @@ const { kakao } = window;
 
                 // 마커에 클릭이벤트를 등록
                 kakao.maps.event.addListener(marker, 'click', function () {
-                    console.log('hi')
+                    // 클릭한 마커의 이름으로 title input value
+                    setKeyword(place.place_name)
+                    setPlaceObj(place)
                     // 마커를 클릭하면 장소명이 인포윈도우에 표출
                     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                     infowindow.open(map, marker);
@@ -55,7 +57,7 @@ const { kakao } = window;
 
         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
         var zoomControl = new kakao.maps.ZoomControl();
-        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
 
         // 마커를 표시할 위치와 title 객체 배열
         let positions = titleAndCoords.map(item=>{
@@ -81,9 +83,9 @@ const { kakao } = window;
                 image : markerImage // 마커 이미지
             });
         }
-    }, [id, kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.MarkerImage, kakao.maps.Size, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, name, titleAndCoords]);
+    }, [kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.MarkerImage, kakao.maps.Size, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, keyword, titleAndCoords]);
     return (
-        <div id={`myMap${id}`} style={{
+        <div id={`myMap`} style={{
             width: '60vw',
             minHeight: '78vh',
             marginBottom:'2em'

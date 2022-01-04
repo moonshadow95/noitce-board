@@ -8,7 +8,8 @@
 }
 .editorContainerShops {
     position:absolute;
-    bottom: 150px;
+    right: 31em;
+    top: 4.5em;
     z-index: 999;
     background-color: var(--color-white);
     width:450px;

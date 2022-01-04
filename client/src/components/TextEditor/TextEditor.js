@@ -9,7 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
-const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert, setIsWrite}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj}) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
@@ -21,10 +21,16 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
     const onChange = event => {
         const {name, value} = event.target
         setContent({...content, [name]:value})
+        if(isShops){
+            setKeyword(value)
+        }
     }
     // Create
     async function onSubmit(){
         if(!content){
+            if(!placeObj){
+                alert('지도에서 가게를 선택해주세요.')
+            }
             return;
         }
         try{
@@ -36,11 +42,10 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                 }
             }else{
                 dataObj={
-                    'title': content.title,
+                    ...placeObj,
                     'text': content.text || '',
-                    'owner': user,
+                    'owner': user.username,
                     'rate': rating,
-                    'coords': '123.12414,121.5142'
                 }
             }
             await boardService.postBoard(dataObj)
@@ -52,7 +57,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
             // setBanner(error.response.data.message)
             console.log(error)
         }
-        if(isSnack || isReview){
+        if(isSnack || isReview || isShops){
             getBoards()
             onWriteClick()
         }else{
@@ -135,11 +140,12 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                 <>
                     <div className={`${styles.editorContainer} ${isShops && styles.editorContainerShops}`}>
                         <div className={styles.titleContainer}>
-                            <input className={styles.title} type="text" name='title' onChange={onChange}/>
+                            <input className={styles.title} type="text" name='title' onChange={onChange} value={`${keyword}`}/>
                             <span className={styles.titlePlaceHolder}>
                                 {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
+                        {/* 별점 */}
                         {!isSnack &&
                         <div>
                             <span>별점 </span>
@@ -160,6 +166,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                                 onClick={onRateClick}
                             />
                         </div>}
+                        {isShops ||
                         <CKEditor
                             editor={ClassicEditor}
                             data=""
@@ -167,11 +174,15 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                             const data = editor.getData();
                             setContent({...content, text: data})
                         }}
-                        />
+                        />}
                     </div>
                     <div className="btnContainer noBorder">
-                        <button className={styles.btn} onClick={onSubmit}>작성 완료</button>
-                        <button className={styles.btn} onClick={onWriteClick}>작성 취소</button>
+                        <button className={styles.btn} onClick={onSubmit}>
+                            {isShops ? '등록' : '작성 완료'}
+                        </button>
+                        <button className={styles.btn} onClick={onWriteClick}>
+                            {isShops ? '닫기' :'작성 취소'}
+                        </button>
                     </div>
                 </>}
         </>

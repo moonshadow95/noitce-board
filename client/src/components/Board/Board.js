@@ -12,8 +12,10 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [viewContent,setViewContent] = useState([])
     const [titleAndCoords,setTitleAndCoords] = useState([])
     const [page, setPage] = useState(1)
+    const [keyword, setKeyword] = useState('');
+    const [placeObj, setPlaceObj] = useState()
     const navigate = useNavigate()
-    const isShop = window.location.href.includes('shops')
+    const isShops = window.location.href.includes('shops')
     const itemsPerPage = 12
     const onWriteClick = () => {
         setWriting(prev=>!prev)
@@ -24,7 +26,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     // 게시판 가져오기
     const getBoards = useCallback(async() => {
         const response = await boardService.getBoard()
-        if(isShop){
+        if(isShops){
             const data = response.map(item=>{
                 const titles=item.title;
                 const coords=item.coords.split(',');
@@ -37,16 +39,20 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     useEffect( ()=>{
         getBoards()
         setIsAuth(prev=>user)
-    },[getBoards,user])
+    },[getBoards,user,placeObj])
     // 로그인 확인
     useEffect(()=>{
         authService.me().catch(err => navigate('/'))
     },[authService,navigate])
-
     return(
-        <main className={`${styles.main} ${isShop && styles.shopsMain}`}>
-            { isShop &&
-            <MapContainer searchPlace={{name:'',id:''}₩₩} titleAndCoords={titleAndCoords}/>}
+        <main className={`${styles.main} ${isShops && styles.shopsMain}`}>
+            {isShops &&
+            <MapContainer
+                keyword={keyword}
+                setKeyword={setKeyword}
+                setPlaceObj={setPlaceObj}
+                titleAndCoords={titleAndCoords}
+            />}
             <section className={styles.section}>
                 <>
                     <ul className={styles.list}>
@@ -56,7 +62,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                             </li>
                         )}
                     </ul>
-                    { writing ?
+                    {writing ?
                         <TextEditor
                             isEdit={false}
                             onWriteClick={onWriteClick}
@@ -64,11 +70,22 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                             getBoards={getBoards}
                             user={user}
                             setBanner={setBanner}
-                            setIsAlert={setIsAlert}/> :
+                            setIsAlert={setIsAlert}
+                            keyword={keyword}
+                            setKeyword={setKeyword}
+                            placeObj={placeObj}
+                        /> :
                         <div className="btnContainer noBorder">
-                            <button className={styles.btn} onClick={onWriteClick}>글 작성하기</button>
+                            <button className={styles.btn} onClick={onWriteClick}>
+                                {isShops ? '맛집 검색' : '글 작성하기'}
+                            </button>
                         </div>}
-                    <Paging page={page} setPage={setPage} totalCount={viewContent.length} itemsPerPage={itemsPerPage}/>
+                    <Paging
+                        page={page}
+                        setPage={setPage}
+                        totalCount={viewContent.length}
+                        itemsPerPage={itemsPerPage}
+                    />
                 </>
             </section>
         </main>

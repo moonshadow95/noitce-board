@@ -6,7 +6,7 @@ import helmet from "helmet";
 import 'express-async-errors';
 import snackRouter from './Router/snack.js';
 import authRouter from './Router/auth.js'
-import reviewRouter from "./Router/review.js";
+import shopsRouter from "./Router/shops.js";
 
 const app = express();
 const PORT = 8080;
@@ -18,7 +18,7 @@ app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/snack', snackRouter)
-app.use('/gourmet', reviewRouter)
+app.use('/gourmet', shopsRouter)
 app.use('/auth', authRouter)
 
 app.use((req, res,next)=>{
