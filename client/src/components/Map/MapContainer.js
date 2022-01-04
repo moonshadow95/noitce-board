@@ -63,8 +63,8 @@ const { kakao } = window;
 
         // 마커를 표시할 위치와 title 객체 배열
         let positions = titleAndCoords.map(item=>{
-            const title = item.title;
-            const latlngs = item.coords;
+            const title = item.title
+            const latlngs = item.coords
             return {title, latlng: new kakao.maps.LatLng(latlngs[1], latlngs[0])}
         })
 
@@ -78,12 +78,29 @@ const { kakao } = window;
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
             // 마커를 생성합니다
-            var marker = new kakao.maps.Marker({
+            var staticMarker = new kakao.maps.Marker({
                 map: map, // 마커를 표시할 지도
                 position: positions[i].latlng, // 마커를 표시할 위치
-                title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                image : markerImage // 마커 이미지
+                image : markerImage, // 마커 이미지
             });
+
+            // 마커에 표시할 인포윈도우를 생성합니다
+            var staticInfowindow = new kakao.maps.InfoWindow({
+                // 인포윈도우에 표시할 내용
+                content: `<div style="font-size: 12px;padding: 5px;">${positions[i].title}</div>`
+            });
+            // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
+            (function(staticMarker, staticInfowindow) {
+                // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다
+                kakao.maps.event.addListener(staticMarker, 'mouseover', function() {
+                    staticInfowindow.open(map, staticMarker);
+                });
+
+                // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
+                kakao.maps.event.addListener(staticMarker, 'mouseout', function() {
+                    staticInfowindow.close();
+                });
+            })(staticMarker, staticInfowindow);
         }
     }, [kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.MarkerImage, kakao.maps.Size, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, keyword, titleAndCoords]);
     return (

@@ -30,30 +30,35 @@ const Shop = ({data}) => {
             <Slider {...settings}>
                 {data.slice(0,6).map((review)=>
                     <div className={styles.slickItem} key={review.id}>
-                        <h2>{review.title}</h2>
-                        <StarRatingComponent
-                            name="productRating"
-                            editing={false}
-                            renderStarIcon={() => (
+                        <div className={styles.slickTitleContainer}>
+                            <h2 className={styles.shopsTitle}>{review.title}</h2>
+                            <StarRatingComponent
+                                name="productRating"
+                                editing={false}
+                                renderStarIcon={() => (
                                 <FontAwesomeIcon
                                     icon={faStar}
+                                    size={"md"}
                                     style={{ color: "rgb(253, 186, 73)" }}
                                 />
                             )}
-                            renderStarIconHalf={() => (
+                                renderStarIconHalf={() => (
                                 <FontAwesomeIcon
                                     icon={faStarHalfAlt}
+                                    size={"md"}
                                     style={{ color: "rgb(253, 186, 73)" }}
                                 />
                             )}
-                            renderEmptyStarIcon={() => (
+                                renderEmptyStarIcon={() => (
                                 <FontAwesomeIcon
                                     icon={faStarEmpty}
+                                    size={"md"}
                                     style={{ color: "rgb(253, 186, 73)" }}
                                 />
                             )}
-                            starCount={5}
-                            value={review.rate}/>
+                                starCount={5}
+                                value={review.rate}/>
+                        </div>
                         <StaticMap shop={review} key={review.id}/>
                     </div>
                 )}
