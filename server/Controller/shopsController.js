@@ -9,12 +9,12 @@ export async function createShops(req, res){
         place_name:title,
         road_address_name:address,
         phone,
-        owner,
         rate,
         place_url:url,
     } = req.body
+    const userId = req.userId
     const coords = `${req.body.x},${req.body.y}`
-    const review = await shopsRepository.create(id,title,address,phone,coords,owner,rate,url)
+    const review = await shopsRepository.create(id,title,address,phone,coords,userId,rate,url)
     res.status(201).json(review)
 }
 

@@ -24,9 +24,8 @@ const Review = ({data, boardService, setBanner, setIsAlert}) => {
         <div className={styles.slick}>
             <div className={styles.buttonContainer}>
                 <Link to="./reviews">
-                    <button>전체보기</button>
+                    <button>전체보기 / 작성하기</button>
                 </Link>
-                <button onClick={onWriteClick}>작성하기</button>
             </div>
             <h2 className={styles.slickTitle}>최근 등록 리뷰</h2>
             <Slider {...settings}>

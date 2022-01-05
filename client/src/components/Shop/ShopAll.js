@@ -1,6 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import Board from "../Board/Board";
-import MapContainer from "../Map/MapContainer";
 
 const ShopAll = ({user, authService, boardService, setBanner, setIsAlert}) => {
     return (

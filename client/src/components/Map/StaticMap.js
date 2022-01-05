@@ -4,7 +4,6 @@ import React,{useEffect} from 'react';
 const StaticMap = ({shop:{id, coords, title }}) => {
     const { kakao } = window;
     useEffect(()=>{
-        console.log(id,coords,title)
         var markers = [
             {
                 position: new kakao.maps.LatLng(parseFloat(coords.split(',')[1]), parseFloat(coords.split(',')[0])),

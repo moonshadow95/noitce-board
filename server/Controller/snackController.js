@@ -5,8 +5,7 @@ import * as userRepository from '../data/auth.js'
 // Create
 export async function createSnack(req, res){
     const {title, text} = req.body
-    const owner = await userRepository.findById(req.userId)
-    const snack = await snackRepository.create(title, text, req.userId, owner.username)
+    const snack = await snackRepository.create(title, text, req.userId)
     res.status(201).json(snack)
 }
 
@@ -38,6 +37,7 @@ export async function edit(req, res){
     if(snack.userId !== req.userId){
         return res.sendStatus(403)
     }
+    console.log(id)
     const updated = await snackRepository.update(id, title, text);
     res.status(200).json(updated)
 }

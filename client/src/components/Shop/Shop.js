@@ -22,9 +22,8 @@ const Shop = ({data}) => {
         <div className={styles.slick}>
             <div className={styles.buttonContainer}>
                 <Link to='./shops'>
-                    <button>전체보기</button>
+                    <button>전체보기 / 등록하기</button>
                 </Link>
-                <button>작성하기</button>
             </div>
             <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
             <Slider {...settings}>
@@ -38,21 +37,18 @@ const Shop = ({data}) => {
                                 renderStarIcon={() => (
                                 <FontAwesomeIcon
                                     icon={faStar}
-                                    size={"md"}
                                     style={{ color: "rgb(253, 186, 73)" }}
                                 />
                             )}
                                 renderStarIconHalf={() => (
                                 <FontAwesomeIcon
                                     icon={faStarHalfAlt}
-                                    size={"md"}
                                     style={{ color: "rgb(253, 186, 73)" }}
                                 />
                             )}
                                 renderEmptyStarIcon={() => (
                                 <FontAwesomeIcon
                                     icon={faStarEmpty}
-                                    size={"md"}
                                     style={{ color: "rgb(253, 186, 73)" }}
                                 />
                             )}

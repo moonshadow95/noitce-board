@@ -9,7 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 
-const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert}) => {
+const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(selected.rate)
     const isSnack = window.location.href.includes('snack')
@@ -30,7 +30,6 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert}) => {
                 .then(navigate(-1))
         }
     }
-
     return(
         <main>
             {/*Section*/}

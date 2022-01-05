@@ -5,6 +5,7 @@ import timeFormatter from "../../util/date";
 import Rate from "../Rate/Rate";
 
 const BoardItem = ({content}) => {
+    console.log(content)
     return(
         <Link
             className={styles.link}

@@ -20,7 +20,7 @@ const Read = ({authService, setBanner, setIsAlert, boardService}) => {
     },[boardService])
     useEffect(()=>{
         getSelected(id)
-        authService.me().then(r => getSelected(id)).catch(err => navigate('/snack'))
+        authService.me().then(r => getSelected(id)).catch(err => navigate(-1))
     },[authService,id,navigate, getSelected])
     return (
         selected ?

@@ -38,13 +38,11 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                 dataObj={
                     'title': content.title,
                     'text': content.text || '',
-                    'owner': user,
                 }
             }else{
                 dataObj={
                     ...placeObj,
                     'text': content.text || '',
-                    'owner': user.username,
                     'rate': rating,
                 }
             }
@@ -70,24 +68,20 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
             dataObj={
                 'title': content.title,
                 'text': content.text,
-                'owner': user,
             }
         }else{
             dataObj={
                 'title': content.title,
                 'text': content.text,
-                'owner': user,
                 'rate': rating,
-                'coords': '123.12414,121.5142'
             }
         }
         setContent({...dataObj})
-        await boardService.updateBoard(selected.id, dataObj)
+        await boardService.updateBoard(selected.id, content)
         alert('수정되었습니다.')
         navigate(-1)
     }
     const onRateClick = (event) => setRating(event)
-
     return (
         <>
             { isEdit ?
@@ -140,7 +134,10 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                 <>
                     <div className={`${styles.editorContainer} ${isShops && styles.editorContainerShops}`}>
                         <div className={styles.titleContainer}>
-                            <input className={styles.title} type="text" name='title' onChange={onChange} value={`${keyword}`}/>
+                            {isSnack ?
+                                <input className={styles.title} type="text" name='title' onChange={onChange} />
+                                :<input className={styles.title} type="text" name='title' onChange={onChange} value={keyword && `${keyword}`}/>
+                            }
                             <span className={styles.titlePlaceHolder}>
                                 {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>

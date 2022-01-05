@@ -35,15 +35,18 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
             })
             setTitleAndCoords([...data])}
         return setViewContent(prev=> [...response])
-    },[boardService])
+    },[boardService, isShops])
+
     useEffect( ()=>{
         getBoards()
         setIsAuth(prev=>user)
     },[getBoards,user,placeObj])
+
     // 로그인 확인
     useEffect(()=>{
         authService.me().catch(err => navigate('/'))
     },[authService,navigate])
+
     return(
         <main className={`${styles.main} ${isShops && styles.shopsMain}`}>
             {isShops &&

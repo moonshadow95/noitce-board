@@ -18,7 +18,6 @@ function App({authService, boardService} ) {
     const [banner, setBanner] = useState('')
     const [isAuth, setIsAuth] = useState(undefined)
     const [isAlert, setIsAlert] = useState()
-    const [data, setData] = useState();
 
     const getUser = useCallback(async()=>{
         try {
@@ -92,6 +91,7 @@ function App({authService, boardService} ) {
                 />
                 <Route path='/gourmet/reviews/:id' element={
                     <Read
+                        user={user}
                         authService={authService}
                         boardService={boardService}
                         setBanner={setBanner}

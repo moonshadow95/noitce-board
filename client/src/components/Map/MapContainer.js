@@ -107,7 +107,9 @@ const { kakao } = window;
         <div id={`myMap`} style={{
             width: '60vw',
             minHeight: '78vh',
-            marginBottom:'2em'
+            marginBottom:'2em',
+            border:'1px solid #333',
+            borderRadius: '4px',
         }}></div>
     );
 }

@@ -23,6 +23,7 @@ export default class BoardService {
             data: dataObj,
             headers: this.getHeaders(),
         })
+        console.log(dataObj)
         return data
     }
 
@@ -42,6 +43,7 @@ export default class BoardService {
             data: dataObj,
             headers: this.getHeaders(),
         })
+        console.log(dataObj)
         return data
     }
 
