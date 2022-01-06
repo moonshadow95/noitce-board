@@ -11,7 +11,7 @@ export async function getShopsAll(){
 
 export async function getReviewsAll(id){
     return db
-        .execute(`SELECT rv.id, rv.text, rv.userId, rv.date, rv.shopId FROM reviews as rv JOIN shops as sh ON sh.id=rv.shopId Where sh.id=${id}`)
+        .execute(`SELECT rv.id, rv.text, rv.userId, rv.date, rv.shopId, users.username FROM reviews as rv LEFT JOIN shops as sh ON sh.id=rv.shopId JOIN users ON rv.userId=users.id WHERE sh.id=${id}`)
         .then(result=>result[0])
 }
 

@@ -36,7 +36,6 @@ export async function edit(req, res){
     if(snack.userId !== req.userId){
         return res.sendStatus(403)
     }
-    console.log(id)
     const updated = await snackRepository.update(id, title, text);
     res.status(200).json(updated)
 }

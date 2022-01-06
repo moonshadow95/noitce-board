@@ -22,7 +22,8 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
     // 해당 가게의 리뷰 가져오기
     const getReviews = useCallback(async(id) => {
         const response = await boardService.getReviews(id)
-        return console.log(response)
+        console.log(response)
+        return setReviews(response)
     },[boardService])
 
     // Edit
@@ -87,16 +88,15 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                                         <BoardItem content={content} />
                                     </li>
                                 )}
-                            </ul>
-                            :
+                            </ul> :
                             HTMLReactParser(selected.text)}
                     </div>
-                    {/*{isOwner &&*/}
-                    {/*<div className="btnContainer">*/}
-                    {/*    <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>*/}
-                    {/*    <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>*/}
-                    {/*</div>*/}
-                    {/*}*/}
+                    {(isOwner || isReview) &&
+                    <div className="btnContainer">
+                        <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : ( isReview ? "리뷰 작성하기" :"글 수정하기")}</button>
+                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
+                    </div>
+                    }
                 </>
                 }
                 {editing &&
