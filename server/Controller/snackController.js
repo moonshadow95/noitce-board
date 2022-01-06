@@ -1,6 +1,5 @@
 import {db} from "../db/database.js";
 import * as snackRepository from '../data/snack.js';
-import * as userRepository from '../data/auth.js'
 
 // Create
 export async function createSnack(req, res){

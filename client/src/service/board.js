@@ -6,6 +6,15 @@ export default class BoardService {
         this.tokenStorage = tokenStorage;
     }
 
+    async getReviews(id) {
+        const {data} = await Axios({
+            method: 'GET',
+            url:`${this.http}/gourmet/reviews/get/${id}`,
+            headers: this.getHeaders(),
+        })
+        return data
+    }
+
     async getBoard(id) {
         const param = id ? id : '';
         const {data} = await Axios({
@@ -23,7 +32,6 @@ export default class BoardService {
             data: dataObj,
             headers: this.getHeaders(),
         })
-        console.log(dataObj)
         return data
     }
 

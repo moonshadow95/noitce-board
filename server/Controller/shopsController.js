@@ -7,6 +7,7 @@ export async function createShops(req, res){
     const {
         id,
         place_name:title,
+        text,
         road_address_name:address,
         phone,
         rate,
@@ -14,13 +15,19 @@ export async function createShops(req, res){
     } = req.body
     const userId = req.userId
     const coords = `${req.body.x},${req.body.y}`
-    const review = await shopsRepository.create(id,title,address,phone,coords,userId,rate,url)
+    const review = await shopsRepository.create(id,title,text,address,phone,coords,userId,rate,url)
     res.status(201).json(review)
 }
 
 // Read
 export async function getAll(req,res){
     const reviews = await shopsRepository.getShopsAll();
+    res.status(200).send(reviews)
+}
+
+export async function getReviewsById(req,res){
+    const {params:{id}} = req
+    const reviews = await shopsRepository.getReviewsAll(id)
     res.status(200).send(reviews)
 }
 

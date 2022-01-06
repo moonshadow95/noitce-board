@@ -1,7 +1,7 @@
 import {db} from "../db/database.js";
 
 
-const SELECT_JOIN = 'SELECT sn.id, sn.title, sn.text, sn.userId, sn.date FROM snack as sn JOIN users ON sn.userId=users.id'
+const SELECT_JOIN = 'SELECT sn.id, sn.title, sn.text, sn.userId, sn.date, users.username FROM snack as sn JOIN users ON sn.userId=users.id'
 const ORDER_DESC = 'ORDER BY sn.date DESC'
 export async function getSnackAll(){
     return db
@@ -17,7 +17,7 @@ export async function getSnackById(id){
 
 export async function update(id, title, text) {
     return db
-        .execute('UPDATE snack SET title=?,text=? WHERE id=?', [title, text, id])
+        .execute('UPDATE snack SET title=?,text=? WHERE sn.id=?', [title, text, id])
         .then(()=> getSnackById(id))
 }
 
@@ -28,5 +28,5 @@ export async function create(title, text, userId){
 }
 
 export async function remove(id) {
-    return db.execute("DELETE FROM snack WHERE id=?", [id])
+    return db.execute("DELETE FROM snack WHERE sn.id=?", [id])
 }

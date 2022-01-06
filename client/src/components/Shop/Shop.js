@@ -18,6 +18,8 @@ const Shop = ({data}) => {
         slidesToShow: 4,
         slidesToScroll: 1
     };
+    console.log(data)
+
     return(
         <div className={styles.slick}>
             <div className={styles.buttonContainer}>

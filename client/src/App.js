@@ -6,12 +6,14 @@ import React, {useCallback, useEffect, useState} from "react";
 import Axios from "axios";
 import Banner from "./components/Banner/Banner";
 import Navigation from "./components/Navigation/Navigation";
-import styles from "./routes/Snack/snack.module.css";
+import styles from "./components/Board/board.module.css";
 import Auth from "./components/Auth/Auth";
 import Gourmet from "./routes/Gourmet/Gourmet";
 import Home from './routes/Home/Home'
 import ReviewAll from "./components/Review/ReviewAll";
 import ShopAll from "./components/Shop/ShopAll";
+import Board from "./components/Board/Board";
+import ShopDetail from "./components/Shop/ShopDetail";
 
 function App({authService, boardService} ) {
     const [user, setUser] = useState(undefined)
@@ -105,6 +107,13 @@ function App({authService, boardService} ) {
                         boardService={boardService}
                         setBanner={setBanner}
                         setIsAlert={setIsAlert}
+                    />}
+                />
+                <Route path='/gourmet/shops/:id' element={
+                    <ShopDetail
+                        user={user}
+                        authService={authService}
+                        boardService={boardService}
                     />}
                 />
             </Routes>

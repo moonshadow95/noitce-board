@@ -85,7 +85,8 @@ const globalStyles = createGlobalStyle`
   }
   
   .slick-list{
-    border: 1px solid #333;
+    border: var(--border-common);
+    border-radius: var(--border-radius);
   }
   
   .slick-slide{

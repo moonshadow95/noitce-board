@@ -1,19 +1,30 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "../TextEditor/TextEditor";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import timeFormatter from "../../util/date";
 import styles from './selected.module.css';
 import Rating from "react-rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
+import BoardItem from "../Board/BoardItem";
 
 const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(selected.rate)
+    const [reviews, setReviews] = useState([]);
     const isSnack = window.location.href.includes('snack')
+    const isReview = window.location.href.includes('reviews')
     const navigate = useNavigate();
+    const {id} = useParams()
+
+    // 해당 가게의 리뷰 가져오기
+    const getReviews = useCallback(async(id) => {
+        const response = await boardService.getReviews(id)
+        return console.log(response)
+    },[boardService])
+
     // Edit
     const onEditClick = (event) => {
         if(isOwner){
@@ -30,6 +41,11 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                 .then(navigate(-1))
         }
     }
+
+    useEffect(()=>{
+        getReviews(id);
+    },[])
+
     return(
         <main>
             {/*Section*/}
@@ -61,30 +77,39 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                     </header>
                     <div className={styles.meta}>
                         <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
-                        <div className={styles.owner}><small>{selected.owner}</small></div>
+                        <div className={styles.username}><small>{selected.username}</small></div>
                     </div>
                     <div className={styles.text}>
-                        {HTMLReactParser(selected.text)}
+                        {isReview ?
+                            <ul className={styles.list}>
+                                {reviews.map((content,index) =>
+                                    <li key={index} className={styles.item}>
+                                        <BoardItem content={content} />
+                                    </li>
+                                )}
+                            </ul>
+                            :
+                            HTMLReactParser(selected.text)}
                     </div>
-                    {isOwner &&
-                    <div className="btnContainer">
-                        <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>
-                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
-                    </div>
-                    }
+                    {/*{isOwner &&*/}
+                    {/*<div className="btnContainer">*/}
+                    {/*    <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>*/}
+                    {/*    <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>*/}
+                    {/*</div>*/}
+                    {/*}*/}
                 </>
                 }
-                {editing && <>
-                    <TextEditor
-                        isEdit={true}
-                        selected={selected}
-                        boardService={boardService}
-                        onCancelClick={onEditClick}
-                        onEditClick={onEditClick}
-                        setBanner={setBanner}
-                        setIsAlert={setIsAlert}
-                    />
-                </>}
+                {editing &&
+                <TextEditor
+                    isEdit={true}
+                    selected={selected}
+                    boardService={boardService}
+                    onCancelClick={onEditClick}
+                    onEditClick={onEditClick}
+                    setBanner={setBanner}
+                    setIsAlert={setIsAlert}
+                />
+                }
             </section>
         </main>
     )

@@ -5,7 +5,6 @@ import timeFormatter from "../../util/date";
 import Rate from "../Rate/Rate";
 
 const BoardItem = ({content}) => {
-    console.log(content)
     return(
         <Link
             className={styles.link}
@@ -18,7 +17,7 @@ const BoardItem = ({content}) => {
                 {(content.rate || content.rate === 0 ) ? <Rate value={content.rate}/>
                     :<>
                         <span>{timeFormatter(content.date)}</span>
-                        <span>{content.owner}</span>
+                        <span>{content.username}</span>
                     </>}
             </div>
         </Link>

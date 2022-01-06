@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import styles from "./board.module.css";
-import BoardItem from "./BoardItem";
+import Board from "../Board/Board";
+import {useNavigate} from "react-router-dom";
+import styles from "../Board/board.module.css";
+import MapContainer from "../Map/MapContainer";
+import BoardItem from "../Board/BoardItem";
 import TextEditor from "../TextEditor/TextEditor";
 import Paging from "../Paging/Paging";
-import {useNavigate} from "react-router-dom";
-import MapContainer from "../Map/MapContainer";
 
-const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
+const ShopDetail = ({user, authService, boardService}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false)
     const [viewContent,setViewContent] = useState([])
@@ -16,7 +17,6 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [placeObj, setPlaceObj] = useState()
     const navigate = useNavigate()
     const isShops = window.location.href.includes('shops')
-    const isReview = window.location.href.includes('reviews')
     const itemsPerPage = 12
     const onWriteClick = () => {
         setKeyword('')
@@ -34,7 +34,8 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 const coords=item.coords.split(',');
                 return {title:titles, coords:coords.map(item=>parseFloat(item))}
             })
-            setTitleAndCoords([...data])}
+            // setTitleAndCoords([...data])
+        }
         return setViewContent(prev=> [...response])
     },[boardService, isShops])
 
@@ -50,13 +51,13 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
 
     return(
         <main className={`${styles.main} ${isShops && styles.shopsMain}`}>
-            {isShops &&
-            <MapContainer
-                keyword={keyword}
-                setKeyword={setKeyword}
-                setPlaceObj={setPlaceObj}
-                titleAndCoords={titleAndCoords}
-            />}
+            {/*{isShops &&*/}
+            {/*<MapContainer*/}
+            {/*    keyword={keyword}*/}
+            {/*    setKeyword={setKeyword}*/}
+            {/*    setPlaceObj={setPlaceObj}*/}
+            {/*    titleAndCoords={titleAndCoords}*/}
+            {/*/>}*/}
             <section className={styles.section}>
                 <>
                     <ul className={styles.list}>
@@ -73,17 +74,15 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                             boardService={boardService}
                             getBoards={getBoards}
                             user={user}
-                            setBanner={setBanner}
-                            setIsAlert={setIsAlert}
                             keyword={keyword}
                             setKeyword={setKeyword}
                             placeObj={placeObj}
                         /> :
-                        (isReview || <div className="btnContainer noBorder">
+                        <div className="btnContainer noBorder">
                             <button className={styles.btn} onClick={onWriteClick}>
                                 {isShops ? '맛집 검색' : '글 작성하기'}
                             </button>
-                        </div>)}
+                        </div>}
                     <Paging
                         page={page}
                         setPage={setPage}
@@ -93,6 +92,6 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 </>
             </section>
         </main>
-)};
+    )};
 
-export default Board;
+export default ShopDetail;
