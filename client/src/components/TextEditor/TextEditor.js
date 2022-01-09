@@ -3,19 +3,23 @@ import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Axios from "axios";
 import styles from './textEditor.module.css';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Rating from "react-rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
-const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService, getBoards, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj, onEditClick}) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
-    const isReview = window.location.href.includes('review')
     const navigate = useNavigate();
+    const isReview = window.location.href.includes('reviews')
     const isShops = window.location.href.includes('shops')
+    const [writing, setWriting] = useState(false)
+    const {id} = useParams()
+    const onWriteClick = () =>  setWriting(prev=>!prev)
+
     let dataObj;
     // Input Text
     const onChange = event => {
@@ -39,15 +43,25 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                     'title': content.title,
                     'text': content.text || '',
                 }
-            }else{
+            }
+            if(isReview){
                 dataObj={
-                    ...placeObj,
+                    'title': content.title,
                     'text': content.text || '',
-                    'rate': rating,
+                    'rate': rating
                 }
             }
-            await boardService.postBoard(dataObj)
+            else{
+                dataObj={
+                    ...placeObj
+                }
+            }
+            await boardService.postBoard(dataObj,id)
             window.confirm('작성되었습니다.')
+            if(isReview){
+                onEditClick()
+                window.location.reload()
+            }
             // setIsAlert(false)
             // setBanner('작성되었습니다.')
         }catch(error){
@@ -56,7 +70,6 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
             console.log(error)
         }
         if(isSnack || isReview || isShops){
-            getBoards()
             onWriteClick()
         }else{
             setIsWrite(prev=>!prev)
@@ -126,7 +139,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                         />
                     </div>
                     <div className="btnContainer">
-                        <button className={styles.btn} onClick={onEditSubmit}>완료</button>
+                        <button className={styles.btn} onClick={isReview ? onSubmit : onEditSubmit}>완료</button>
                         <button className={styles.btn} onClick={onCancelClick}>취소</button>
                     </div>
                 </> :
@@ -142,27 +155,6 @@ const TextEditor = ({isEdit, selected, onCancelClick, onWriteClick, boardService
                                 {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
-                        {/* 별점 */}
-                        {!isSnack &&
-                        <div>
-                            <span>별점 </span>
-                            <Rating
-                                initialRating={rating}
-                                emptySymbol={
-                                    <FontAwesomeIcon
-                                        icon={faStarEmpty}
-                                        style={{ color: "rgb(253, 186, 73)" }}
-                                />}
-                                fullSymbol={
-                                    <FontAwesomeIcon
-                                        icon={faStar}
-                                        style={{ color: "rgb(253, 186, 73)" }}
-                                    />
-                                }
-                                fractions={2}
-                                onClick={onRateClick}
-                            />
-                        </div>}
                         {isShops ||
                         <CKEditor
                             editor={ClassicEditor}

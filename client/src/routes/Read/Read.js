@@ -4,7 +4,7 @@ import Selected from "../../components/Selected/Selected";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import {useNavigate} from "react-router-dom";
 
-const Read = ({authService, setBanner, setIsAlert, boardService}) => {
+const Read = ({user, authService, setBanner, setIsAlert, boardService}) => {
     const {id} = useParams();
     const [selected, setSelected] = useState('');
     const [isOwner, setIsOwner] = useState(false);
@@ -25,6 +25,7 @@ const Read = ({authService, setBanner, setIsAlert, boardService}) => {
     return (
         selected ?
             <Selected
+                user={user}
                 selected={selected}
                 isOwner={isOwner}
                 setBanner={setBanner}

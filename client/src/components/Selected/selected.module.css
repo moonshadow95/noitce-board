@@ -9,7 +9,6 @@
 .header {
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -21,9 +20,7 @@
     padding: 1em;
     line-height: 1.2em;
     display: flex;
-    flex-direction: column;
     gap: 0.4em;
-/*    글씨 가운데 위치하게   */
 }
 .meta{
     font-size: 0.9rem;
@@ -51,13 +48,14 @@
     cursor: pointer;
     transition: all var(--animation-duration) ease-in;
     border: var(--border-common);
-    border-radius: var(--border-radius)
+    border-radius: var(--border-radius);
+    min-width:120px;
 }
-.btnOuter {
-}
+
 .btn:hover{
-    background-color: darkred;
-    transform: var(--button-hover)
+    background-color: var(--color-white);
+    transform: var(--button-hover);
+    color: var(--color-black);
 }
 
 /* Reviews */
@@ -66,4 +64,7 @@
 }
 .item{
     border-bottom:var(--border-common);
+}
+header > .btn {
+    margin-right: 1em;
 }

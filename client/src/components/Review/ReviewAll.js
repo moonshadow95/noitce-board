@@ -7,7 +7,8 @@ const ReviewAll = ({user, authService, boardService, setBanner, setIsAlert}) => 
                authService={authService}
                boardService={boardService}
                setBanner={setBanner}
-               setIsAlert={setIsAlert}/>
+               setIsAlert={setIsAlert}
+        />
 )};
 
 export default ReviewAll;

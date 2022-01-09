@@ -7,15 +7,21 @@ export async function createShops(req, res){
     const {
         id,
         place_name:title,
-        text,
         road_address_name:address,
         phone,
-        rate,
         place_url:url,
     } = req.body
     const userId = req.userId
     const coords = `${req.body.x},${req.body.y}`
-    const review = await shopsRepository.create(id,title,text,address,phone,coords,userId,rate,url)
+    const review = await shopsRepository.create(id,title,address,phone,coords,userId,url)
+    res.status(201).json(review)
+}
+
+export async function createReview(req, res){
+    const {params:{id}} = req
+    const {text, rate} = req.body
+    const userId = req.userId
+    const review = await shopsRepository.createReview(text, userId, id, rate)
     res.status(201).json(review)
 }
 
@@ -33,7 +39,7 @@ export async function getReviewsById(req,res){
 
 export async function getById(req,res){
     const {params:{id}} = req
-    let review = await shopsRepository.getShopsById(id)
+    const review = await shopsRepository.getShopsById(id)
     if(review.userId === req.userId){
         review['isOwner'] = true
         return res.status(200).send(review)
@@ -44,7 +50,7 @@ export async function getById(req,res){
 // Update
 export async function edit(req, res){
     const id = parseInt(req.params.id);
-    const {title, rate, text, coords} = req.body
+    const {title, coords} = req.body
     const review = await shopsRepository.getShopsById(id);
     if(!review){
         return res.send(404).json({message:`${id}번 게시물이 없습니다.`})
@@ -53,20 +59,30 @@ export async function edit(req, res){
     if(review.userId !== req.userId){
         return res.sendStatus(403)
     }
-    const updated = await shopsRepository.update(id, title, rate, text, coords);
+    const updated = await shopsRepository.update(id, title, coords);
     res.status(200).json(updated)
 }
 
 // Delete
 export async function remove(req,res){
     const {params:{id}} = req;
-    const review = await shopsRepository.getShopsById(id);
-    if(!review){
+    const shop = await shopsRepository.getShopsById(id);
+    const review = await shopsRepository.getReviewById(id)
+    // TODO shop, review 둘 다 있는 경우??
+    if(!shop && !review){
         return res.status(404).json({message: `${id}번 게시물을 찾지 못했습니다.`})
     }
-    if(review.userId !== req.userId){
-        return res.sendStatus(403)
+    if(shop){
+        if(shop.userId !== req.userId){
+            return res.sendStatus(403)
+        }
+        await shopsRepository.remove(id)   
     }
-    await shopsRepository.remove(id)
-    res.sendStatus(204);
+    if(review){
+        if(review.userId !== req.userId){
+            return res.sendStatus(403)
+        }
+        await shopsRepository.removeReview(id)
+    }
+    return res.sendStatus(204);
 }

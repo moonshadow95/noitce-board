@@ -8,11 +8,11 @@ import Rating from "react-rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
-import BoardItem from "../Board/BoardItem";
+import ReviewItem from "../Review/ReviewItem";
 
 const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}) => {
     const [editing, setEditing] = useState(false);
-    const [rating, setRating] = useState(selected.rate)
+    const [rating, setRating] = useState(0)
     const [reviews, setReviews] = useState([]);
     const isSnack = window.location.href.includes('snack')
     const isReview = window.location.href.includes('reviews')
@@ -22,13 +22,12 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
     // 해당 가게의 리뷰 가져오기
     const getReviews = useCallback(async(id) => {
         const response = await boardService.getReviews(id)
-        console.log(response)
         return setReviews(response)
     },[boardService])
 
     // Edit
     const onEditClick = (event) => {
-        if(isOwner){
+        if(isOwner || isReview){
             setEditing(prev => !prev)
         }
     }
@@ -45,7 +44,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
 
     useEffect(()=>{
         getReviews(id);
-    },[])
+    },[getReviews, id])
 
     return(
         <main>
@@ -75,6 +74,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                                 />
                             </div>}
                         </h1>
+                        <button className={styles.btn} onClick={onEditClick}>리뷰 추가</button>
                     </header>
                     <div className={styles.meta}>
                         <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
@@ -85,16 +85,16 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                             <ul className={styles.list}>
                                 {reviews.map((content,index) =>
                                     <li key={index} className={styles.item}>
-                                        <BoardItem content={content} />
+                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick} />
                                     </li>
                                 )}
                             </ul> :
                             HTMLReactParser(selected.text)}
                     </div>
-                    {(isOwner || isReview) &&
+                    { isOwner &&
                     <div className="btnContainer">
-                        <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : ( isReview ? "리뷰 작성하기" :"글 수정하기")}</button>
-                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>글 삭제하기</button>
+                        { isReview || <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
+                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>{ isReview ? "맛집 삭제하기" : "글 삭제하기"}</button>
                     </div>
                     }
                 </>
@@ -102,6 +102,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                 {editing &&
                 <TextEditor
                     isEdit={true}
+                    isReview={isReview}
                     selected={selected}
                     boardService={boardService}
                     onCancelClick={onEditClick}
