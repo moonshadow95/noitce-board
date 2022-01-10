@@ -7,6 +7,7 @@ import styles from "../../routes/Gourmet/gourmet.module.css";
 import Slider from "react-slick";
 import StarRatingComponent from 'react-star-rating-component-new';
 import {Link} from "react-router-dom";
+import Rate from "../Rate/Rate";
 
 
 const Shop = ({data}) => {
@@ -32,29 +33,7 @@ const Shop = ({data}) => {
                     <div className={styles.slickItem} key={review.id}>
                         <div className={styles.slickTitleContainer}>
                             <h2 className={styles.shopsTitle}>{review.title}</h2>
-                            <StarRatingComponent
-                                name="productRating"
-                                editing={false}
-                                renderStarIcon={() => (
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    style={{ color: "rgb(253, 186, 73)" }}
-                                />
-                            )}
-                                renderStarIconHalf={() => (
-                                <FontAwesomeIcon
-                                    icon={faStarHalfAlt}
-                                    style={{ color: "rgb(253, 186, 73)" }}
-                                />
-                            )}
-                                renderEmptyStarIcon={() => (
-                                <FontAwesomeIcon
-                                    icon={faStarEmpty}
-                                    style={{ color: "rgb(253, 186, 73)" }}
-                                />
-                            )}
-                                starCount={5}
-                                value={review.rate}/>
+                            <Rate value={0}/>
                         </div>
                         <StaticMap shop={review} key={review.id}/>
                     </div>

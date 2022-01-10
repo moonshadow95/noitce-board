@@ -9,9 +9,16 @@ export async function getShopsAll(){
         .then(result=>result[0])
 }
 
-export async function getReviewsAll(id){
+export async function getReviews(){
     return db
-        .execute(`SELECT rv.id, rv.text, rv.userId, rv.date, rv.rate, rv.shopId, users.username FROM reviews as rv LEFT JOIN shops as sh ON sh.id=rv.shopId JOIN users ON rv.userId=users.id WHERE sh.id=${id} ORDER BY rv.date DESC`)
+        .execute(`${SELECT_JOIN} ${ORDER_DESC}`)
+        .then(result=>result[0])
+}
+
+
+export async function getReviewsAll(){
+    return db
+        .execute(`SELECT rv.id, rv.text, rv.userId, rv.date, rv.rate, rv.shopId, users.username FROM reviews as rv LEFT JOIN shops as sh ON sh.id=rv.shopId JOIN users ON rv.userId=users.id ORDER BY rv.date DESC`)
         .then(result=>result[0])
 }
 

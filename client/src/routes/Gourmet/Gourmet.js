@@ -9,28 +9,36 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     const navigate = useNavigate();
-    const [data, setData] = useState();
+    const [shops, setShops] = useState([]);
+    const [reviews, setReviews] = useState([]);
 
     const getBoards = useCallback(async() => {
         const response = await boardService.getBoard()
-        return setData(prev=> [...response])
+        return setShops(prev=> [...response])
     },[boardService])
+
+    const getReviews = useCallback(async() => {
+        const response = await boardService.getReviews()
+        return setReviews(prev=> [...response])
+    },[boardService])
+
     useEffect(()=>{
         getBoards()
-    },[])
+        getReviews()
+    },[getBoards,getReviews])
     useEffect(()=>{
         authService.me().catch(err => navigate('/'))
     },[authService,navigate])
     return(
-        <>{data ?
+        <>{(shops || reviews) ?
             <section className={styles.slickContainer}>
                 <Review
-                    data={data}
+                    data={reviews}
                     boardService={boardService}
                     setIsAlert={setIsAlert}
                     setBanner={setBanner}
                 />
-                <Shop data={data}/>
+                <Shop data={shops}/>
             </section>:
             <LoadingSpinner/>
         }</>

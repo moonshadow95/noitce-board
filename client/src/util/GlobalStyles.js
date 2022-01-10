@@ -87,6 +87,7 @@ const globalStyles = createGlobalStyle`
   .slick-list{
     border: var(--border-common);
     border-radius: var(--border-radius);
+    min-height: 300px;
   }
   
   .slick-slide{

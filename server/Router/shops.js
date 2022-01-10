@@ -3,7 +3,7 @@ import {
     createReview,
     createShops,
     edit,
-    getAll,
+    getAll, getAllReviews,
     getById,
     getReviewsById,
     remove
@@ -16,7 +16,8 @@ const shopsRouter = express.Router();
 shopsRouter.post('/insert', isAuth, createShops)
 shopsRouter.post('/insert/:id', isAuth, createReview)
 shopsRouter.get('/reviews/get/:id', isAuth, getReviewsById)
-shopsRouter.get('/get', getAll)
+shopsRouter.get('/get', isAuth, getAll)
+shopsRouter.get('/reviews/get', isAuth, getAllReviews)
 shopsRouter.get('/get/:id', isAuth, getById)
 shopsRouter.put("/edit/:id", isAuth, edit)
 shopsRouter.delete("/delete/:id", isAuth,remove)

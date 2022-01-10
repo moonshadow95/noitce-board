@@ -12,21 +12,18 @@ const Rate = ({value}) => (
         renderStarIcon={() => (
             <FontAwesomeIcon
                 icon={faStar}
-                size={"lg"}
                 style={{ color: "rgb(253, 186, 73)" }}
             />
         )}
         renderStarIconHalf={() => (
             <FontAwesomeIcon
                 icon={faStarHalfAlt}
-                size={"lg"}
                 style={{ color: "rgb(253, 186, 73)" }}
             />
         )}
         renderEmptyStarIcon={() => (
             <FontAwesomeIcon
                 icon={faStarEmpty}
-                size={"lg"}
                 style={{ color: "rgb(253, 186, 73)" }}
             />
         )}

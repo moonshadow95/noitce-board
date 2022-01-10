@@ -97,3 +97,23 @@
 header > .btn {
     margin-right: 1em;
 }
+
+/* Shops */
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    gap: 0.6em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    border-bottom: var(--border-common);
+}
+
+.info a {
+    color: #1992f7;
+}
+
+.info + h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4em;
+}

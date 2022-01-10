@@ -1,21 +1,21 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "../TextEditor/TextEditor";
 import {useNavigate, useParams} from "react-router-dom";
 import timeFormatter from "../../util/date";
 import styles from './selected.module.css';
-import Rating from "react-rating";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
-import {faStar} from "@fortawesome/free-solid-svg-icons";
 import ReviewItem from "../Review/ReviewItem";
+import Rate from "../Rate/Rate";
+import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 
-const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}) => {
+const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
     const [reviews, setReviews] = useState([]);
     const isSnack = window.location.href.includes('snack')
     const isReview = window.location.href.includes('reviews')
+    const isShop = window.location.href.includes('shops')
     const navigate = useNavigate();
     const {id} = useParams()
 
@@ -27,7 +27,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
 
     // Edit
     const onEditClick = (event) => {
-        if(isOwner || isReview){
+        if(isOwner || isReview || isShop){
             setEditing(prev => !prev)
         }
     }
@@ -43,7 +43,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
     }
 
     useEffect(()=>{
-        getReviews(id);
+        isShop || getReviews(id);
     },[getReviews, id])
 
     return(
@@ -55,22 +55,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                         <h1 className={styles.title}>
                             {selected.title}
                             {!isSnack &&
-                            <Rating
-                                initialRating={rating}
-                                emptySymbol={
-                                    <FontAwesomeIcon
-                                        icon={faStarEmpty}
-                                        style={{ color: "rgb(253, 186, 73)" }}
-                                    />}
-                                fullSymbol={
-                                    <FontAwesomeIcon
-                                        icon={faStar}
-                                        style={{ color: "rgb(253, 186, 73)" }}
-                                    />
-                                }
-                                fractions={2}
-                                readonly={true}
-                            />}
+                            <Rate value={0}/>}
                         </h1>
                         <button className={styles.btn} onClick={onEditClick}>리뷰 추가</button>
                     </header>
@@ -78,7 +63,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                         <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
                         <div className={styles.username}><small>{selected.username}</small></div>
                     </div>
-                    <div className={`${styles.text} ${isReview && styles.reviewsContainer}`}>
+                    <div className={`${styles.text} ${(isReview || shopReviews) && styles.reviewsContainer}`}>
                         {isReview ?
                             <ul className={styles.list}>
                                 {reviews.map((content,index) =>
@@ -87,11 +72,48 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                                     </li>
                                 )}
                             </ul> :
-                            HTMLReactParser(selected.text)}
+                            HTMLReactParser(selected.text || '')}
+                        {shopReviews &&
+                        <div>
+                            <div className={styles.info}>
+                                <span>
+                                    <FontAwesomeIcon
+                                        icon={faMapMarkerAlt}
+                                        style={{marginRight:'4px'}}
+
+                                    />
+                                    {selected.address}
+                                </span>
+                                <span>
+                                    <FontAwesomeIcon
+                                        icon={faPhoneAlt}
+                                        style={{marginRight:'4px'}}
+                                    />
+                                    {selected.phone}
+                                </span>
+                                <a href={selected.url} target='_blank'>
+                                    <FontAwesomeIcon
+                                        icon={faLink}
+                                        style={{marginRight:'4px', color:'#000',}}
+
+                                    />
+                                    카카오맵에서 보기
+                                </a>
+                            </div>
+                            <h2>후기</h2>
+                            <ul className={styles.list}>
+                                {shopReviews.map((content,index) =>
+                                    <li key={index} className={styles.item}>
+                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick} />
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
+                        }
                     </div>
                     { isOwner &&
                     <div className="btnContainer">
-                        { isReview || <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
+                        { (isReview || shopReviews) || <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
                         <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>{ isReview ? "맛집 삭제하기" : "글 삭제하기"}</button>
                     </div>
                     }

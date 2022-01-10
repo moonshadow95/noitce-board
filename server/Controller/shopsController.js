@@ -29,6 +29,11 @@ export async function getAll(req,res){
     res.status(200).send(reviews)
 }
 
+export async function getAllReviews(req,res){
+    const reviews = await shopsRepository.getReviewsAll();
+    res.status(200).send(reviews)
+}
+
 export async function getReviewsById(req,res){
     const {params:{id}} = req
     const reviews = await shopsRepository.getReviewsAll(id)

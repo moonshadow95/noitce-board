@@ -7,9 +7,10 @@ export default class BoardService {
     }
 
     async getReviews(id) {
+        console.log(id)
         const {data} = await Axios({
             method: 'GET',
-            url:`${this.http}/gourmet/reviews/get/${id}`,
+            url:`${this.http}/gourmet/reviews/get/${id || ''}`,
             headers: this.getHeaders(),
         })
         return data
@@ -51,7 +52,6 @@ export default class BoardService {
             data: dataObj,
             headers: this.getHeaders(),
         })
-        console.log(dataObj)
         return data
     }
 

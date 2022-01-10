@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import Axios from "axios";
 import styles from './textEditor.module.css';
 import {useNavigate, useParams} from "react-router-dom";
 import Rating from "react-rating";
@@ -15,7 +14,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
     const isSnack = window.location.href.includes('snack')
     const navigate = useNavigate();
     const isReview = window.location.href.includes('reviews')
-    const isShops = window.location.href.includes('shops')
+    const isShop = window.location.href.includes('shops')
     const {id} = useParams()
     let dataObj;
 
@@ -23,7 +22,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
     const onChange = event => {
         const {name, value} = event.target
         setContent({...content, [name]:value})
-        if(isShops){
+        if(isShop){
             setKeyword(value)
         }
     }
@@ -49,7 +48,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                     'rate': rating
                 }
             }
-            if(isShops){
+            if(isShop){
                 dataObj={
                     ...placeObj
                 }
@@ -67,7 +66,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
             // setBanner(error.response.data.message)
             console.log(error)
         }
-        if(isSnack){
+        if(isSnack || isShop){
             onWriteClick()
             getBoards()
         }
@@ -136,13 +135,13 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                         />
                     </div>
                     <div className="btnContainer">
-                        <button className={styles.btn} onClick={isReview ? onSubmit : onEditSubmit}>완료</button>
+                        <button className={styles.btn} onClick={isShop ? onSubmit : onEditSubmit}>완료</button>
                         <button className={styles.btn} onClick={onCancelClick}>취소</button>
                     </div>
                 </> :
                 // 글 작성
                 <>
-                    <div className={`${styles.editorContainer} ${isShops && styles.editorContainerShops}`}>
+                    <div className={`${styles.editorContainer} ${isShop && styles.editorContainerShops}`}>
                         <div className={styles.titleContainer}>
                             {isSnack ?
                                 <input className={styles.title} type="text" name='title' onChange={onChange} />
@@ -152,7 +151,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                                 {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
-                        {isShops ||
+                        {isShop ||
                         <CKEditor
                             editor={ClassicEditor}
                             data=""
@@ -164,10 +163,10 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                     </div>
                     <div className="btnContainer noBorder">
                         <button className={styles.btn} onClick={onSubmit}>
-                            {isShops ? '등록' : '작성 완료'}
+                            {isShop ? '등록' : '작성 완료'}
                         </button>
                         <button className={styles.btn} onClick={onWriteClick}>
-                            {isShops ? '닫기' :'작성 취소'}
+                            {isShop ? '닫기' :'작성 취소'}
                         </button>
                     </div>
                 </>}

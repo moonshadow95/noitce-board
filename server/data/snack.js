@@ -17,7 +17,7 @@ export async function getSnackById(id){
 
 export async function update(id, title, text) {
     return db
-        .execute('UPDATE snack SET title=?,text=? WHERE sn.id=?', [title, text, id])
+        .execute('UPDATE snack SET title=?,text=? WHERE snack.id=?', [title, text, id])
         .then(()=> getSnackById(id))
 }
 
