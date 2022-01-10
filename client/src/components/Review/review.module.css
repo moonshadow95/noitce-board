@@ -19,6 +19,7 @@
     flex-direction: column;
     gap: 0.4em;
     margin-left: auto;
+    min-width: 100px;
 }
 
 .btn{

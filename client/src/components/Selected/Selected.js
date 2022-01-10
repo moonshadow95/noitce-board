@@ -55,24 +55,22 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                         <h1 className={styles.title}>
                             {selected.title}
                             {!isSnack &&
-                            <div>
-                                <Rating
-                                    initialRating={rating}
-                                    emptySymbol={
-                                        <FontAwesomeIcon
-                                            icon={faStarEmpty}
-                                            style={{ color: "rgb(253, 186, 73)" }}
-                                        />}
-                                    fullSymbol={
-                                        <FontAwesomeIcon
-                                            icon={faStar}
-                                            style={{ color: "rgb(253, 186, 73)" }}
-                                        />
-                                    }
-                                    fractions={2}
-                                    readonly={true}
-                                />
-                            </div>}
+                            <Rating
+                                initialRating={rating}
+                                emptySymbol={
+                                    <FontAwesomeIcon
+                                        icon={faStarEmpty}
+                                        style={{ color: "rgb(253, 186, 73)" }}
+                                    />}
+                                fullSymbol={
+                                    <FontAwesomeIcon
+                                        icon={faStar}
+                                        style={{ color: "rgb(253, 186, 73)" }}
+                                    />
+                                }
+                                fractions={2}
+                                readonly={true}
+                            />}
                         </h1>
                         <button className={styles.btn} onClick={onEditClick}>리뷰 추가</button>
                     </header>
@@ -80,7 +78,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user}
                         <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
                         <div className={styles.username}><small>{selected.username}</small></div>
                     </div>
-                    <div className={styles.text}>
+                    <div className={`${styles.text} ${isReview && styles.reviewsContainer}`}>
                         {isReview ?
                             <ul className={styles.list}>
                                 {reviews.map((content,index) =>

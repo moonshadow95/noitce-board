@@ -9,18 +9,16 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
-const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj, onEditClick}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj, onEditClick, onWriteClick, getBoards}) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
     const navigate = useNavigate();
     const isReview = window.location.href.includes('reviews')
     const isShops = window.location.href.includes('shops')
-    const [writing, setWriting] = useState(false)
     const {id} = useParams()
-    const onWriteClick = () =>  setWriting(prev=>!prev)
-
     let dataObj;
+
     // Input Text
     const onChange = event => {
         const {name, value} = event.target
@@ -51,12 +49,12 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                     'rate': rating
                 }
             }
-            else{
+            if(isShops){
                 dataObj={
                     ...placeObj
                 }
             }
-            await boardService.postBoard(dataObj,id)
+            await boardService.postBoard(dataObj,((id === undefined) ? '' : id))
             window.confirm('작성되었습니다.')
             if(isReview){
                 onEditClick()
@@ -69,10 +67,9 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
             // setBanner(error.response.data.message)
             console.log(error)
         }
-        if(isSnack || isReview || isShops){
+        if(isSnack){
             onWriteClick()
-        }else{
-            setIsWrite(prev=>!prev)
+            getBoards()
         }
     }
     // Edit
