@@ -4,15 +4,7 @@ import Rate from "../Rate/Rate";
 import HTMLReactParser from "html-react-parser";
 import styles from './review.module.css';
 
-const ReviewItem = ({content, user, onDeleteClick }) => {
-    const [isOwner, setIsOwner] = useState(false)
-
-    useEffect(()=>{
-        if(content.username === user.username){
-            setIsOwner(true)
-        }
-    },[content, user])
-
+const ReviewItem = ({content, user, onDeleteClick,isOwner }) => {
     return(
         <div className={styles.container}>
             <div className={styles.title}>

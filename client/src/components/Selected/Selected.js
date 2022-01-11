@@ -80,7 +80,6 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                                     <FontAwesomeIcon
                                         icon={faMapMarkerAlt}
                                         style={{marginRight:'4px'}}
-
                                     />
                                     {selected.address}
                                 </span>
@@ -95,7 +94,6 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                                     <FontAwesomeIcon
                                         icon={faLink}
                                         style={{marginRight:'4px', color:'#000',}}
-
                                     />
                                     카카오맵에서 보기
                                 </a>
@@ -104,7 +102,12 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                             <ul className={styles.list}>
                                 {shopReviews.map((content,index) =>
                                     <li key={index} className={styles.item}>
-                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick} />
+                                        <ReviewItem
+                                            content={content}
+                                            user={user}
+                                            onDeleteClick={onDeleteClick}
+                                            isOwner={content.username===user.username}
+                                        />
                                     </li>
                                 )}
                             </ul>
@@ -124,6 +127,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                     isEdit={true}
                     isReview={isReview}
                     selected={selected}
+                    keyword={selected.title}
                     boardService={boardService}
                     onCancelClick={onEditClick}
                     onEditClick={onEditClick}

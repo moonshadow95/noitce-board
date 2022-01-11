@@ -12,12 +12,10 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
-    const navigate = useNavigate();
-    const isReview = window.location.href.includes('reviews')
     const isShop = window.location.href.includes('shops')
+    const navigate = useNavigate()
     const {id} = useParams()
-    let dataObj;
-
+    let dataObj
     // Input Text
     const onChange = event => {
         const {name, value} = event.target
@@ -41,24 +39,19 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                     'text': content.text || '',
                 }
             }
-            if(isReview){
+            if(isShop && id){
                 dataObj={
-                    'title': content.title,
-                    'text': content.text || '',
-                    'rate': rating
+                    'text':content.text,
+                    'rate':content.rate
                 }
             }
-            if(isShop){
+            if(isShop && !id){
                 dataObj={
                     ...placeObj
                 }
             }
             await boardService.postBoard(dataObj,((id === undefined) ? '' : id))
             window.confirm('작성되었습니다.')
-            if(isReview){
-                onEditClick()
-                window.location.reload()
-            }
             // setIsAlert(false)
             // setBanner('작성되었습니다.')
         }catch(error){
@@ -66,9 +59,12 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
             // setBanner(error.response.data.message)
             console.log(error)
         }
-        if(isSnack || isShop){
+        if(isSnack || (isShop && !id)){
             onWriteClick()
             getBoards()
+        }
+        else{
+
         }
     }
     // Edit
@@ -90,7 +86,10 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
         alert('수정되었습니다.')
         navigate(-1)
     }
-    const onRateClick = (event) => setRating(event)
+    const onRateClick = (event) => {
+        setContent({...content, rate:event})
+        setRating(event)
+    }
     return (
         <>
             { isEdit ?
@@ -98,9 +97,9 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                 <>
                     <div className={styles.editorContainer}>
                         <div className={styles.titleContainer}>
-                            <input className={styles.title}  type="text" value={content.title || ''} name='title' onChange={onChange}/>
-                            <span className={styles.titlePlaceHolder}>
-                                {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
+                            <input className={`${styles.title} ${(isShop && id) && styles.disabled}`}  type="text" value={content.title || ''} name='title' onChange={onChange}/>
+                            <span className={styles.titlePlaceHolder} >
+                                {isSnack ? '제목을 입력하세요': (isShop && id) ? '상호명' : '상호명을 입력하세요'}
                             </span>
                         </div>
                         {isSnack ||
@@ -129,8 +128,8 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                             editor={ClassicEditor}
                             data={selected.text}
                             onChange={(event, editor) => {
-                        const data = editor.getData();
-                        setContent({...content, text: data})
+                                const data = editor.getData();
+                                setContent({...content, text: data})
                     }}
                         />
                     </div>
@@ -151,7 +150,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
                                 {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
                             </span>
                         </div>
-                        {isShop ||
+                        {!isShop &&
                         <CKEditor
                             editor={ClassicEditor}
                             data=""

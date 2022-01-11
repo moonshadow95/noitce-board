@@ -10,7 +10,6 @@ import styles from "./components/Board/board.module.css";
 import Auth from "./components/Auth/Auth";
 import Gourmet from "./routes/Gourmet/Gourmet";
 import Home from './routes/Home/Home'
-import ReviewAll from "./components/Review/ReviewAll";
 import ShopAll from "./components/Shop/ShopAll";
 import ShopDetail from "./components/Shop/ShopDetail";
 
@@ -76,24 +75,6 @@ function App({authService, boardService} ) {
                 {/* 맛집 게시판 */}
                 <Route path='/gourmet' element={
                     <Gourmet
-                        authService={authService}
-                        boardService={boardService}
-                        setBanner={setBanner}
-                        setIsAlert={setIsAlert}
-                    />}
-                />
-                <Route path='/gourmet/reviews' element={
-                    <ReviewAll
-                        user={user}
-                        authService={authService}
-                        boardService={boardService}
-                        setBanner={setBanner}
-                        setIsAlert={setIsAlert}
-                    />}
-                />
-                <Route path='/gourmet/reviews/:id' element={
-                    <Read
-                        user={user}
                         authService={authService}
                         boardService={boardService}
                         setBanner={setBanner}

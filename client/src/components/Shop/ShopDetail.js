@@ -14,15 +14,10 @@ const ShopDetail = ({shops,user, authService, boardService}) => {
         return setReviews(response)
     },[boardService])
 
-    const getShops = useCallback(async() => {
-        try{
-            const response = await boardService.getBoard(id)
-            return setShop(prev=> response)
-        }catch(error){
-            navigate(-1)
-            console.log(error.message)
-        }
-        return shop
+    // 해당 가게 정보 가져오기
+    const getShops = useCallback(async(id) => {
+        const response = await boardService.getBoard(id)
+        return setShop(prev=> response)
     },[boardService])
 
     useEffect(()=>{
@@ -31,7 +26,7 @@ const ShopDetail = ({shops,user, authService, boardService}) => {
     },[getShops, id])
 
     return(
-        <Selected selected={shop} shopReviews={reviews} user={user}/>
+        <Selected boardService={boardService} selected={shop} shopReviews={reviews} user={user}/>
     )};
 
 export default ShopDetail;

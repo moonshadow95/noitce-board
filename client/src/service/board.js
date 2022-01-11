@@ -7,7 +7,6 @@ export default class BoardService {
     }
 
     async getReviews(id) {
-        console.log(id)
         const {data} = await Axios({
             method: 'GET',
             url:`${this.http}/gourmet/reviews/get/${id || ''}`,
@@ -27,6 +26,7 @@ export default class BoardService {
     }
 
     async postBoard(dataObj,id) {
+        console.log(dataObj,id)
         const {data} = await Axios({
             method: 'POST',
             url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'gourmet'}/insert/${id}`,

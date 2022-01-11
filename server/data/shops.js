@@ -16,10 +16,16 @@ export async function getReviews(){
 }
 
 
-export async function getReviewsAll(){
-    return db
-        .execute(`SELECT rv.id, rv.text, rv.userId, rv.date, rv.rate, rv.shopId, users.username FROM reviews as rv LEFT JOIN shops as sh ON sh.id=rv.shopId JOIN users ON rv.userId=users.id ORDER BY rv.date DESC`)
-        .then(result=>result[0])
+export async function getReviewsAll(id){
+    if(id){
+        return db
+            .execute(`SELECT rv.id, rv.text, rv.userId, rv.date, rv.rate, rv.shopId, users.username FROM reviews as rv LEFT JOIN shops as sh ON sh.id=rv.shopId JOIN users ON rv.userId=users.id WHERE rv.shopId=${id} ORDER BY rv.date DESC`)
+            .then(result=>result[0])
+    }else{
+        return db
+            .execute(`SELECT rv.id, rv.text, rv.userId, rv.date, rv.rate, rv.shopId, users.username FROM reviews as rv LEFT JOIN shops as sh ON sh.id=rv.shopId JOIN users ON rv.userId=users.id ORDER BY rv.date DESC`)
+            .then(result=>result[0])
+    }
 }
 
 export async function getShopsById(id){

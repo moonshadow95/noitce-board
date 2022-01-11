@@ -5,7 +5,6 @@ import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons";
 import StaticMap from "../Map/StaticMap";
 import styles from "../../routes/Gourmet/gourmet.module.css";
 import Slider from "react-slick";
-import StarRatingComponent from 'react-star-rating-component-new';
 import {Link} from "react-router-dom";
 import Rate from "../Rate/Rate";
 
@@ -19,7 +18,6 @@ const Shop = ({data}) => {
         slidesToShow: 4,
         slidesToScroll: 1
     };
-
     return(
         <div className={styles.slick}>
             <div className={styles.buttonContainer}>
@@ -29,13 +27,13 @@ const Shop = ({data}) => {
             </div>
             <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
             <Slider {...settings}>
-                {data.slice(0,6).map((review)=>
-                    <div className={styles.slickItem} key={review.id}>
+                {data.slice(0,6).map((shop)=>
+                    <div className={styles.slickItem} key={shop.id}>
                         <div className={styles.slickTitleContainer}>
-                            <h2 className={styles.shopsTitle}>{review.title}</h2>
+                            <h2 className={styles.shopsTitle}>{shop.title}</h2>
                             <Rate value={0}/>
                         </div>
-                        <StaticMap shop={review} key={review.id}/>
+                        <StaticMap shop={shop} key={shop.id}/>
                     </div>
                 )}
             </Slider>

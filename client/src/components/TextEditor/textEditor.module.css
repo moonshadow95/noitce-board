@@ -67,3 +67,7 @@
     cursor: pointer;
     border: 1px solid #000;
 }
+
+.disabled {
+    pointer-events: none;
+}

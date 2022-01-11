@@ -99,6 +99,11 @@ header > .btn {
 }
 
 /* Shops */
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 .info {
     display: flex;
     flex-direction: column;
@@ -111,6 +116,7 @@ header > .btn {
 
 .info a {
     color: #1992f7;
+    width: max-content;
 }
 
 .info + h2 {
