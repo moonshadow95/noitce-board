@@ -33,7 +33,15 @@ const ShopDetail = ({shops,user, authService, boardService}) => {
 
 
     return(
-        <Selected boardService={boardService} authService={authService} isOwner={isOwner} selected={shop} shopReviews={reviews} user={user}/>
+        <Selected
+            boardService={boardService}
+            authService={authService}
+            isOwner={isOwner}
+            selected={shop}
+            shopReviews={reviews}
+            user={user}
+            getReviews={getReviews}
+        />
     )};
 
 export default ShopDetail;

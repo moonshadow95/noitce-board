@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import styles from './textEditor.module.css';
@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
-const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj, onEditClick, onWriteClick, getBoards}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, boardService, getReviews, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj, onEditClick, onWriteClick, getBoards}) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
@@ -65,6 +65,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
         }
         else{
             onEditClick()
+            getReviews(id)
         }
     }
     // Edit

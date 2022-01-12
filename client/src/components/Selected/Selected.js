@@ -8,8 +8,8 @@ import styles from './selected.module.css';
 import ReviewItem from "../Review/ReviewItem";
 import Rate from "../Rate/Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
-
-const Selected = ({selected, isOwner, setBanner, authService, boardService, setIsAlert, user, shopReviews}) => {
+// TODO 새로운 리뷰 작성 후 업데이트하기
+const Selected = ({selected, isOwner, setBanner, authService, boardService, setIsAlert, user, shopReviews, getReviews}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
@@ -40,7 +40,9 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
         }
     }
     useEffect(()=>{
-        average(shopReviews.map(review=>review.rate))
+        if(shopReviews){
+            average(shopReviews.map(review=>review.rate))
+        }
     })
     return(
         <main>
@@ -129,6 +131,7 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
                     onEditClick={onEditClick}
                     setBanner={setBanner}
                     setIsAlert={setIsAlert}
+                    getReviews={getReviews}
                 />
                 }
             </section>
