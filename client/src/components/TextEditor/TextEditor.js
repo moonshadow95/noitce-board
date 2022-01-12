@@ -64,7 +64,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, user, setBan
             getBoards()
         }
         else{
-
+            onEditClick()
         }
     }
     // Edit

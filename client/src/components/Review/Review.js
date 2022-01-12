@@ -7,7 +7,7 @@ import timeFormatter from "../../util/date";
 import TextEditor from "../TextEditor/TextEditor";
 import HTMLReactParser from "html-react-parser";
 
-const Review = ({data, boardService, setBanner, setIsAlert}) => {
+const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
     const [isWrite, setIsWrite] = useState(false)
     const settings = {
         dots: true,
@@ -25,11 +25,11 @@ const Review = ({data, boardService, setBanner, setIsAlert}) => {
         <div className={styles.slick}>
             <h2 className={styles.slickTitle}>최근 등록 리뷰</h2>
             <Slider {...settings}>
-                {data.slice(0,6).map((review)=>
+                {reviews.slice(0,6).map((review)=>
                     <Link to={`./shops/${review.shopId}`} key={review.id}>
                         <div className={styles.slickItem}>
                             <h2 className={styles.reviewText}>{HTMLReactParser(review.text)}</h2>
-                            <Rate value={review.rate} />
+                            <Rate value={review.rate} size={'lg'}/>
                             <div className={styles.reviewMeta}>
                                 <span>{timeFormatter(review.date)}</span>
                                 <span>{review.username}</span>

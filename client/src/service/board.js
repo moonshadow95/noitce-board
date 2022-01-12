@@ -26,7 +26,6 @@ export default class BoardService {
     }
 
     async postBoard(dataObj,id) {
-        console.log(dataObj,id)
         const {data} = await Axios({
             method: 'POST',
             url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'gourmet'}/insert/${id}`,

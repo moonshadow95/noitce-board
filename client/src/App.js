@@ -16,7 +16,6 @@ import ShopDetail from "./components/Shop/ShopDetail";
 function App({authService, boardService} ) {
     const [user, setUser] = useState(undefined)
     const [banner, setBanner] = useState('')
-    const [shops, setShops] = useState([])
     const [isAuth, setIsAuth] = useState(undefined)
     const [isAlert, setIsAlert] = useState()
 
@@ -66,6 +65,7 @@ function App({authService, boardService} ) {
                 />
                 <Route path='/snack/:id' element={
                     <Read
+                        user={user}
                         authService={authService}
                         boardService={boardService}
                         setBanner={setBanner}

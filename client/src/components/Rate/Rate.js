@@ -4,7 +4,7 @@ import {faStar, faStarHalfAlt} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 import StarRatingComponent from "react-star-rating-component-new";
 
-const Rate = ({value}) => (
+const Rate = ({value, size}) => (
     <StarRatingComponent
 
         name="productRating"
@@ -12,18 +12,21 @@ const Rate = ({value}) => (
         renderStarIcon={() => (
             <FontAwesomeIcon
                 icon={faStar}
+                size={size}
                 style={{ color: "rgb(253, 186, 73)" }}
             />
         )}
         renderStarIconHalf={() => (
             <FontAwesomeIcon
                 icon={faStarHalfAlt}
+                size={size}
                 style={{ color: "rgb(253, 186, 73)" }}
             />
         )}
         renderEmptyStarIcon={() => (
             <FontAwesomeIcon
                 icon={faStarEmpty}
+                size={size}
                 style={{ color: "rgb(253, 186, 73)" }}
             />
         )}

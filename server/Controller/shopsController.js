@@ -31,13 +31,27 @@ export async function getAll(req,res){
 
 export async function getAllReviews(req,res){
     const reviews = await shopsRepository.getReviewsAll();
-    res.status(200).send(reviews)
+    let addOwner =[]
+    await reviews.map(review=>{
+        if(review.userId === req.userId){
+            review['isOwner'] = true
+        }
+        addOwner.push(review)
+    })
+    return res.status(200).send(addOwner)
 }
 
 export async function getReviewsById(req,res){
     const {params:{id}} = req
     const reviews = await shopsRepository.getReviewsAll(id)
-    res.status(200).send(reviews)
+    let addOwner =[]
+    await reviews.map(review=>{
+        if(review.userId === req.userId){
+            review['isOwner'] = true
+        }
+        addOwner.push(review)
+    })
+    return res.status(200).send(addOwner)
 }
 
 export async function getById(req,res){

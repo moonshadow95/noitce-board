@@ -26,12 +26,12 @@ const Shop = ({data}) => {
                 </Link>
             </div>
             <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
+            <span className={styles.caption}>지도 클릭시 카카오 맵으로 이동합니다.</span>
             <Slider {...settings}>
                 {data.slice(0,6).map((shop)=>
                     <div className={styles.slickItem} key={shop.id}>
-                        <div className={styles.slickTitleContainer}>
+                        <div className={styles.shopsTitle}>
                             <h2 className={styles.shopsTitle}>{shop.title}</h2>
-                            <Rate value={0}/>
                         </div>
                         <StaticMap shop={shop} key={shop.id}/>
                     </div>

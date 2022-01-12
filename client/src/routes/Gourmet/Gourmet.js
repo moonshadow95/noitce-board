@@ -33,7 +33,7 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
         <>{(shops || reviews) ?
             <section className={styles.slickContainer}>
                 <Review
-                    data={reviews}
+                    reviews={reviews}
                     boardService={boardService}
                     setIsAlert={setIsAlert}
                     setBanner={setBanner}

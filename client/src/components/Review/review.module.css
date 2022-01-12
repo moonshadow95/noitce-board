@@ -13,6 +13,11 @@
     border-right:var(--border-common);
 }
 
+.title p {
+    word-break: keep-all;
+    text-align: left;
+}
+
 .btnContainer{
     justify-items: flex-end;
     display: flex;

@@ -9,22 +9,13 @@ import ReviewItem from "../Review/ReviewItem";
 import Rate from "../Rate/Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 
-const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews}) => {
+const Selected = ({selected, isOwner, setBanner, authService, boardService, setIsAlert, user, shopReviews}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
-    const [reviews, setReviews] = useState([]);
     const isSnack = window.location.href.includes('snack')
     const isReview = window.location.href.includes('reviews')
     const isShop = window.location.href.includes('shops')
     const navigate = useNavigate();
-    const {id} = useParams()
-
-    // 해당 가게의 리뷰 가져오기
-    const getReviews = useCallback(async(id) => {
-        const response = await boardService.getReviews(id)
-        return setReviews(response)
-    },[boardService])
-
     // Edit
     const onEditClick = (event) => {
         if(isOwner || isReview || isShop){
@@ -41,11 +32,16 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                 .then(navigate(-1))
         }
     }
-
+    // 별점 평균 구하기
+    const average = (arr) => {
+        const value = arr.reduce((p, c) => p + c, 0) / arr.length
+        if(value){
+            return setRating(value)
+        }
+    }
     useEffect(()=>{
-        isShop || getReviews(id);
-    },[getReviews, id])
-
+        average(shopReviews.map(review=>review.rate))
+    })
     return(
         <main>
             {/*Section*/}
@@ -55,9 +51,9 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                         <h1 className={styles.title}>
                             {selected.title}
                             {!isSnack &&
-                            <Rate value={0}/>}
+                            <Rate value={rating}/>}
                         </h1>
-                        <button className={styles.btn} onClick={onEditClick}>리뷰 추가</button>
+                        {isShop && <button className={styles.btn} onClick={onEditClick}>리뷰 추가</button>}
                     </header>
                     <div className={styles.meta}>
                         <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
@@ -66,9 +62,9 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                     <div className={`${styles.text} ${(isReview || shopReviews) && styles.reviewsContainer}`}>
                         {isReview ?
                             <ul className={styles.list}>
-                                {reviews.map((content,index) =>
+                                {shopReviews.map((content,index) =>
                                     <li key={index} className={styles.item}>
-                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick} />
+                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick} isOwner={true} />
                                     </li>
                                 )}
                             </ul> :
@@ -106,7 +102,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                                             content={content}
                                             user={user}
                                             onDeleteClick={onDeleteClick}
-                                            isOwner={content.username===user.username}
+                                            isOwner={content.isOwner}
                                         />
                                     </li>
                                 )}
@@ -114,10 +110,10 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                         </div>
                         }
                     </div>
-                    { isOwner &&
+                    { selected.isOwner &&
                     <div className="btnContainer">
-                        { (isReview || shopReviews) || <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
-                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>{ isReview ? "맛집 삭제하기" : "글 삭제하기"}</button>
+                        { isSnack && <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
+                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>{ isShop ? "맛집 삭제하기" : "글 삭제하기"}</button>
                     </div>
                     }
                 </>
