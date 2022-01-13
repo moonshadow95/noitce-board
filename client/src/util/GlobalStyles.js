@@ -110,6 +110,16 @@ const globalStyles = createGlobalStyle`
   .slick-dots {
     bottom: -50px;
   }
+  
+  /* Search */
+  .searchBtn{
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    padding: 1em;
+    z-index: 99999;
+  }
 `;
 
 export default globalStyles;

@@ -16,8 +16,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [placeObj, setPlaceObj] = useState()
     const navigate = useNavigate()
     const isShops = window.location.href.includes('shops')
-    const isReview = window.location.href.includes('reviews')
-    const itemsPerPage = 12
+    const itemsPerPage = 10
     const onWriteClick = () => {
         setKeyword('')
         setWriting(prev=>!prev)
@@ -41,7 +40,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     useEffect( ()=>{
         getBoards()
         setIsAuth(prev=>user)
-    },[getBoards,user,placeObj])
+    },[getBoards,user])
 
     // 로그인 확인
     useEffect(()=>{
@@ -58,6 +57,9 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 titleAndCoords={titleAndCoords}
             />}
             <section className={styles.section}>
+                <header className={styles.boardHeader}>
+                    <h1>{ isShops ? '등록된 맛집' : '간식 신청 게시판'}</h1>
+                </header>
                 <>
                     <ul className={styles.list}>
                         {pagination(viewContent, page, itemsPerPage).map((content,index) =>
@@ -78,12 +80,15 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                             keyword={keyword}
                             setKeyword={setKeyword}
                             placeObj={placeObj}
+                            setPlaceObj={setPlaceObj}
                         /> :
-                        (isReview || <div className="btnContainer noBorder">
+
+                        <div className={`btnContainer noBorder ${isShops && 'searchBtn'}`}>
                             <button className={styles.btn} onClick={onWriteClick}>
                                 {isShops ? '맛집 검색' : '글 작성하기'}
                             </button>
-                        </div>)}
+                        </div>
+                    }
                     <Paging
                         page={page}
                         setPage={setPage}

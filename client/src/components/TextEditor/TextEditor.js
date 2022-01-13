@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {faStar as faStarEmpty} from "@fortawesome/free-regular-svg-icons";
 
-const TextEditor = ({isEdit, selected, onCancelClick, boardService, getReviews, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj, onEditClick, onWriteClick, getBoards}) => {
+const TextEditor = ({isEdit, selected, onCancelClick, boardService, getReviews, user, setBanner, setIsAlert, setIsWrite, keyword, setKeyword, placeObj, onEditClick, onWriteClick, getBoards, setPlaceObj}) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
@@ -100,7 +100,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, getReviews, 
                         <div className={styles.titleContainer}>
                             <input className={`${styles.title} ${(isShop && id) && styles.disabled}`}  type="text" value={content.title || ''} name='title' onChange={onChange}/>
                             <span className={styles.titlePlaceHolder} >
-                                {isSnack ? '제목을 입력하세요': (isShop && id) ? '상호명' : '상호명을 입력하세요'}
+                                {isSnack ? '희망하는 간식': (isShop && id) ? '상호명' : '상호명을 입력하세요'}
                             </span>
                         </div>
                         {isSnack ||
@@ -148,7 +148,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, getReviews, 
                                 :<input className={styles.title} type="text" name='title' onChange={onChange} value={keyword && `${keyword}`}/>
                             }
                             <span className={styles.titlePlaceHolder}>
-                                {isSnack ? '제목을 입력하세요':'상호명을 입력하세요'}
+                                {isSnack ? '희망하는 간식을 적어주세요':'상호명을 입력하세요'}
                             </span>
                         </div>
                         {!isShop &&
@@ -161,7 +161,7 @@ const TextEditor = ({isEdit, selected, onCancelClick, boardService, getReviews, 
                         }}
                         />}
                     </div>
-                    <div className="btnContainer noBorder">
+                    <div className={`btnContainer noBorder ${ isSnack || 'searchBtn'}`}>
                         <button className={styles.btn} onClick={onSubmit}>
                             {isShop ? '등록' : '작성 완료'}
                         </button>

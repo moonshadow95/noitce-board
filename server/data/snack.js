@@ -28,5 +28,5 @@ export async function create(title, text, userId){
 }
 
 export async function remove(id) {
-    return db.execute("DELETE FROM snack WHERE sn.id=?", [id])
+    return db.execute("DELETE FROM snack WHERE snack.id=?", [id])
 }

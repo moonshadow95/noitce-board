@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import MapContainer from "./MapContainer";
 
-const SearchPlace = ({keyword}) => {
+const SearchPlace = ({keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
     const [inputText, setInputText] = useState("");
-    const [place, setPlace] = useState("");
-
     const onChange = (e) => {
         setInputText(e.target.value);
-    };
-
+    }
     const handleSubmit = (e) => {
-        e.preventDefault();
-        setPlace(inputText);
-        setInputText("");
-    };
+        e.preventDefault()
+        setKeyword(inputText)
+        console.log(inputText)
+        console.log(keyword)
+        setKeyword('')
+    }
 
     return (
         <>
@@ -25,7 +24,7 @@ const SearchPlace = ({keyword}) => {
                 />
                 <button type="submit">검색</button>
             </form>
-            <MapContainer searchPlace={place} />
+            <MapContainer keyword={keyword} setKeyword={setKeyword} setPlaceObj={setPlaceObj} titleAndCoords={titleAndCoords}/>
         </>
     );
 };

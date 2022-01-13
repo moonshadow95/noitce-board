@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 
 const MapContainer = ({keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
 const { kakao } = window;
+    // TODO 검색, 줌, 이동시 지도 렉 현상
     useEffect(() => {
         let infowindow = new kakao.maps.InfoWindow({zIndex:1});
         const container = document.getElementById(`myMap`);
@@ -49,7 +50,6 @@ const { kakao } = window;
                     // 클릭한 마커의 이름으로 title input value
                     setKeyword(place.place_name)
                     setPlaceObj(place)
-
                     // 마커를 클릭하면 장소명이 인포윈도우에 표출
                     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                     infowindow.open(map, marker);
@@ -102,7 +102,7 @@ const { kakao } = window;
                 });
             })(staticMarker, staticInfowindow);
         }
-    }, [kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.MarkerImage, kakao.maps.Size, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, keyword, titleAndCoords]);
+    }, [keyword, titleAndCoords]);
     return (
         <div id={`myMap`} style={{
             width: '60vw',

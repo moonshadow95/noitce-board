@@ -1,6 +1,7 @@
 .pagination {
     display: flex;
     justify-content: center;
+    margin-bottom: 100px;
 }
 
 ul {
@@ -60,6 +61,5 @@ ul.pagination li:hover, ul.pagination li a.active {
     width: 48px;
     height: 30px;
     color: var(--color-black);
-
 }
 

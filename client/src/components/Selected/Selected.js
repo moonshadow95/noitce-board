@@ -8,7 +8,7 @@ import styles from './selected.module.css';
 import ReviewItem from "../Review/ReviewItem";
 import Rate from "../Rate/Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
-// TODO 새로운 리뷰 작성 후 업데이트하기
+
 const Selected = ({selected, isOwner, setBanner, authService, boardService, setIsAlert, user, shopReviews, getReviews}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)

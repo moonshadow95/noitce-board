@@ -85,8 +85,13 @@ export async function remove(req,res){
     const {params:{id}} = req;
     const shop = await shopsRepository.getShopsById(id);
     const review = await shopsRepository.getReviewById(id)
-    // TODO shop, review 둘 다 있는 경우??
-    // shop review 둘 다 없는 경우
+    // TODO shop, review 둘 다 있는 경우
+    if(shop && review){
+        if(window.location.href.includes('shops')){
+
+        }
+    }
+    // shop, review 둘 다 없는 경우
     if(!shop && !review){
         return res.status(404).json({message: `${id}번 게시물을 찾지 못했습니다.`})
     }
