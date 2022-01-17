@@ -8,12 +8,12 @@
 }
 
 .editorContainerShops {
-    position:absolute;
-    left: 1em;
-    top: 0;
+    position:fixed;
+    left: 3em;
+    top: 8.4em;
     z-index: 99;
     background-color: var(--color-white);
-    width:450px;
+    width:400px;
     box-shadow: var(--box-shadow);
     border: var(--border-common);
     border-radius: var(--border-radius);
@@ -37,7 +37,7 @@
     max-width: 800px;
     border: none;
     background-color: none;
-    padding: 0.8em 0 0.8em 1em;
+    padding: 0.8em 1em;
     height: 100%;
 }
 
@@ -79,4 +79,25 @@
 
 .disabled {
     pointer-events: none;
+}
+
+@media screen and (max-width: 1024px){
+    .editorContainer{
+        margin: 0;
+        top: 10.4em;
+        padding: 1em;
+    }
+
+    .title {
+        font-size: 1rem;
+    }
+
+}
+@media screen and (max-width: 768px){
+    .editorContainer{
+        font-size: 1rem;
+        left: calc(50% - 42vw);
+        top: 42%;
+        width: 84vw;
+    }
 }

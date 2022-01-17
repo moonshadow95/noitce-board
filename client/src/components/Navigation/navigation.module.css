@@ -60,3 +60,12 @@
     color: var(--color-black);
     transform: scale(1.2);
 }
+
+@media screen and (max-width: 768px){
+    .navListItem{
+        font-size: 1.4rem;
+    }
+    .hoverText{
+        display: none;
+    }
+}

@@ -1,15 +1,13 @@
-.slickTitle {
-    font-size: 1.4rem;
-}
-
 .slickContainer{
     display: flex;
     flex-direction: column;
 }
 
 .slickTitle{
+    font-size: 1.4rem;
     text-align: center;
-    padding: 1em 0 0.4em;
+    padding: 1.6em 0 0.4em;
+    line-height: 1.4rem;
 }
 
 .slick{
@@ -46,10 +44,10 @@
     color:var(--color-white);
 }
 
-.buttonContainer{
+.buttonContainer {
     position: absolute;
-    top: 2em;
-    right: 2em;
+    top: 3em;
+    right: 7em;
 }
 
 .buttonContainer button {
@@ -69,6 +67,7 @@
 /*Recent Review*/
 .reviewText{
     font-size: 1.4rem;
+    line-height: 2rem;
     width: 100%;
     text-align: center;
     margin-bottom: 1em;
@@ -104,18 +103,6 @@
     transition: all var(--animation-duration) ease-in-out;
 }
 
-/* Popup */
-.popup{
-    position: absolute;
-    top:10%;
-    right:10%;
-    border: var(--border-common);
-    background-color: var(--color-white);
-    border-radius: var(--border-radius);
-    z-index: 9999;
-    padding: 2em 4em;
-}
-
 /* Shops */
 .shopsTitle{
     font-size: 1.2rem;
@@ -125,4 +112,16 @@
 
 .caption {
     font-size: .9rem;
+    padding-top: 1em;
+}
+
+@media screen and (max-width: 768px){
+    .slickTitle{
+        padding: 1em 0;
+    }
+
+    .buttonContainer{
+        position: static;
+    }
+
 }

@@ -39,6 +39,7 @@
 .boardHeader {
     font-size: 1.6rem;
     padding: 1.2em;
+    padding-bottom: 0.4em;
 }
 
 .title{
@@ -77,4 +78,15 @@
     background-color: var(--color-white);
     color: var(--color-black);
     transform: var(--button-hover)
+}
+
+@media screen and (max-width: 768px){
+    .main {
+        flex-direction: column;
+    }
+    .section{
+        min-width: unset;
+        max-width:320px;
+        margin: auto;
+    }
 }

@@ -16,16 +16,36 @@ const Shop = ({data}) => {
         infinite: false,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1025,
+                settings:{
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings:{
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 426,
+                settings:{
+                    slidesToShow: 1,
+                }
+            }
+        ]
     };
     return(
         <div className={styles.slick}>
+            <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
             <div className={styles.buttonContainer}>
                 <Link to='./shops'>
                     <button>전체보기 / 등록하기</button>
                 </Link>
             </div>
-            <h2 className={styles.slickTitle}>최근 등록 맛집</h2>
             <span className={styles.caption}>지도 클릭시 카카오 맵으로 이동합니다.</span>
             <Slider {...settings}>
                 {data.slice(0,6).map((shop)=>

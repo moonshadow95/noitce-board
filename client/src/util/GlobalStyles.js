@@ -79,7 +79,7 @@ const globalStyles = createGlobalStyle`
   
 // slick
   .slick-slider{
-    width: 85%;
+    width: 80%;
     margin-top: 20px ;
     margin-bottom: 60px;
   }
@@ -113,13 +113,29 @@ const globalStyles = createGlobalStyle`
   
   /* Search */
   .searchBtn{
-    justify-content: flex-end;
-    position: absolute;
-    top: 0;
-    left: -100%;
+    justify-content: flex-start;
+    position: fixed;
+    width: 300px;
+    top:6em;
+    left: 2em;
     padding: 1em;
-    z-index: 99999;
+    z-index: 9;
   }
+//  map
+  @media screen and (max-width: 768px){
+    #myMap {
+      width: 81vw !important;
+      margin: auto;
+      min-height: 45vh !important;
+    }
+    
+    .searchBtn{
+      justify-content: center;
+      left: calc(50% - 150px);
+      top: 50%;
+    }
+  }
+  
 `;
 
 export default globalStyles;

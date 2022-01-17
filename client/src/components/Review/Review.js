@@ -16,14 +16,39 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
-
-    };
+        responsive: [
+            {
+                breakpoint: 1025,
+                settings:{
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings:{
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 426,
+                settings:{
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    }
     const onWriteClick=()=>{
         setIsWrite(prev=>!prev)
     }
     return(
         <div className={styles.slick}>
             <h2 className={styles.slickTitle}>최근 등록 리뷰</h2>
+            <div className={styles.buttonContainer}>
+                <Link to='./shops'>
+                    <button>전체보기 / 등록하기</button>
+                </Link>
+            </div>
+            <span className={styles.caption}>리뷰 클릭시 가게 정보로 이동합니다.</span>
             <Slider {...settings}>
                 {reviews.slice(0,6).map((review)=>
                     <Link to={`./shops/${review.shopId}`} key={review.id}>
@@ -39,15 +64,6 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
                     </Link>
                 )}
             </Slider>
-            {isWrite &&
-            <div className={styles.popup}>
-                <TextEditor
-                    setIsAlert={setIsAlert}
-                    setBanner={setBanner}
-                    boardService={boardService}
-                    onWriteClick={onWriteClick}
-                />
-            </div>}
         </div>
 
 )};

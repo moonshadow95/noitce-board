@@ -59,7 +59,7 @@ const { kakao } = window;
 
         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
         var zoomControl = new kakao.maps.ZoomControl();
-        map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
         // 마커를 표시할 위치와 title 객체 배열
         let positions = titleAndCoords.map(item=>{
@@ -102,7 +102,7 @@ const { kakao } = window;
                 });
             })(staticMarker, staticInfowindow);
         }
-    }, [keyword, titleAndCoords]);
+    }, [keyword, titleAndCoords, kakao.maps.ControlPosition.LEFT, kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.MarkerImage, kakao.maps.Size, kakao.maps.ZoomControl, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, setKeyword, setPlaceObj]);
     return (
         <div id={`myMap`} style={{
             width: '60vw',
