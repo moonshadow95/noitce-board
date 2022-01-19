@@ -115,12 +115,12 @@
     padding-top: 1em;
 }
 
-@media screen and (max-width: 768px){
-    .slickTitle{
+@media screen and (max-width: 768px) {
+    .slickTitle {
         padding: 1em 0;
     }
 
-    .buttonContainer{
+    .buttonContainer {
         position: static;
     }
 

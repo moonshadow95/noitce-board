@@ -9,6 +9,7 @@ const ShopAll = ({user, authService, boardService, setBanner, setIsAlert}) => {
                setBanner={setBanner}
                setIsAlert={setIsAlert}
         />
-)};
+    )
+};
 
 export default ShopAll;

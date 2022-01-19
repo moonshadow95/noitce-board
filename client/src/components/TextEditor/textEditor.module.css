@@ -97,7 +97,7 @@
     .editorContainer{
         font-size: 1rem;
         left: calc(50% - 42vw);
-        top: 42%;
+        top: 8em;
         width: 84vw;
     }
 }

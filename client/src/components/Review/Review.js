@@ -19,28 +19,28 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
         responsive: [
             {
                 breakpoint: 1025,
-                settings:{
+                settings: {
                     slidesToShow: 3,
                 }
             },
             {
                 breakpoint: 768,
-                settings:{
+                settings: {
                     slidesToShow: 2,
                 }
             },
             {
                 breakpoint: 426,
-                settings:{
+                settings: {
                     slidesToShow: 1,
                 }
             }
         ]
     }
-    const onWriteClick=()=>{
-        setIsWrite(prev=>!prev)
+    const onWriteClick = () => {
+        setIsWrite(prev => !prev)
     }
-    return(
+    return (
         <div className={styles.slick}>
             <h2 className={styles.slickTitle}>최근 등록 리뷰</h2>
             <div className={styles.buttonContainer}>
@@ -50,7 +50,7 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
             </div>
             <span className={styles.caption}>리뷰 클릭시 가게 정보로 이동합니다.</span>
             <Slider {...settings}>
-                {reviews.slice(0,6).map((review)=>
+                {reviews.slice(0, 6).map((review) =>
                     <Link to={`./shops/${review.shopId}`} key={review.id}>
                         <div className={styles.slickItem}>
                             <h2 className={styles.reviewText}>{HTMLReactParser(review.text)}</h2>
@@ -66,6 +66,7 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
             </Slider>
         </div>
 
-)};
+    )
+};
 
 export default Review;

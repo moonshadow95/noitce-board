@@ -12,24 +12,24 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     const [shops, setShops] = useState([]);
     const [reviews, setReviews] = useState([]);
 
-    const getBoards = useCallback(async() => {
+    const getBoards = useCallback(async () => {
         const response = await boardService.getBoard()
-        return setShops(prev=> [...response])
-    },[boardService])
+        return setShops(prev => [...response])
+    }, [boardService])
 
-    const getReviews = useCallback(async() => {
+    const getReviews = useCallback(async () => {
         const response = await boardService.getReviews()
-        return setReviews(prev=> [...response])
-    },[boardService])
+        return setReviews(prev => [...response])
+    }, [boardService])
 
-    useEffect(()=>{
+    useEffect(() => {
         getBoards()
         getReviews()
-    },[getBoards,getReviews])
-    useEffect(()=>{
+    }, [getBoards, getReviews])
+    useEffect(() => {
         authService.me().catch(err => navigate('/'))
-    },[authService,navigate])
-    return(
+    }, [authService, navigate])
+    return (
         <>{(shops || reviews) ?
             <section className={styles.slickContainer}>
                 <Review
@@ -39,10 +39,11 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
                     setBanner={setBanner}
                 />
                 <Shop data={shops}/>
-            </section>:
+            </section> :
             <LoadingSpinner/>
         }</>
 
-)};
+    )
+};
 
 export default Gourmet;

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import MapContainer from "./MapContainer";
+import './map.css'
 
-const SearchPlace = ({keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
+const SearchPlace = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
     const [inputText, setInputText] = useState("");
     const onChange = (e) => {
         setInputText(e.target.value);
@@ -9,22 +10,27 @@ const SearchPlace = ({keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setKeyword(inputText)
-        console.log(inputText)
-        console.log(keyword)
-        setKeyword('')
     }
-
     return (
         <>
-            <form className="inputForm" onSubmit={handleSubmit}>
-                <input
-                    placeholder="키워드로 검색하세요."
-                    onChange={onChange}
-                    value={inputText}
-                />
-                <button type="submit">검색</button>
-            </form>
-            <MapContainer keyword={keyword} setKeyword={setKeyword} setPlaceObj={setPlaceObj} titleAndCoords={titleAndCoords}/>
+            <div className="map_wrap">
+                <MapContainer boardService={boardService} keyword={keyword} setKeyword={setKeyword}
+                              setPlaceObj={setPlaceObj}
+                              titleAndCoords={titleAndCoords}/>
+                <div id="menu_wrap" className="bg_white">
+                    <div className="option">
+                        <div>
+                            <form onSubmit={handleSubmit} method=''>
+                                키워드 : <input type="text" onChange={onChange} value={inputText} id="keyword" size="15"/>
+                                <button type="submit">검색하기</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ul id="placesList"></ul>
+                    <div id="pagination"></div>
+                </div>
+            </div>
         </>
     );
 };

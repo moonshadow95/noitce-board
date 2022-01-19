@@ -3,9 +3,9 @@ import * as userRepository from '../data/auth.js';
 
 const AUTH_ERROR = {message: '로그인 후 이용할 수 있습니다.'}
 
-export const isAuth = async(req,res,next)=>{
+export const isAuth = async (req, res, next) => {
     const authHeader = req.get('Authorization');
-    if(!(authHeader && authHeader.startsWith('Bearer'))){
+    if (!(authHeader && authHeader.startsWith('Bearer'))) {
         return res.status(401).json(AUTH_ERROR)
     }
 
@@ -15,11 +15,11 @@ export const isAuth = async(req,res,next)=>{
         token,
         '3E793A85B4612E59DFDFB7B924FFF',
         async (error, decoded) => {
-            if(error){
+            if (error) {
                 return res.status(401).json(AUTH_ERROR);
             }
             const user = await userRepository.findById(decoded.id)
-            if(!user){
+            if (!user) {
                 return res.status(401).json(AUTH_ERROR);
             }
             req.userId = user.id;

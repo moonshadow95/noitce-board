@@ -4,8 +4,8 @@ import Rate from "../Rate/Rate";
 import HTMLReactParser from "html-react-parser";
 import styles from './review.module.css';
 
-const ReviewItem = ({content, user, onDeleteClick,isOwner }) => {
-    return(
+const ReviewItem = ({content, user, onDeleteClick, isOwner}) => {
+    return (
         <div className={styles.container}>
             <div className={styles.title}>
                 {HTMLReactParser(content.text)}

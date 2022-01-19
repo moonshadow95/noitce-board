@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import Selected from "../Selected/Selected";
 
-const ShopDetail = ({shops,user, authService, boardService}) => {
+const ShopDetail = ({shops, user, authService, boardService}) => {
     const [shop, setShop] = useState({})
     const [reviews, setReviews] = useState([])
     const [isOwner, setIsOwner] = useState(false)
@@ -10,29 +10,29 @@ const ShopDetail = ({shops,user, authService, boardService}) => {
     const navigate = useNavigate()
 
     // 해당 가게의 리뷰 가져오기
-    const getReviews = useCallback(async(id) => {
+    const getReviews = useCallback(async (id) => {
         const response = await boardService.getReviews(id)
         return setReviews(response)
-    },[boardService])
+    }, [boardService])
 
     // 해당 가게 정보 가져오기
-    const getShopDetail = useCallback(async(id) => {
+    const getShopDetail = useCallback(async (id) => {
         const response = await boardService.getBoard(id)
-        return setShop(prev=> response)
-    },[boardService])
+        return setShop(prev => response)
+    }, [boardService])
 
-    useEffect(()=>{
+    useEffect(() => {
         getShopDetail(id)
         getReviews(id)
-    },[getShopDetail, id, getReviews, user])
+    }, [getShopDetail, id, getReviews, user])
 
     // 로그인 확인
-    useEffect(()=>{
+    useEffect(() => {
         authService.me().catch(err => navigate('/'))
-    },[authService,navigate])
+    }, [authService, navigate])
 
 
-    return(
+    return (
         <Selected
             boardService={boardService}
             authService={authService}
@@ -42,6 +42,7 @@ const ShopDetail = ({shops,user, authService, boardService}) => {
             user={user}
             getReviews={getReviews}
         />
-    )};
+    )
+};
 
 export default ShopDetail;
