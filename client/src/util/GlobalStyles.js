@@ -119,7 +119,8 @@ const globalStyles = createGlobalStyle`
   /* Search */
   .searchBtn {
     justify-content: flex-start;
-    position: fixed;f
+    position: fixed;
+    f
     width: 300px;
     top: 6em;
     left: 4em;
@@ -134,14 +135,16 @@ const globalStyles = createGlobalStyle`
       margin: auto;
       min-height: 45vh !important;
     }
-    #menu_wrap{
+
+    #menu_wrap {
       margin-left: 4em;
     }
   }
+
   @media screen and (max-width: 425px) {
     #menu_wrap {
       padding: 2em 0;
-      position:static;
+      position: static;
     }
   }
 `;

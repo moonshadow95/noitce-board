@@ -4,6 +4,7 @@ import App from './App';
 import TokenStorage from "./db/token.js";
 import AuthService from "./service/auth.js";
 import BoardService from "./service/board.js"
+import './index.css'
 
 const BASE_URL = 'http://localhost:8080'
 const tokenStorage = new TokenStorage();

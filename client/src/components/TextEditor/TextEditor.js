@@ -34,14 +34,6 @@ const TextEditor = ({
     const {id} = useParams()
     let dataObj
 
-    // Search Submit
-    // const onSearchSubmit = event => {
-    //     event.preventDefault()
-    //     console.log(
-    //         keyword
-    //     )
-    // }
-
     // Input Text
     const onChange = event => {
         const {name, value} = event.target
@@ -53,12 +45,6 @@ const TextEditor = ({
 
     // Create
     async function onSubmit() {
-        if (!content) {
-            // if (!placeObj) {
-            //     alert('지도에서 가게를 선택해주세요.')
-            // }
-            // return;
-        }
         try {
             if (isSnack) {
                 dataObj = {
@@ -72,11 +58,6 @@ const TextEditor = ({
                     'rate': content.rate
                 }
             }
-            // if (isShop && !id) {
-            //     dataObj = {
-            //         ...placeObj
-            //     }
-            // }
             await boardService.postBoard(dataObj, ((id === undefined) ? '' : id))
             window.confirm('작성되었습니다.')
             // setIsAlert(false)

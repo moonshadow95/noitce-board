@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import Rate from "../Rate/Rate";
 import styles from "../../routes/Gourmet/gourmet.module.css";
 import timeFormatter from "../../util/date";
-import TextEditor from "../TextEditor/TextEditor";
 import HTMLReactParser from "html-react-parser";
 
 const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
