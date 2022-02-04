@@ -3,9 +3,6 @@ import reset from 'styled-reset';
 
 const globalStyles = createGlobalStyle`
   ${reset}
-
-  }
-  ;
   a {
     color: inherit;
     text-decoration: none;

@@ -35,31 +35,31 @@ ul.pagination li a {
     height: 100%;
     line-height: 30px;
     text-decoration: none;
-    color: var(--color-black);
+    color: #333;
     font-size: 1rem;
     transition: all 100ms ease-in;
 }
 
 ul.pagination li a:hover {
-    color: var(--color-white);
+    color: #fff;
 }
 
 ul.pagination li.active a {
-    color: var(--color-white);
+    color: #fff;
 }
 
 ul.pagination li.active {
-    background-color: var(--color-black);
+    background-color: #333;
 }
 
 ul.pagination li:hover, ul.pagination li a.active {
-    color: var(--color-white);
-    background-color:var(--color-black);
+    color: #fff;
+    background-color:#333;
 }
 
 .page-selection {
     width: 48px;
     height: 30px;
-    color: var(--color-black);
+    color: #333;
 }
 

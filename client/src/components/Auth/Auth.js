@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import styles from './auth.module.css';
-import Axios from "axios";
 
-const Auth = ({setIsAuth, authService ,setBanner, setIsAlert}) => {
+const Auth = ({setIsAuth, authService, setBanner, setIsAlert}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const onChange = (event) => {
         const {
-            target: { name, value },
+            target: {name, value},
         } = event;
         if (name === "username") {
             setUsername(value);
@@ -21,7 +19,7 @@ const Auth = ({setIsAuth, authService ,setBanner, setIsAlert}) => {
         try {
             await authService.login(username, password)
             authService.me()
-                .then(result=>setIsAuth(result.data))
+                .then(result => setIsAuth(result.data))
                 .catch(console.error);
         } catch (error) {
             setIsAlert(true)
@@ -30,7 +28,7 @@ const Auth = ({setIsAuth, authService ,setBanner, setIsAlert}) => {
     };
 
     // 회원가입
-    const onJoin = async ()=>{
+    const onJoin = async () => {
         try {
             await authService.signup(username, password)
             setIsAlert(false)
@@ -45,44 +43,44 @@ const Auth = ({setIsAuth, authService ,setBanner, setIsAlert}) => {
 
     return (
         <>
-            <div className={styles.container}>
-                <div className={styles.authContainer}>
-                    <div className={styles.formContainer}>
-                        <form className={styles.form} onSubmit={onLogin}>
-                            <div className={styles.inputContainer}>
-                                <input
-                                    className={styles.input}
-                                    name="username"
-                                    type="text"
-                                    required
-                                    value={username}
-                                    onChange={onChange}
-                                />
-                                <span className={styles.placeholder}>이름</span>
-                            </div>
-                            <div className={styles.inputContainer}>
-                                <input
-                                    className={styles.input}
-                                    name="password"
-                                    type="password"
-                                    required
-                                    value={password}
-                                    onChange={onChange}
-                                />
-                                <span className={styles.placeholder}>비밀번호</span>
-                            </div>
-                            <div className={styles.formBtnContainer}>
-                                <input
-                                    className={styles.submitBtn}
-                                    type="submit"
-                                    value="로그인"
-                                />
-                                <span onClick={onJoin} className={styles.switch}>
-                                    회원가입
-                                </span>
-                            </div>
-                        </form>
-                    </div>
+            <div>
+                <div className='flex align-center justify-center'>
+                    <form className='flex flex-col align-center justify-center gap-6 mt-10 text-xl'
+                          method='POST' onSubmit={onLogin}>
+                        <div className='relative'>
+                            <input
+                                className='w-200 h-14 border rounded indent-4 bg-transparent'
+                                name="username"
+                                type="text"
+                                required
+                                value={username}
+                                onChange={onChange}
+                            />
+                            <span className='absolute -top-3 left-3 bg-white h-4'>이름</span>
+                        </div>
+                        <div className='relative'>
+                            <input
+                                className='w-200 h-14 border rounded indent-4'
+                                name="password"
+                                type="password"
+                                required
+                                value={password}
+                                onChange={onChange}
+                            />
+                            <span className='absolute -top-3 left-3 bg-white h-4'>비밀번호</span>
+                        </div>
+                        <div className='flex justify-between w-200'>
+                            <input className='border w-max text-base px-6 py-2 hover:bg-black hover:text-white transition cursor-pointer'
+                                   type="submit"
+                                   value="로그인"
+                            />
+                            <span onClick={onJoin}
+                                  className='border w-max text-base px-6 py-2 hover:bg-black hover:text-white transition cursor-pointer'
+                            >
+                                회원가입
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
         </>

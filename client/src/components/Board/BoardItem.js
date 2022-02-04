@@ -1,19 +1,18 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import styles from './boardItem.module.css';
 import timeFormatter from "../../util/date";
 import Rate from "../Rate/Rate";
 
 const BoardItem = ({content}) => {
     return(
         <Link
-            className={styles.link}
+            className=''
             to={`./${content.id}`}
         >
-            <div className={styles.title}>
+            <div className=''>
                 <span>{content.title}</span>
             </div>
-            <div className={styles.meta}>
+            <div className=''>
                 {(content.rate || content.rate === 0 ) ? <Rate value={content.rate}/>
                     :<>
                         <span>{timeFormatter(content.date)}</span>
