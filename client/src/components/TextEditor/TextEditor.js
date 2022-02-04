@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import styles from './textEditor.module.css';
 import {useNavigate, useParams} from "react-router-dom";
 import Rating from "react-rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -14,17 +13,10 @@ const TextEditor = ({
                         onCancelClick,
                         boardService,
                         getReviews,
-                        user,
-                        setBanner,
-                        setIsAlert,
-                        setIsWrite,
-                        keyword,
                         setKeyword,
-                        placeObj,
                         onEditClick,
                         onWriteClick,
                         getBoards,
-                        setPlaceObj
                     }) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
@@ -96,26 +88,28 @@ const TextEditor = ({
         navigate(-1)
     }
 
+    // Rate
     const onRateClick = (event) => {
         setContent({...content, rate: event})
         setRating(event)
     }
+
     return (
         <>
             {isEdit ?
                 // 글 수정
                 <>
-                    <div className={styles.editorContainer}>
-                        <div className={styles.titleContainer}>
-                            <input className={`${styles.title} ${(isShop && id) && styles.disabled}`} type="text"
+                    <div className=''>
+                        <div className=''>
+                            <input className='' type="text"
                                    value={content.title || ''} name='title' onChange={onChange}/>
-                            <span className={styles.titlePlaceHolder}>
+                            <span className=''>
                                 {isSnack ? '희망하는 간식' : (isShop && id) ? '상호명' : '상호명을 입력하세요'}
                             </span>
                         </div>
                         {isSnack ||
-                        <div className={styles.ratingContainer}>
-                            <span className={styles.ratingPlaceHolder}>별점</span>
+                        <div className=''>
+                            <span className=''>별점</span>
                             <Rating
                                 initialRating={rating}
                                 emptySymbol={
@@ -145,22 +139,23 @@ const TextEditor = ({
                         />
                     </div>
                     <div className="btnContainer">
-                        <button className={styles.btn} onClick={isShop ? onSubmit : onEditSubmit}>완료</button>
-                        <button className={styles.btn} onClick={onCancelClick}>취소</button>
+                        <button className='' onClick={isShop ? onSubmit : onEditSubmit}>완료</button>
+                        <button className='' onClick={onCancelClick}>취소</button>
                     </div>
                 </> :
                 // 글 작성
                 <>
-                    <div className={`${styles.editorContainer} ${isShop && styles.editorContainerShops}`}>
-                        <div className={styles.titleContainer}>
+                    <div className='flex flex-col align-center w-full max-w-[800px] mt-6'>
+                        <div className='relative border-2 rounded w-[90%] mb-4 mx-auto'>
                             {isSnack &&
-                            <input className={styles.title} type="text" name='title' onChange={onChange}/>
+                            <input className='w-full text-lg indent-2 px-4 py-3' type="text" name='title'
+                                   onChange={onChange}/>
                                 // :
                                 // <input
                                 //     className={styles.title} type="text" name='title'
                                 //     onChange={onChange} value={keyword && `${keyword}`}/>
                             }
-                            <span className={styles.titlePlaceHolder}>
+                            <span className='absolute -top-4 left-2 bg-white h-6 text-lg'>
                                 {isSnack ? '희망하는 간식을 적어주세요' : '상호명을 입력하세요'}
                             </span>
                         </div>
@@ -174,11 +169,15 @@ const TextEditor = ({
                             }}
                         />}
                     </div>
-                    <div className={`btnContainer noBorder ${isSnack || 'searchBtn'}`}>
-                        <button className={styles.btn} onClick={onSubmit}>
+                    <div className='text-white w-full flex justify-center gap-4'>
+                        <button
+                            className='border rounded bg-black py-4 px-6 transition active:translate-y-2 hover:text-black hover:bg-white'
+                            onClick={onSubmit}>
                             {isShop ? '등록' : '작성 완료'}
                         </button>
-                        <button className={styles.btn} onClick={onWriteClick}>
+                        <button
+                            className='border rounded bg-black py-4 px-6 transition active:translate-y-2 hover:text-black hover:bg-white'
+                            onClick={onWriteClick}>
                             {isShop ? '닫기' : '작성 취소'}
                         </button>
                     </div>

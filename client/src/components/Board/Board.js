@@ -63,7 +63,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 className='flex flex-col justify-center align-center max-w-[700px] min-w-[500px] gap-8 basis-1/2 m-auto'
             >
                 <header
-                    className='w-[250px] mx-auto my-4 text-center text-2xl text-bold mt-[100px] p-6 border rounded'
+                    className='w-[250px] mx-auto my-4 text-center text-2xl text-bold mt-[100px] p-6 border rounded bg-black text-white'
                 >
                     <h1>{isShops ? '등록된 맛집' : '간식 신청 게시판'}</h1>
                 </header>

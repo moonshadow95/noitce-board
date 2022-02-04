@@ -117,7 +117,6 @@ const globalStyles = createGlobalStyle`
   .searchBtn {
     justify-content: flex-start;
     position: fixed;
-    f
     width: 300px;
     top: 6em;
     left: 4em;
