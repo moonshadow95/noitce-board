@@ -27,3 +27,48 @@ main {
     margin: auto !important;
     width: 90% !important;
 }
+
+/*slick*/
+.slick-slider {
+    width: 80%;
+    margin: auto;
+}
+
+.slick-list {
+    border: 1px solid #333;
+    border-radius: 0.4em;
+}
+
+.slick-slide {
+    border-left: 1px solid #000;
+    transform: translateX(-1px);
+}
+
+.slick-slide:last-child {
+    border-right: 1px solid #000;
+}
+
+.slick-prev,
+.slick-next {
+    transform: scale(1.3);
+}
+
+.slick-prev::before,
+.slick-next::before {
+    color: #000;
+}
+
+.slick-dots {
+    bottom: -50px;
+}
+
+/* Search */
+.searchBtn {
+    justify-content: flex-start;
+    position: fixed;
+    width: 300px;
+    top: 6em;
+    left: 4em;
+    padding: 1em;
+    z-index: 9;
+}
