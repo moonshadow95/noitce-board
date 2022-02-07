@@ -100,10 +100,10 @@ const TextEditor = ({
                 // 글 수정
                 <>
                     <div className=''>
-                        <div className=''>
-                            <input className='' type="text"
+                        <div className='relative my-6 mx-auto w-[90%]'>
+                            <input className='p-4 border rounded w-[100%]' type="text"
                                    value={content.title || ''} name='title' onChange={onChange}/>
-                            <span className=''>
+                            <span className='absolute -top-3 left-2 bg-white'>
                                 {isSnack ? '희망하는 간식' : (isShop && id) ? '상호명' : '상호명을 입력하세요'}
                             </span>
                         </div>
@@ -138,9 +138,9 @@ const TextEditor = ({
                             }}
                         />
                     </div>
-                    <div className="btnContainer">
-                        <button className='' onClick={isShop ? onSubmit : onEditSubmit}>완료</button>
-                        <button className='' onClick={onCancelClick}>취소</button>
+                    <div className='w-full flex justify-center gap-4 py-4'>
+                        <button className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2' onClick={isShop ? onSubmit : onEditSubmit}>완료</button>
+                        <button className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2' onClick={onCancelClick}>취소</button>
                     </div>
                 </> :
                 // 글 작성

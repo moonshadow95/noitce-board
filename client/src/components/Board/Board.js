@@ -15,7 +15,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [placeObj, setPlaceObj] = useState()
     const navigate = useNavigate()
     const isShops = window.location.href.includes('shops')
-    const itemsPerPage = 10
+    const itemsPerPage = 9
     const onWriteClick = () => {
         setKeyword('')
         setWriting(prev => !prev)

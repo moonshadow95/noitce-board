@@ -9,7 +9,7 @@ const BoardItem = ({content}) => {
             className='w-full flex justify-between'
             to={`./${content.id}`}
         >
-            <div className='p-4 w-full text-center border-r min-w-[200px]'>
+            <div className='p-6 w-full text-center border-r min-w-[200px]'>
                 <span>{content.title}</span>
             </div>
             <div className='flex flex-col align-between justify-center text-center px-4 min-w-[150px]'>
