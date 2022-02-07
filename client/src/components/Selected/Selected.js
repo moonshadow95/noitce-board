@@ -1,15 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "../TextEditor/TextEditor";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import timeFormatter from "../../util/date";
-import styles from './selected.module.css';
 import ReviewItem from "../Review/ReviewItem";
 import Rate from "../Rate/Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 
-const Selected = ({selected, isOwner, setBanner, authService, boardService, setIsAlert, user, shopReviews, getReviews}) => {
+const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews, getReviews}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
@@ -47,25 +46,25 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
     return(
         <main>
             {/*Section*/}
-            <section className={styles.section}>
+            <section className='flex flex-col align-center border rounded m-6 mt-[100px]'>
                 {!editing && <>
-                    <header className={styles.header}>
-                        <h1 className={styles.title}>
+                    <header className='w-full flex justify-center align-center' >
+                        <h1 className='w-full text-2xl flex p-6 gap-4' >
                             {selected.title}
                             {!isSnack &&
                             <Rate value={rating}/>}
                         </h1>
-                        {isShop && <button className={styles.btn} onClick={onEditClick}>리뷰 추가</button>}
+                        {isShop && <button className=''  onClick={onEditClick}>리뷰 추가</button>}
                     </header>
-                    <div className={styles.meta}>
-                        <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
-                        <div className={styles.username}><small>{selected.username}</small></div>
+                    <div className='py-4 px-6 border-t border-b text-lg' >
+                        <div><small>{timeFormatter(selected.date)}</small></div>
+                        <div><small>{selected.username}</small></div>
                     </div>
-                    <div className={`${styles.text} ${(isReview || shopReviews) && styles.reviewsContainer}`}>
+                    <div className='min-h-[300px] m-6' >
                         {isReview ?
-                            <ul className={styles.list}>
+                            <ul className='' >
                                 {shopReviews.map((content,index) =>
-                                    <li key={index} className={styles.item}>
+                                    <li key={index} className='' >
                                         <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick} isOwner={true} />
                                     </li>
                                 )}
@@ -73,7 +72,7 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
                             HTMLReactParser(selected.text || '')}
                         {shopReviews &&
                         <div>
-                            <div className={styles.info}>
+                            <div className='' >
                                 <span>
                                     <FontAwesomeIcon
                                         icon={faMapMarkerAlt}
@@ -97,9 +96,9 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
                                 </a>
                             </div>
                             <h2>후기</h2>
-                            <ul className={styles.list}>
+                            <ul className='' >
                                 {shopReviews.map((content,index) =>
-                                    <li key={index} className={styles.item}>
+                                    <li key={index} className='' >
                                         <ReviewItem
                                             content={content}
                                             user={user}
@@ -113,9 +112,9 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
                         }
                     </div>
                     { selected.isOwner &&
-                    <div className="btnContainer">
-                        { isSnack && <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
-                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>{ isShop ? "맛집 삭제하기" : "글 삭제하기"}</button>
+                    <div className='w-full flex justify-center gap-4 py-4'>
+                        { isSnack && <button className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2'  onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
+                        <button className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2' id={selected.id} onClick={onDeleteClick}>{ isShop ? "맛집 삭제하기" : "글 삭제하기"}</button>
                     </div>
                     }
                 </>

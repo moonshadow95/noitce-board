@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import timeFormatter from "../../util/date";
 import Rate from "../Rate/Rate";
 import HTMLReactParser from "html-react-parser";
 import styles from './review.module.css';
 
-const ReviewItem = ({content, user, onDeleteClick, isOwner}) => {
+const ReviewItem = ({content, onDeleteClick, isOwner}) => {
     return (
         <div className={styles.container}>
             <div className={styles.title}>
