@@ -15,7 +15,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [placeObj, setPlaceObj] = useState()
     const navigate = useNavigate()
     const isShops = window.location.href.includes('shops')
-    const itemsPerPage = 9
+    const itemsPerPage =  8
     const onWriteClick = () => {
         setKeyword('')
         setWriting(prev => !prev)
@@ -49,7 +49,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
 
     return (
         <main
-            className='flex flex-col align-center justify-center'
+            className={`flex flex-col align-center justify-center mt-[100px] ${isShops && 'lg:flex-row gap-6'}`}
         >
             {isShops &&
             <SearchPlace
@@ -63,7 +63,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 className='flex flex-col justify-center align-center max-w-[700px] min-w-[500px] gap-8 basis-1/2 m-auto'
             >
                 <header
-                    className='w-[250px] mx-auto my-4 text-center text-2xl text-bold mt-[100px] p-6 border rounded bg-black text-white'
+                    className='w-[250px] mx-auto my-4 text-center text-2xl text-bold p-6 border rounded bg-black text-white'
                 >
                     <h1>{isShops ? '등록된 맛집' : '간식 신청 게시판'}</h1>
                 </header>

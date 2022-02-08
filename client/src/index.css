@@ -62,13 +62,29 @@ main {
     bottom: -50px;
 }
 
-/* Search */
-.searchBtn {
-    justify-content: flex-start;
-    position: fixed;
-    width: 300px;
-    top: 6em;
-    left: 4em;
-    padding: 1em;
-    z-index: 9;
+.ellipsis > p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 200px;
+}
+
+/*map*/
+@media screen and (max-width: 768px) {
+    #myMap {
+        width: 81vw !important;
+        margin: auto;
+        min-height: 45vh !important;
+    }
+
+    #menu_wrap {
+        margin-left: 4em;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    #menu_wrap {
+        padding: 2em 0;
+        position: static;
+    }
 }

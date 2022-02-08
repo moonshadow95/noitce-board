@@ -122,9 +122,9 @@ const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndC
 
                 el.innerHTML = itemStr;
                 el.className = 'item';
-                el.addEventListener('click', async (e)=>{
+                el.addEventListener('click', async (e) => {
                     const ok = window.confirm('등록하시겠습니까?')
-                    if(ok) {
+                    if (ok) {
                         await boardService.postBoard(places, '')
                     }
                 })
@@ -281,6 +281,7 @@ const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndC
                 minHeight: '88vh',
                 border: '1px solid #333',
                 borderRadius: '4px',
+                width: '45vw'
             }}></div>
         </>
     );

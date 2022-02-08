@@ -22,7 +22,7 @@ const SearchPlace = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCo
                         <div>
                             <form onSubmit={handleSubmit} method=''>
                                 키워드 : <input type="text" onChange={onChange} value={inputText} id="keyword" size="15"/>
-                                <button type="submit">검색하기</button>
+                                <button className='border text-center py-1 px-2 bg-white rounded' type="submit">검색하기</button>
                             </form>
                         </div>
                     </div>

@@ -119,12 +119,12 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                         }
                     </div>
                     {selected.isOwner &&
-                    <div className='w-full flex justify-center gap-4 py-4'>
+                    <div className='w-full flex justify-center gap-4 py-4 border-t'>
                         {isSnack && <button
-                            className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2'
+                            className='py-4px-6 transition border rounded min-w-[120px] text-white bg-black hover:bg-white hover:text-black active:translate-y-2'
                             onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
                         <button
-                            className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2'
+                            className='py-4 px-6 transition border rounded min-w-[120px] text-white bg-black hover:bg-red active:translate-y-2'
                             id={selected.id} onClick={onDeleteClick}>{isShop ? "맛집 삭제하기" : "글 삭제하기"}</button>
                     </div>
                     }

@@ -30,7 +30,7 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     }, [authService, navigate])
     return (
         <>{(shops || reviews) ?
-            <section className='mt-[70px]'>
+            <section className='xl:mt-[80px] mt-[100px]'>
                 <Review
                     reviews={reviews}
                     boardService={boardService}
