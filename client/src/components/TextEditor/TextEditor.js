@@ -46,7 +46,7 @@ const TextEditor = ({
             }
             if (isShop && id) {
                 dataObj = {
-                    'text': content.text,
+                    'text': content.text || '내용 없음',
                     'rate': content.rate
                 }
             }
@@ -103,13 +103,13 @@ const TextEditor = ({
                         <div className='relative my-6 mx-auto w-[90%]'>
                             <input className='p-4 border rounded w-[100%]' type="text"
                                    value={content.title || ''} name='title' onChange={onChange}/>
-                            <span className='absolute -top-3 left-2 bg-white'>
+                            <span className='absolute -top-3 left-2 bg-white px-1 text-lg'>
                                 {isSnack ? '희망하는 간식' : (isShop && id) ? '상호명' : '상호명을 입력하세요'}
                             </span>
                         </div>
                         {isSnack ||
-                        <div className=''>
-                            <span className=''>별점</span>
+                        <div className='relative border rounded w-[90%] m-auto py-4 px-4 mb-6'>
+                            <span className='absolute -top-3 left-2 text-lg bg-white px-1'>별점</span>
                             <Rating
                                 initialRating={rating}
                                 emptySymbol={
@@ -139,8 +139,14 @@ const TextEditor = ({
                         />
                     </div>
                     <div className='w-full flex justify-center gap-4 py-4'>
-                        <button className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2' onClick={isShop ? onSubmit : onEditSubmit}>완료</button>
-                        <button className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2' onClick={onCancelClick}>취소</button>
+                        <button
+                            className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2'
+                            onClick={isShop ? onSubmit : onEditSubmit}>완료
+                        </button>
+                        <button
+                            className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2'
+                            onClick={onCancelClick}>취소
+                        </button>
                     </div>
                 </> :
                 // 글 작성

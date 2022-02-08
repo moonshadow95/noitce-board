@@ -34,9 +34,9 @@ const Shop = ({data}) => {
         ]
     };
     return (
-        <div className='relative h-[45vh] grow-1 flex flex-col align-center justify-center pb-14'>
-            <h2 className='text-center text-2xl border rounded bg-black text-white w-48 p-4 m-auto'>최근 등록 맛집</h2>
-            <div className='absolute top-14 right-32 py-4 px-6 border rounded bg-black text-white transition cursor-pointer hover:bg-white hover:text-black active:translate-y-2'>
+        <div className='relative h-[45vh] grow-1 flex flex-col align-center justify-center pb-14 mt-4'>
+            <h2 className='text-center text-xl border rounded bg-black text-white w-48 p-4 m-auto'>최근 등록 맛집</h2>
+            <div className='absolute top-14 right-40 py-4 px-6 border rounded bg-black text-white transition cursor-pointer hover:bg-white hover:text-black active:translate-y-2'>
                 <Link to='./shops'>
                     <button>전체보기 / 등록하기</button>
                 </Link>

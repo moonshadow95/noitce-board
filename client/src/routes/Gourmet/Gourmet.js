@@ -30,14 +30,14 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     }, [authService, navigate])
     return (
         <>{(shops || reviews) ?
-            <section className='mt-[100px]'>
+            <section className='mt-[70px]'>
                 <Review
                     reviews={reviews}
                     boardService={boardService}
                     setIsAlert={setIsAlert}
                     setBanner={setBanner}
                 />
-                <Shop data={shops}/>
+                <Shop data={shops} />
             </section> :
             <LoadingSpinner/>
         }</>
