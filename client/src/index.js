@@ -13,7 +13,7 @@ const boardService = new BoardService(BASE_URL, tokenStorage)
 
 ReactDOM.render(
     <React.StrictMode>
-        <App authService={authService} boardService={boardService}/>
+        <App className='app' authService={authService} boardService={boardService}/>
     </React.StrictMode>,
     document.getElementById('root')
 );

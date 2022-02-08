@@ -41,7 +41,7 @@ function App({authService, boardService}) {
                     // 로그인 상태
                     user ? <Home/> : <>
                         {/* 로그인 */}
-                        <div className='my-4 text-white py-4 mx-auto text-7xl bg-gradient-to-r from-ictusStart to-ictusEnd rounded w-max'>
+                        <div className='my-4 text-white py-4 mx-auto text-7xl bg-ictus rounded w-max'>
                             <h1 className='w-max px-10 text-center m-auto leading-2'>ictus</h1>
                         </div>
                         <Auth setIsAuth={setIsAuth} authService={authService} setBanner={setBanner}

@@ -15,7 +15,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [placeObj, setPlaceObj] = useState()
     const navigate = useNavigate()
     const isShops = window.location.href.includes('shops')
-    const itemsPerPage =  8
+    const itemsPerPage = 8
     const onWriteClick = () => {
         setKeyword('')
         setWriting(prev => !prev)
@@ -49,7 +49,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
 
     return (
         <main
-            className={`flex flex-col align-center justify-center mt-[100px] ${isShops && 'lg:flex-row gap-6'}`}
+            className={`flex-col-center mt-[100px] ${isShops && 'lg:flex-row gap-6'}`}
         >
             {isShops &&
             <SearchPlace
@@ -60,11 +60,9 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 titleAndCoords={titleAndCoords}
             />}
             <section
-                className='flex flex-col justify-center align-center max-w-[700px] min-w-[500px] gap-8 basis-1/2 m-auto'
+                className='flex-col-center max-w-[700px] min-w-[500px] gap-8 basis-1/2 m-auto'
             >
-                <header
-                    className='w-[250px] mx-auto my-4 text-center text-2xl text-bold p-6 border rounded bg-black text-white'
-                >
+                <header className='title'>
                     <h1>{isShops ? '등록된 맛집' : '간식 신청 게시판'}</h1>
                 </header>
                 <>
@@ -73,7 +71,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                     >
                         {pagination(viewContent, page, itemsPerPage).map((content, index) =>
                             <li key={index}
-                                className='flex w-full border rounded shadow transition active:translate-y-2 hover:text-white hover:bg-black'
+                                className='flex w-full border rounded shadow item-animation'
                             >
                                 <BoardItem content={content}/>
                             </li>
@@ -96,8 +94,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                             <div>
                                 <button onClick={onWriteClick}
                                         className={`${isShops || 'w-full'} text-white bg-black px-4 py-6 border rounded transition active:translate-y-2 hover:text-black hover:bg-white`}
-                                >
-                                    {isShops ? '맛집 검색' : '글 작성하기'}
+                                >글 작성하기
                                 </button>
                             </div>
                     )}

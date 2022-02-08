@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .button-common {
+        @apply border rounded bg-black py-4 px-6 cursor-pointer text-white
+    }
+
+    .input-name {
+        @apply absolute -top-3 left-3 bg-white h-4
+    }
+
+    .home-menu {
+        @apply mx-auto p-14 rounded border-8 p-10 text-3xl lg:p-24 xl:p-44 sm:my-auto active:bg-black hover:bg-gray transition
+    }
+
+    .title {
+        @apply w-[250px] mx-auto my-4 text-center text-2xl font-semibold p-6 border rounded bg-black text-white
+    }
+
+    .title-absolute{
+        @apply text-center md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 text-xl border rounded bg-black text-white w-48 p-4 m-auto
+    }
+}
+
+@layer utilities {
+    .flex-col-center {
+        @apply flex flex-col justify-center
+    }
+
+    .flex-row-center {
+        @apply flex justify-center
+    }
+
+    .bg-ictus {
+        @apply bg-gradient-to-r from-ictusStart to-ictusEnd
+    }
+
+    .nav-animation {
+        @apply transition hover:text-black hover:scale-125 cursor-pointer
+    }
+
+    .button-animation {
+        @apply transition hover:text-black hover:bg-white active:translate-y-2
+    }
+
+    .item-animation{
+        @apply transition hover:text-white hover:bg-black active:translate-y-2
+    }
+}
+
 * {
     box-sizing: border-box;
 }

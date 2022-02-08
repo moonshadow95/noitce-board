@@ -18,26 +18,26 @@ const Navigation = ({authService, user}) => {
 
     return (
         <nav id='navbar'
-             className='absolute left-0 top-0 right-0 z-10 p-4 flex justify-between align-center transition bg-gradient-to-r from-ictusStart to-ictusEnd text-white border-b border-black'
+             className='absolute left-0 top-0 right-0 z-10 p-4 flex justify-between align-center transition bg-ictus text-white border-b border-black'
         >
-            <ul className='flex align-center gap-12 w-full text-2xl px-10'>
+            <ul className='flex-row-center gap-12 w-full text-2xl px-10'>
                 {window.location.pathname === "/" ||
-                <li onClick={goBack} className='hover:cursor-pointer transition hover:text-black hover:scale-125'>
+                <li onClick={goBack} className='nav-animation'>
                     <FontAwesomeIcon icon={faChevronLeft} size={'lg'}/>
                 </li>}
                 <Link to={'/snack'}>
-                    <li className={`${isSnack && 'text-black'} transition hover:text-black hover:scale-125`}>
+                    <li className={`${isSnack && 'text-black'} nav-animation`}>
                         <FontAwesomeIcon icon={faCookieBite} size={'lg'}/>
                     </li>
                 </Link>
                 <Link to={'/gourmet'}>
-                    <li className={`${isGourmet && 'text-black'} transition hover:text-black hover:scale-125`}>
+                    <li className={`${isGourmet && 'text-black'} nav-animation`}>
                         <FontAwesomeIcon icon={faMapMarkerAlt} size={'lg'}/>
                     </li>
                 </Link>
                 {user &&
                 <li onClick={onLogout}
-                    className='ml-auto text-black flex hover:cursor-pointer transition hover:text-red hover:scale-125'
+                    className='ml-auto text-black nav-animation hover:text-red'
                 >
                     <FontAwesomeIcon icon={faSignOutAlt} size={'lg'}/>
                 </li>

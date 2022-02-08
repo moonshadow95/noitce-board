@@ -6,7 +6,6 @@ import timeFormatter from "../../util/date";
 import HTMLReactParser from "html-react-parser";
 
 const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
-    const [isWrite, setIsWrite] = useState(false)
     const settings = {
         dots: true,
         arrows: true,
@@ -43,12 +42,12 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
     }
 
     return (
-        <div className='relative grow-1 flex flex-col align-center justify-center border-b pb-14'>
+        <div className='relative grow-1 flex-col-center border-b pb-14'>
             <div className='md:flex relative mb-4'>
-                <h2 className='text-center md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 text-xl border rounded bg-black text-white w-48 p-4 m-auto'>최근
-                    등록 리뷰</h2>
+                <h2 className='title title-absolute'>
+                    최근 등록 리뷰</h2>
                 <div
-                    className='py-4 px-6 ml-auto w-[190px] md:w-auto text-center m-auto md:mr-24 xl:mr-40 border rounded bg-black text-white transition cursor-pointer hover:bg-white hover:text-black active:translate-y-2'>
+                    className='button-common button-animation ml-auto w-[190px] md:w-auto text-center m-auto md:mr-24 xl:mr-40'>
                     <Link to='./shops'>
                         <button>전체보기 / 등록하기</button>
                     </Link>
@@ -59,10 +58,10 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
                 {reviews.slice(0, 6).map((review) =>
                     <Link className='m-auto' to={`./shops/${review.shopId}`} key={review.id}>
                         <div
-                            className='flex flex-col justify-center gap-4 p-4 items-center xl:min-h-[350px] min-h-[300px] transition hover:bg-black hover:text-white'>
+                            className='flex-col-center gap-4 p-4 items-center item-animation xl:min-h-[350px] min-h-[300px]'>
                             <span className='text-lg text-center ellipsis'>{HTMLReactParser(review.text)}</span>
                             <Rate value={review.rate} size={'lg'}/>
-                            <div className='flex flex-col items-center'>
+                            <div className='flex-col-center'>
                                 <span>{timeFormatter(review.date)}</span>
                                 <span>{review.username}</span>
                             </div>

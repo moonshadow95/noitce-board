@@ -103,7 +103,7 @@ const TextEditor = ({
                         <div className='relative my-6 mx-auto w-[90%]'>
                             <input className='p-4 border rounded w-[100%]' type="text"
                                    value={content.title || ''} name='title' onChange={onChange}/>
-                            <span className='absolute -top-3 left-2 bg-white px-1 text-lg'>
+                            <span className='input-name'>
                                 {isSnack ? '희망하는 간식' : (isShop && id) ? '상호명' : '상호명을 입력하세요'}
                             </span>
                         </div>
@@ -140,18 +140,18 @@ const TextEditor = ({
                     </div>
                     <div className='w-full flex justify-center gap-4 py-4'>
                         <button
-                            className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2'
+                            className='button-common button-animation'
                             onClick={isShop ? onSubmit : onEditSubmit}>완료
                         </button>
                         <button
-                            className='py-4 px-6 transition border rounded min-w-[120px] hover:bg-black hover:text-white active:translate-y-2'
+                            className='button-common button-animation'
                             onClick={onCancelClick}>취소
                         </button>
                     </div>
                 </> :
                 // 글 작성
                 <>
-                    <div className='flex flex-col align-center w-full max-w-[800px] mt-6'>
+                    <div className='flex-col-center w-full max-w-[800px] mt-6'>
                         <div className='relative border-2 rounded w-[90%] mb-4 mx-auto'>
                             {isSnack &&
                             <input className='w-full text-lg indent-2 px-4 py-3' type="text" name='title'
@@ -161,7 +161,7 @@ const TextEditor = ({
                                 //     className={styles.title} type="text" name='title'
                                 //     onChange={onChange} value={keyword && `${keyword}`}/>
                             }
-                            <span className='absolute -top-4 left-2 bg-white h-6 text-lg'>
+                            <span className='input-name'>
                                 {isSnack ? '희망하는 간식을 적어주세요' : '상호명을 입력하세요'}
                             </span>
                         </div>
@@ -175,14 +175,14 @@ const TextEditor = ({
                             }}
                         />}
                     </div>
-                    <div className='text-white w-full flex justify-center gap-4'>
+                    <div className='flex-row-center gap-4'>
                         <button
-                            className='border rounded bg-black py-4 px-6 transition active:translate-y-2 hover:text-black hover:bg-white'
+                            className='button-common button-animation'
                             onClick={onSubmit}>
                             {isShop ? '등록' : '작성 완료'}
                         </button>
                         <button
-                            className='border rounded bg-black py-4 px-6 transition active:translate-y-2 hover:text-black hover:bg-white'
+                            className='button-common button-animation'
                             onClick={onWriteClick}>
                             {isShop ? '닫기' : '작성 취소'}
                         </button>

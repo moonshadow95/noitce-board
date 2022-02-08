@@ -47,35 +47,35 @@ const Auth = ({setIsAuth, authService, setBanner, setIsAlert}) => {
                 <div className='flex align-center justify-center'>
                     <form className='flex flex-col align-center justify-center gap-6 mt-10 text-xl'
                           method='POST' onSubmit={onLogin}>
-                        <div className='relative'>
+                        <div className='relative m-auto'>
                             <input
-                                className='w-200 h-14 border rounded indent-4 bg-transparent'
+                                className='h-14 border rounded indent-4 bg-transparent'
                                 name="username"
                                 type="text"
                                 required
                                 value={username}
                                 onChange={onChange}
                             />
-                            <span className='absolute -top-3 left-3 bg-white h-4'>이름</span>
+                            <span className='input-name'>이름</span>
                         </div>
-                        <div className='relative'>
+                        <div className='relative m-auto'>
                             <input
-                                className='w-200 h-14 border rounded indent-4'
+                                className='h-14 border rounded indent-4'
                                 name="password"
                                 type="password"
                                 required
                                 value={password}
                                 onChange={onChange}
                             />
-                            <span className='absolute -top-3 left-3 bg-white h-4'>비밀번호</span>
+                            <span className='input-name'>비밀번호</span>
                         </div>
                         <div className='flex justify-between w-200'>
-                            <input className='border w-max text-base px-6 py-2 hover:bg-black hover:text-white transition cursor-pointer'
+                            <input className='button-common button-animation'
                                    type="submit"
                                    value="로그인"
                             />
                             <span onClick={onJoin}
-                                  className='border w-max text-base px-6 py-2 hover:bg-black hover:text-white transition cursor-pointer'
+                                  className='button-common button-animation'
                             >
                                 회원가입
                             </span>
