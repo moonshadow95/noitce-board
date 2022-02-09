@@ -94,7 +94,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                                     />
                                     {selected.phone || '전화번호 없음'}
                                 </span>
-                                <a href={selected.url} target='_blank'>
+                                <a className='w-fit' href={selected.url} target='_blank'>
                                     <FontAwesomeIcon
                                         icon={faLink}
                                         style={{marginRight: '4px', color: '#000',}}

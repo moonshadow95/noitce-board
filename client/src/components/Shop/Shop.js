@@ -54,7 +54,7 @@ const Shop = ({data}) => {
             <Slider {...settings}>
                 {data.slice(0, 6).map((shop) =>
                     <div className='xl:h-[350px] h-[250px]' key={shop.id}>
-                        <div className='text-center text-lg py-3 flex-row-center ellipsis'>
+                        <div className='text-center text-lg py-3 flex-row-center font-semibold ellipsis'>
                             <p>{shop.title}</p>
                         </div>
                         <StaticMap shop={shop} key={shop.id}/>

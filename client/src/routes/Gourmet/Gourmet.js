@@ -28,6 +28,7 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     useEffect(() => {
         authService.me().catch(err => navigate('/'))
     }, [authService, navigate])
+
     return (
         <>{(shops || reviews) ?
             <section className='xl:mt-[80px] mt-[100px]'>
@@ -37,7 +38,7 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
                     setIsAlert={setIsAlert}
                     setBanner={setBanner}
                 />
-                <Shop data={shops} />
+                <Shop data={shops}/>
             </section> :
             <LoadingSpinner/>
         }</>

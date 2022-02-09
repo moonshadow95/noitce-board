@@ -40,7 +40,6 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
             }
         ]
     }
-
     return (
         <div className='relative grow-1 flex-col-center border-b pb-14'>
             <div className='md:flex relative mb-4'>
@@ -58,7 +57,8 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
                 {reviews.slice(0, 6).map((review) =>
                     <Link className='m-auto' to={`./shops/${review.shopId}`} key={review.id}>
                         <div
-                            className='flex-col-center gap-4 p-4 items-center item-animation xl:min-h-[350px] min-h-[300px]'>
+                            className='flex-col-center gap-4 p-4 items-center text-center item-animation xl:min-h-[350px] min-h-[300px]'>
+                            <span className='ellipsis text-lg font-semibold'>{review.shopTitle}</span>
                             <span className='text-lg text-center ellipsis'>{HTMLReactParser(review.text)}</span>
                             <Rate value={review.rate} size={'lg'}/>
                             <div className='flex-col-center'>

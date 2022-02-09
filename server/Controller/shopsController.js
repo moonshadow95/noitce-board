@@ -26,20 +26,26 @@ export async function createReview(req, res) {
 
 // Read
 export async function getAll(req, res) {
-    const reviews = await shopsRepository.getShopsAll();
-    res.status(200).send(reviews)
+    const shops = await shopsRepository.getShopsAll();
+    res.status(200).send(shops)
 }
 
 export async function getAllReviews(req, res) {
     const reviews = await shopsRepository.getReviewsAll();
-    let addOwner = []
     await reviews.map(review => {
         if (review.userId === req.userId) {
             review['isOwner'] = true
         }
-        addOwner.push(review)
     })
-    return res.status(200).send(addOwner)
+    const shops = await shopsRepository.getShopsAll();
+    await reviews.map(review => {
+        shops.map(shop=>{
+            if(review.shopId === shop.id){
+                review['shopTitle'] = shop.title
+            }
+        })
+    })
+    return res.status(200).send(reviews)
 }
 
 export async function getReviewsById(req, res) {
