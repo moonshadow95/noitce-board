@@ -54,6 +54,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
             {isShops &&
             <SearchPlace
                 boardService={boardService}
+                getBoards={getBoards}
                 keyword={keyword}
                 setKeyword={setKeyword}
                 setPlaceObj={setPlaceObj}

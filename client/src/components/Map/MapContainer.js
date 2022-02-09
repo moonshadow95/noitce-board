@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
 
-const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
+const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCoords, getBoards}) => {
     const {kakao} = window;
-    // TODO 검색, 줌, 이동시 지도 무한 생성하는 현상
     useEffect(() => {
         let markers = [];
         // 검색 결과 목록이나 마커의 인포윈도우 생성
@@ -126,6 +125,7 @@ const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndC
                     const ok = window.confirm('등록하시겠습니까?')
                     if (ok) {
                         await boardService.postBoard(places, '')
+                        getBoards()
                     }
                 })
                 return el;

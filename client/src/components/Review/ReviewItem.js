@@ -5,7 +5,7 @@ import HTMLReactParser from "html-react-parser";
 
 const ReviewItem = ({content, onDeleteClick, isOwner}) => {
     return (
-        <div className='mx-6 mt-4 flex items-center border'>
+        <div className='mx-6 mt-4 flex items-center border rounded'>
             <div className='flex items-center w-full border-r min-h-[106px] pr-2'>
                 <div className='p-4'>{HTMLReactParser(content.text)}</div>
                 {isOwner &&

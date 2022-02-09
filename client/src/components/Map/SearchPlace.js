@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import MapContainer from "./MapContainer";
 import './map.css'
 
-const SearchPlace = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
+const SearchPlace = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCoords, getBoards}) => {
     const [inputText, setInputText] = useState("");
     const onChange = (e) => {
         setInputText(e.target.value);
@@ -15,7 +15,7 @@ const SearchPlace = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCo
         <>
             <div className="map_wrap">
                 <MapContainer boardService={boardService} keyword={keyword} setKeyword={setKeyword}
-                              setPlaceObj={setPlaceObj}
+                              setPlaceObj={setPlaceObj} getBoards={getBoards}
                               titleAndCoords={titleAndCoords}/>
                 <div id="menu_wrap" className="bg_white">
                     <div className="option">

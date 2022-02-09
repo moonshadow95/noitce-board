@@ -3,7 +3,6 @@ import StaticMap from "../Map/StaticMap";
 import Slider from "react-slick";
 import {Link} from "react-router-dom";
 
-
 const Shop = ({data}) => {
     const settings = {
         dots: true,

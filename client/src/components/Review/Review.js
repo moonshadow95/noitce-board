@@ -70,7 +70,6 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
                 )}
             </Slider>
         </div>
-
     )
 };
 
