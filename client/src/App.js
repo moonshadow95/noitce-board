@@ -35,7 +35,7 @@ function App({authService, boardService}) {
         <BrowserRouter>
             {/* 로그인 상태시 내비게이션 바 표시 */}
             {user && <Navigation authService={authService} user={user}/>}
-            <Banner text={banner} isAlert={isAlert}/>
+            <Banner text={banner} isAlert={isAlert} />
             <Routes>
                 <Route path="/" element={
                     // 로그인 상태

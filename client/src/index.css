@@ -19,7 +19,7 @@
         @apply w-[250px] mx-auto my-4 text-center text-2xl font-semibold p-6 border rounded bg-black text-white
     }
 
-    .title-absolute{
+    .title-absolute {
         @apply text-center md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 text-xl border rounded bg-black text-white w-48 p-4 m-auto
     }
 }
@@ -45,8 +45,12 @@
         @apply transition hover:text-black hover:bg-white active:translate-y-2
     }
 
-    .item-animation{
+    .item-animation {
         @apply transition hover:text-white hover:bg-black active:translate-y-2
+    }
+
+    .active {
+        @apply translate-y-0
     }
 }
 
@@ -116,6 +120,7 @@ main {
     overflow: hidden;
     width: 200px;
 }
+
 
 /*map*/
 @media screen and (max-width: 768px) {

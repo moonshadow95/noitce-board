@@ -11,8 +11,11 @@ const Navigation = ({authService, user}) => {
     const isGourmet = window.location.href.includes('gourmet')
     const isSnack = window.location.href.includes('snack')
     const onLogout = () => {
-        authService.logout()
-        window.location.reload();
+        const ok = window.confirm('로그아웃 하시겠습니까?')
+        if (ok) {
+            authService.logout()
+            window.location.reload();
+        }
     }
 
 

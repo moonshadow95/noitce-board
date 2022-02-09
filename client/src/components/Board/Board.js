@@ -63,8 +63,9 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
             <section
                 className='flex-col-center max-w-[700px] min-w-[500px] gap-8 basis-1/2 m-auto'
             >
-                <header className='title'>
-                    <h1>{isShops ? '등록된 맛집' : '간식 신청 게시판'}</h1>
+                <header className='flex-col-center text-center'>
+                    <h1 className='title'>{isShops ? '등록된 맛집' : '간식 신청 게시판'}</h1>
+                    <span>{isShops ? '키워드로 검색 후 결과 목록에서 클릭해주세요.' : '원하는 간식을 신청하세요.'}</span>
                 </header>
                 <>
                     <ul
@@ -72,7 +73,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                     >
                         {pagination(viewContent, page, itemsPerPage).map((content, index) =>
                             <li key={index}
-                                className='flex w-full border rounded shadow item-animation'
+                                className='flex w-full border rounded shadow-lg item-animation'
                             >
                                 <BoardItem content={content}/>
                             </li>
