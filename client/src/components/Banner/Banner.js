@@ -16,7 +16,7 @@ const Banner = ({text, isAlert}) => {
         }
     })
     return (
-        <p className={`' banner transition fixed w-[300px] block left-1/2 -translate-x-1/2 -translate-y-[90px] text-center py-6 text-white rounded shadow-lg ' ${isAlert ? 'bg-red' : 'bg-green'}`}>
+        <p className={`' banner transition fixed w-[300px] block left-1/2 -translate-x-1/2 -translate-y-[200px] text-center py-6 text-white rounded shadow-lg ' ${isAlert ? 'bg-red' : 'bg-green'}`}>
             {text}
         </p>
     )

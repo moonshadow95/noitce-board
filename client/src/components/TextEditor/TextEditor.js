@@ -47,8 +47,9 @@ const TextEditor = ({
             if (isShop && id) {
                 dataObj = {
                     'text': content.text || '내용 없음',
-                    'rate': content.rate
+                    'rate': content.rate || 0
                 }
+                console.log(dataObj)
             }
             await boardService.postBoard(dataObj, ((id === undefined) ? '' : id))
             window.confirm('작성되었습니다.')
