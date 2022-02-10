@@ -123,15 +123,11 @@ main {
 
 
 /*map*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1023px) {
     #myMap {
         width: 81vw !important;
         margin: auto;
         min-height: 45vh !important;
-    }
-
-    #menu_wrap {
-        margin-left: 4em;
     }
 }
 
@@ -139,5 +135,6 @@ main {
     #menu_wrap {
         padding: 2em 0;
         position: static;
+        margin: 2em auto;
     }
 }

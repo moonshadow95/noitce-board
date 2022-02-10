@@ -61,7 +61,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 titleAndCoords={titleAndCoords}
             />}
             <section
-                className='flex-col-center max-w-[700px] min-w-[500px] gap-8 basis-1/2 m-auto'
+                className='flex-col-center max-w-[700px] md:min-w-[500px] gap-8 basis-1/2 m-auto'
             >
                 <header className='flex-col-center text-center'>
                     <h1 className='title'>{isShops ? '등록된 맛집' : '간식 신청 게시판'}</h1>

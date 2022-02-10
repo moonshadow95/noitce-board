@@ -13,11 +13,11 @@ const SearchPlace = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCo
     }
     return (
         <>
-            <div className="map_wrap">
+            <div className="map_wrap w-fit mx-auto">
                 <MapContainer boardService={boardService} keyword={keyword} setKeyword={setKeyword}
                               setPlaceObj={setPlaceObj} getBoards={getBoards}
                               titleAndCoords={titleAndCoords}/>
-                <div id="menu_wrap" className="bg_white">
+                <div id="menu_wrap" className="bg_white border rounded">
                     <div className="option">
                         <div>
                             <form onSubmit={handleSubmit} method=''>

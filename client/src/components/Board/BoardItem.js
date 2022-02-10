@@ -9,10 +9,10 @@ const BoardItem = ({content}) => {
             className='w-full flex justify-between'
             to={`./${content.id}`}
         >
-            <div className='p-6 w-full text-center border-r min-w-[200px]'>
+            <div className='p-4 md:p-6 w-full text-center border-r md:min-w-[200px]'>
                 <span>{content.title}</span>
             </div>
-            <div className='flex-col-center text-center px-4 min-w-[150px]'>
+            <div className='flex-col-center text-center px-4 min-w-[100px] md:min-w-[150px]'>
                 {(content.rate || content.rate === 0) ? <Rate value={content.rate}/>
                     : <>
                         <span>{timeFormatter(content.date)}</span>
