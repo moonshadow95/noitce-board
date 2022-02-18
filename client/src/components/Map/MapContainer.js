@@ -1,6 +1,15 @@
 import React, {useEffect} from "react";
 
-const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCoords, getBoards}) => {
+const MapContainer = ({
+                          boardService,
+                          keyword,
+                          setKeyword,
+                          setPlaceObj,
+                          titleAndCoords,
+                          getBoards,
+                          setBanner,
+                          setIsAlert
+                      }) => {
     const {kakao} = window;
     useEffect(() => {
         let markers = [];
@@ -124,8 +133,14 @@ const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndC
                 el.addEventListener('click', async (e) => {
                     const ok = window.confirm('등록하시겠습니까?')
                     if (ok) {
-                        await boardService.postBoard(places, '')
-                        getBoards()
+                        try {
+                            await boardService.postBoard(places, '')
+                            setBanner('등록되었습니다.')
+                            getBoards()
+                        } catch (error) {
+                            setIsAlert(true)
+                            setBanner(error.response.data.message)
+                        }
                     }
                 })
                 return el;

@@ -26,9 +26,14 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
         const ok = window.confirm("삭제하시겠습니까?");
         if (ok) {
             const {target: {id}} = event;
-            boardService.deleteBoard(id)
-                .catch(err => setBanner(err.response.data.message))
-                .then(navigate(-1))
+            try {
+                boardService.deleteBoard(id)
+                navigate(-1)
+                setIsAlert(false)
+                setBanner('삭제되었습니다.')
+            } catch (error) {
+                setBanner(error.response.data.message)
+            }
         }
     }
     // 별점 평균 구하기
@@ -94,7 +99,8 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                                     />
                                     {selected.phone || '전화번호 없음'}
                                 </span>
-                                <a className='w-fit' href={selected.url} target='_blank'>
+                                <a className='w-fit text-[#0D54FE]' href={`https://place.map.kakao.com/${selected.id}`}
+                                   target='_blank' rel="noopener noreferrer">
                                     <FontAwesomeIcon
                                         icon={faLink}
                                         style={{marginRight: '4px', color: '#000',}}

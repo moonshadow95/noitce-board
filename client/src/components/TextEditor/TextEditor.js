@@ -17,6 +17,8 @@ const TextEditor = ({
                         onEditClick,
                         onWriteClick,
                         getBoards,
+                        setIsAlert,
+                        setBanner,
                     }) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
@@ -51,13 +53,11 @@ const TextEditor = ({
                 }
             }
             await boardService.postBoard(dataObj, ((id === undefined) ? '' : id))
-            window.confirm('작성되었습니다.')
-            // setIsAlert(false)
-            // setBanner('작성되었습니다.')
+            setIsAlert(false)
+            setBanner('작성되었습니다.')
         } catch (error) {
-            // setIsAlert(true)
-            // setBanner(error.response.data.message)
-            console.log(error)
+            setIsAlert(true)
+            setBanner(error.response.data.message)
         }
         if (isSnack || (isShop && !id)) {
             onWriteClick()
@@ -70,22 +70,28 @@ const TextEditor = ({
 
     // Edit
     async function onEditSubmit() {
-        if (isSnack) {
-            dataObj = {
-                'title': content.title,
-                'text': content.text,
+        try {
+            if (isSnack) {
+                dataObj = {
+                    'title': content.title,
+                    'text': content.text,
+                }
+            } else {
+                dataObj = {
+                    'title': content.title,
+                    'text': content.text,
+                    'rate': rating,
+                }
             }
-        } else {
-            dataObj = {
-                'title': content.title,
-                'text': content.text,
-                'rate': rating,
-            }
+            setContent({...dataObj})
+            await boardService.updateBoard(selected.id, content)
+            navigate(-1)
+            setIsAlert(false)
+            setBanner('수정되었습니다.')
+        } catch (error) {
+            setIsAlert(true)
+            setBanner(error.response.data.message)
         }
-        setContent({...dataObj})
-        await boardService.updateBoard(selected.id, content)
-        alert('수정되었습니다.')
-        navigate(-1)
     }
 
     // Rate

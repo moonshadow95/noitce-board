@@ -21,7 +21,7 @@ const Navigation = ({authService, user}) => {
 
     return (
         <nav id='navbar'
-             className='absolute left-0 top-0 right-0 z-10 p-4 flex justify-between align-center transition bg-ictus text-white border-b border-black'
+             className='absolute left-0 top-0 right-0 z-10 p-4 flex justify-between align-center transition bg-ictus text-white border-b border-black z-20'
         >
             <ul className='flex-row-center gap-12 w-full text-2xl px-10'>
                 {window.location.pathname === "/" ||

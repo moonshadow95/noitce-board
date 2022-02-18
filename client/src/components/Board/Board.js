@@ -59,6 +59,8 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 setKeyword={setKeyword}
                 setPlaceObj={setPlaceObj}
                 titleAndCoords={titleAndCoords}
+                setIsAlert={setIsAlert}
+                setBanner={setBanner}
             />}
             <section
                 className='flex-col-center max-w-[700px] md:min-w-[500px] gap-8 basis-1/2 m-auto'

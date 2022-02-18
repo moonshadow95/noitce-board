@@ -7,13 +7,16 @@ export async function createShops(req, res) {
         place_name: title,
         road_address_name: address,
         phone,
-        place_url: url,
     } = req.body
-    console.log(req.body)
     const userId = req.userId
     const coords = `${req.body.x},${req.body.y}`
-    const review = await shopsRepository.create(id, title, address, phone, coords, userId, url)
-    res.status(201).json(review)
+    const exists = await shopsRepository.getShopsById(id)
+    if (exists) {
+        return res.status(409).json({message: `${title}는(은) 이미 등록되어 있습니다.`})
+    } else {
+        const review = await shopsRepository.create(id, title, address, phone, coords, userId)
+        return res.status(201).json(review)
+    }
 }
 
 export async function createReview(req, res) {
@@ -39,8 +42,8 @@ export async function getAllReviews(req, res) {
     })
     const shops = await shopsRepository.getShopsAll();
     await reviews.map(review => {
-        shops.map(shop=>{
-            if(review.shopId === shop.id){
+        shops.map(shop => {
+            if (review.shopId === shop.id) {
                 review['shopTitle'] = shop.title
             }
         })
