@@ -39,7 +39,6 @@ const TextEditor = ({
 
     // Create
     async function onSubmit() {
-        console.log('submitted')
         try {
             if (isSnack) {
                 dataObj = {

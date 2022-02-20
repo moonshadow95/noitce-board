@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "../TextEditor/TextEditor";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import timeFormatter from "../../util/date";
 import ReviewItem from "../Review/ReviewItem";
 import Rate from "../Rate/Rate";
@@ -12,12 +12,12 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
-    const isReview = window.location.href.includes('reviews')
     const isShop = window.location.href.includes('shops')
     const navigate = useNavigate();
+    const {id: shopId} = useParams()
     // Edit
     const onEditClick = (event) => {
-        if (isOwner || isReview || isShop) {
+        if (isOwner || isShop) {
             setEditing(prev => !prev)
         }
     }
@@ -29,7 +29,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
             await boardService.deleteBoard(id)
             setIsAlert(false)
             setBanner('삭제되었습니다.')
-            if (isSnack) {
+            if (isSnack || (isShop && shopId)) {
                 navigate(-1)
             } else {
                 getReviews()
@@ -72,15 +72,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                         <div><small>{selected.username}</small></div>
                     </div>
                     <div className={`min-h-[300px] ${isSnack && 'm-6'}`}>
-                        {isReview ?
-                            <ul className=''>
-                                {shopReviews.map((content, index) =>
-                                    <li key={index} className=''>
-                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick}
-                                                    isOwner={true}/>
-                                    </li>
-                                )}
-                            </ul> :
+                        {
                             HTMLReactParser(selected.text || '')}
                         {shopReviews &&
                         <div>
@@ -139,7 +131,6 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                 {editing &&
                 <TextEditor
                     isEdit={true}
-                    isReview={isReview}
                     selected={selected}
                     keyword={selected.title}
                     boardService={boardService}
