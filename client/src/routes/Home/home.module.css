@@ -1,16 +1,16 @@
-.container{
+.container {
     width: 100vw;
     height: 90vh;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     gap: 2em;
 }
 
 .link {
     position: relative;
     font-size: 1.4rem;
-text-align: center;
+    text-align: center;
     border: 5px solid #000;
     border-radius: var(--border-radius);
     width: 35vw;
@@ -20,22 +20,23 @@ text-align: center;
     color: transparent;
     transition: all var(--animation-duration) ease-in-out;
 }
-.link:hover{
+
+.link:hover {
     background-color: var(--color-black);
     transform: var(--button-hover);
     color: var(--color-white);
 }
 
 .icon {
-    position:absolute;
-    top:50%;
+    position: absolute;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
     max-width: 94%;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .container {
         flex-direction: column;
     }

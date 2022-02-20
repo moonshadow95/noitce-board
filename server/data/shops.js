@@ -1,6 +1,6 @@
 import {db} from "../db/database.js";
 
-const SELECT_JOIN = 'SELECT shops.id, shops.title, shops.address, shops.date, shops.coords, shops.phone, shops.url, shops.userId, users.username FROM shops JOIN users ON shops.userId=users.id'
+const SELECT_JOIN = 'SELECT shops.id, shops.title, shops.address, shops.date, shops.coords, shops.phone, shops.userId, users.username FROM shops JOIN users ON shops.userId=users.id'
 const ORDER_DESC = 'ORDER BY shops.date DESC'
 
 export async function getShopsAll() {
@@ -46,9 +46,9 @@ export async function update(id, title, rate, text, coords) {
         .then(() => getShopsById(id))
 }
 
-export async function create(id, title, address, phone, coords, userId, url) {
+export async function create(id, title, address, phone, coords, userId) {
     return db
-        .execute("INSERT INTO shops (id,title,address,phone,coords,userId,url) VALUES (?,?,?,?,?,?,?)", [id, title, address, phone, coords, userId, url])
+        .execute("INSERT INTO shops (id,title,address,phone,coords,userId) VALUES (?,?,?,?,?,?)", [id, title, address, phone, coords, userId])
         .then(result => getShopsById(result[0].insertId))
 }
 

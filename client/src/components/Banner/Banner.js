@@ -1,13 +1,24 @@
-import React from 'react';
-import styles from './banner.module.css';
+import React, {useEffect} from 'react';
 
 const Banner = ({text, isAlert}) => {
-    return <>
-        {text && (
-            <p className={`${styles.banner} ${isAlert ? styles.bannerRed : styles.bannerGreen}`}>
-                {text}
-            </p>
-        )}
-    </>
+    useEffect(() => {
+        const banner = document.querySelector('.banner');
+
+        function activeBanner() {
+            banner.classList.add('active')
+            setTimeout(()=>{
+                banner.classList.remove('active')
+            },3000)
+        }
+
+        if (text !== '') {
+            activeBanner()
+        }
+    })
+    return (
+        <p className={`' banner transition fixed w-[300px] block left-1/2 -translate-x-1/2 -translate-y-[200px] text-center py-6 text-white rounded shadow-lg ' ${isAlert ? 'bg-red' : 'bg-green'} z-10`}>
+            {text}
+        </p>
+    )
 }
 export default Banner;

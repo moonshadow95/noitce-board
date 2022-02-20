@@ -1,21 +1,20 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import styles from './boardItem.module.css';
 import timeFormatter from "../../util/date";
 import Rate from "../Rate/Rate";
 
 const BoardItem = ({content}) => {
-    return(
+    return (
         <Link
-            className={styles.link}
+            className='w-full flex justify-between'
             to={`./${content.id}`}
         >
-            <div className={styles.title}>
+            <div className='p-4 md:p-6 w-full text-center border-r md:min-w-[200px]'>
                 <span>{content.title}</span>
             </div>
-            <div className={styles.meta}>
-                {(content.rate || content.rate === 0 ) ? <Rate value={content.rate}/>
-                    :<>
+            <div className='flex-col-center text-center px-4 min-w-[100px] md:min-w-[150px]'>
+                {(content.rate || content.rate === 0) ? <Rate value={content.rate}/>
+                    : <>
                         <span>{timeFormatter(content.date)}</span>
                         <span>{content.username}</span>
                     </>}

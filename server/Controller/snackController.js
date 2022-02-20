@@ -30,7 +30,7 @@ export async function edit(req, res) {
     const {title, text} = req.body
     const snack = await snackRepository.getSnackById(id);
     if (!snack) {
-        return res.send(404).json({message: `${id}번 게시물이 없습니다.`})
+        return res.send(404)
     }
     // 로그인된 유저가 작성자인지 확인
     if (snack.userId !== req.userId) {
@@ -45,7 +45,7 @@ export async function remove(req, res) {
     const {params: {id}} = req;
     const snack = await snackRepository.getSnackById(id);
     if (!snack) {
-        return res.status(404).json({message: `${id}번 게시물을 찾지 못했습니다.`})
+        return res.status(404)
     }
     if (snack.userId !== req.userId) {
         return res.sendStatus(403)

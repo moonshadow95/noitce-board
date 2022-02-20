@@ -14,7 +14,7 @@ const StaticMap = ({shop: {id, coords, title}}) => {
             staticMapOption = {
                 center: new kakao.maps.LatLng(parseFloat(coords.split(',')[1]), parseFloat(coords.split(',')[0])),
                 // 이미지 지도의 중심좌표
-                level: 4, // 이미지 지도의 확대 레벨
+                level: 3, // 이미지 지도의 확대 레벨
                 marker: markers, // 이미지 지도에 표시할 마커
             };
 

@@ -1,15 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "../TextEditor/TextEditor";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import timeFormatter from "../../util/date";
-import styles from './selected.module.css';
 import ReviewItem from "../Review/ReviewItem";
 import Rate from "../Rate/Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 
-const Selected = ({selected, isOwner, setBanner, authService, boardService, setIsAlert, user, shopReviews, getReviews}) => {
+const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews, getReviews}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
     const isSnack = window.location.href.includes('snack')
@@ -18,88 +17,101 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
     const navigate = useNavigate();
     // Edit
     const onEditClick = (event) => {
-        if(isOwner || isReview || isShop){
+        if (isOwner || isReview || isShop) {
             setEditing(prev => !prev)
         }
     }
     // Delete
-    const onDeleteClick =(event)=>{
+    const onDeleteClick = (event) => {
         const ok = window.confirm("삭제하시겠습니까?");
-        if(ok){
-            const {target:{id}} = event;
-            boardService.deleteBoard(id)
-                .catch(err=>setBanner(err.response.data.message))
-                .then(navigate(-1))
+        if (ok) {
+            const {target: {id}} = event;
+            try {
+                boardService.deleteBoard(id)
+                navigate(-1)
+                setIsAlert(false)
+                setBanner('삭제되었습니다.')
+            } catch (error) {
+                setBanner(error.response.data.message)
+            }
         }
     }
     // 별점 평균 구하기
     const average = (arr) => {
         const value = arr.reduce((p, c) => p + c, 0) / arr.length
-        if(value){
+        if (value) {
             return setRating(value)
         }
     }
-    useEffect(()=>{
-        if(shopReviews){
-            average(shopReviews.map(review=>review.rate))
+    useEffect(() => {
+        if (shopReviews) {
+            average(shopReviews.map(review => review.rate))
         }
     })
-    return(
+    return (
         <main>
             {/*Section*/}
-            <section className={styles.section}>
+            <section className='flex flex-col align-center border rounded m-6 mt-[100px]'>
                 {!editing && <>
-                    <header className={styles.header}>
-                        <h1 className={styles.title}>
+                    <header className='w-full flex justify-center align-center'>
+                        <h1 className='w-full text-2xl flex p-6 gap-4'>
                             {selected.title}
                             {!isSnack &&
                             <Rate value={rating}/>}
                         </h1>
-                        {isShop && <button className={styles.btn} onClick={onEditClick}>리뷰 추가</button>}
+                        {isShop &&
+                        <div className='m-auto'>
+                            <button
+                                className='mr-2 border rounded w-[150px] h-[60px] bg-black text-white transition hover:bg-white hover:text-black active:translate-y-2'
+                                onClick={onEditClick}>리뷰 추가
+                            </button>
+                        </div>}
                     </header>
-                    <div className={styles.meta}>
-                        <div className={styles.date}><small>{timeFormatter(selected.date)}</small></div>
-                        <div className={styles.username}><small>{selected.username}</small></div>
+                    <div className='py-4 px-6 border-t border-b text-lg'>
+                        <div><small>{timeFormatter(selected.date)}</small></div>
+                        <div><small>{selected.username}</small></div>
                     </div>
-                    <div className={`${styles.text} ${(isReview || shopReviews) && styles.reviewsContainer}`}>
+                    <div className={`min-h-[300px] ${isSnack && 'm-6'}`}>
                         {isReview ?
-                            <ul className={styles.list}>
-                                {shopReviews.map((content,index) =>
-                                    <li key={index} className={styles.item}>
-                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick} isOwner={true} />
+                            <ul className=''>
+                                {shopReviews.map((content, index) =>
+                                    <li key={index} className=''>
+                                        <ReviewItem content={content} user={user} onDeleteClick={onDeleteClick}
+                                                    isOwner={true}/>
                                     </li>
                                 )}
                             </ul> :
                             HTMLReactParser(selected.text || '')}
                         {shopReviews &&
                         <div>
-                            <div className={styles.info}>
+                            <div className='border-b flex flex-col gap-2 p-6'>
                                 <span>
                                     <FontAwesomeIcon
                                         icon={faMapMarkerAlt}
-                                        style={{marginRight:'4px'}}
+                                        style={{marginRight: '4px'}}
                                     />
                                     {selected.address}
                                 </span>
                                 <span>
                                     <FontAwesomeIcon
                                         icon={faPhoneAlt}
-                                        style={{marginRight:'4px'}}
+                                        style={{marginRight: '4px'}}
                                     />
-                                    {selected.phone}
+                                    {selected.phone || '전화번호 없음'}
                                 </span>
-                                <a href={selected.url} target='_blank'>
+                                <a className='w-fit text-[#0D54FE]' href={`https://place.map.kakao.com/${selected.id}`}
+                                   target='_blank' rel="noopener noreferrer">
                                     <FontAwesomeIcon
                                         icon={faLink}
-                                        style={{marginRight:'4px', color:'#000',}}
+                                        style={{marginRight: '4px', color: '#000',}}
                                     />
                                     카카오맵에서 보기
                                 </a>
                             </div>
-                            <h2>후기</h2>
-                            <ul className={styles.list}>
-                                {shopReviews.map((content,index) =>
-                                    <li key={index} className={styles.item}>
+                            <h2 className='text-lg ml-6 mt-6'>후기</h2>
+                            <ul>
+                                {shopReviews.map((content, index) =>
+                                    <li key={index} className='last:mb-6'>
                                         <ReviewItem
                                             content={content}
                                             user={user}
@@ -112,10 +124,14 @@ const Selected = ({selected, isOwner, setBanner, authService, boardService, setI
                         </div>
                         }
                     </div>
-                    { selected.isOwner &&
-                    <div className="btnContainer">
-                        { isSnack && <button className={styles.btn} onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
-                        <button className={styles.btn} id={selected.id} onClick={onDeleteClick}>{ isShop ? "맛집 삭제하기" : "글 삭제하기"}</button>
+                    {selected.isOwner &&
+                    <div className='w-full flex-row-center gap-4 py-4 border-t'>
+                        {isSnack && <button
+                            className='button-common button-animation'
+                            onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
+                        <button
+                            className='button-common button-animation hover:bg-red hover:text-white'
+                            id={selected.id} onClick={onDeleteClick}>{isShop ? "맛집 삭제하기" : "글 삭제하기"}</button>
                     </div>
                     }
                 </>

@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import styles from './gourmet.module.css'
 import {useNavigate} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -29,9 +28,10 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     useEffect(() => {
         authService.me().catch(err => navigate('/'))
     }, [authService, navigate])
+
     return (
         <>{(shops || reviews) ?
-            <section className={styles.slickContainer}>
+            <section className='xl:mt-[80px] mt-[100px]'>
                 <Review
                     reviews={reviews}
                     boardService={boardService}

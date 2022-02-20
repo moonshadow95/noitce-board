@@ -1,8 +1,16 @@
 import React, {useEffect} from "react";
 
-const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndCoords}) => {
+const MapContainer = ({
+                          boardService,
+                          keyword,
+                          setKeyword,
+                          setPlaceObj,
+                          titleAndCoords,
+                          getBoards,
+                          setBanner,
+                          setIsAlert
+                      }) => {
     const {kakao} = window;
-    // TODO 검색, 줌, 이동시 지도 무한 생성하는 현상
     useEffect(() => {
         let markers = [];
         // 검색 결과 목록이나 마커의 인포윈도우 생성
@@ -122,10 +130,17 @@ const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndC
 
                 el.innerHTML = itemStr;
                 el.className = 'item';
-                el.addEventListener('click', async (e)=>{
+                el.addEventListener('click', async (e) => {
                     const ok = window.confirm('등록하시겠습니까?')
-                    if(ok) {
-                        await boardService.postBoard(places, '')
+                    if (ok) {
+                        try {
+                            await boardService.postBoard(places, '')
+                            setBanner('등록되었습니다.')
+                            getBoards()
+                        } catch (error) {
+                            setIsAlert(true)
+                            setBanner(error.response.data.message)
+                        }
                     }
                 })
                 return el;
@@ -281,6 +296,7 @@ const MapContainer = ({boardService, keyword, setKeyword, setPlaceObj, titleAndC
                 minHeight: '88vh',
                 border: '1px solid #333',
                 borderRadius: '4px',
+                width: '45vw'
             }}></div>
         </>
     );

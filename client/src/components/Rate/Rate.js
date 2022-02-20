@@ -6,7 +6,6 @@ import StarRatingComponent from "react-star-rating-component-new";
 
 const Rate = ({value, size}) => (
     <StarRatingComponent
-
         name="productRating"
         editing={false}
         renderStarIcon={() => (
