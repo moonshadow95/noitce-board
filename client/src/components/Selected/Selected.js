@@ -22,17 +22,17 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
         }
     }
     // Delete
-    const onDeleteClick = (event) => {
+    const onDeleteClick = async (event) => {
         const ok = window.confirm("삭제하시겠습니까?");
         if (ok) {
             const {target: {id}} = event;
-            try {
-                boardService.deleteBoard(id)
+            await boardService.deleteBoard(id)
+            setIsAlert(false)
+            setBanner('삭제되었습니다.')
+            if (isSnack) {
                 navigate(-1)
-                setIsAlert(false)
-                setBanner('삭제되었습니다.')
-            } catch (error) {
-                setBanner(error.response.data.message)
+            } else {
+                getReviews()
             }
         }
     }

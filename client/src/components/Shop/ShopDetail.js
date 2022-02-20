@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import Selected from "../Selected/Selected";
 
-const ShopDetail = ({shops, user, authService, boardService}) => {
+const ShopDetail = ({user, authService, boardService, setIsAlert, setBanner}) => {
     const [shop, setShop] = useState({})
     const [reviews, setReviews] = useState([])
     const [isOwner, setIsOwner] = useState(false)
@@ -41,6 +41,8 @@ const ShopDetail = ({shops, user, authService, boardService}) => {
             shopReviews={reviews}
             user={user}
             getReviews={getReviews}
+            setBanner={setBanner}
+            setIsAlert={setIsAlert}
         />
     )
 };

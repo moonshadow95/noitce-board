@@ -39,6 +39,7 @@ const TextEditor = ({
 
     // Create
     async function onSubmit() {
+        console.log('submitted')
         try {
             if (isSnack) {
                 dataObj = {
@@ -162,10 +163,6 @@ const TextEditor = ({
                             {isSnack &&
                             <input className='w-full text-lg indent-2 px-4 py-3' type="text" name='title'
                                    onChange={onChange}/>
-                                // :
-                                // <input
-                                //     className={styles.title} type="text" name='title'
-                                //     onChange={onChange} value={keyword && `${keyword}`}/>
                             }
                             <span className='input-name'>
                                 {isSnack ? '희망하는 간식을 적어주세요' : '상호명을 입력하세요'}

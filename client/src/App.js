@@ -90,6 +90,8 @@ function App({authService, boardService}) {
                         user={user}
                         authService={authService}
                         boardService={boardService}
+                        setBanner={setBanner}
+                        setIsAlert={setIsAlert}
                     />}
                 />
             </Routes>

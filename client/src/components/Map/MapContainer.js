@@ -135,6 +135,7 @@ const MapContainer = ({
                     if (ok) {
                         try {
                             await boardService.postBoard(places, '')
+                            setIsAlert(false)
                             setBanner('등록되었습니다.')
                             getBoards()
                         } catch (error) {
