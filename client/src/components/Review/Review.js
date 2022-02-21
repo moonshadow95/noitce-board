@@ -54,20 +54,25 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
             </div>
             <span className='text-center'>리뷰 클릭시 가게 정보로 이동합니다.</span>
             <Slider {...settings}>
-                {reviews.slice(0, 6).map((review) =>
-                    <Link className='m-auto' to={`./shops/${review.shopId}`} key={review.id}>
-                        <div
-                            className='flex-col-center gap-4 p-4 items-center text-center item-animation xl:min-h-[350px] min-h-[300px]'>
-                            <span className='ellipsis text-lg font-semibold'>{review.shopTitle}</span>
-                            <span className='text-lg text-center ellipsis'>{HTMLReactParser(review.text)}</span>
-                            <Rate value={review.rate} size={'lg'}/>
-                            <div className='flex-col-center'>
-                                <span>{timeFormatter(review.date)}</span>
-                                <span>{review.username}</span>
+                {reviews[0] ? reviews.slice(0, 6).map((review) =>
+                        <Link className='m-auto' to={`./shops/${review.shopId}`} key={review.id}>
+                            <div
+                                className='flex-col-center gap-4 p-4 items-center text-center item-animation xl:min-h-[350px] min-h-[300px]'>
+                                <span className='ellipsis text-lg font-semibold'>{review.shopTitle}</span>
+                                <span className='text-lg text-center ellipsis'>{HTMLReactParser(review.text)}</span>
+                                <Rate value={review.rate} size={'lg'}/>
+                                <div className='flex-col-center'>
+                                    <span>{timeFormatter(review.date)}</span>
+                                    <span>{review.username}</span>
+                                </div>
                             </div>
+                        </Link>
+                    ) :
+                    <div>
+                        <div className='flex-col-center min-h-[380px] text-center'>
+                            <span>최근 등록 리뷰가 없습니다.</span>
                         </div>
-                    </Link>
-                )}
+                    </div>}
             </Slider>
         </div>
     )

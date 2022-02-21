@@ -42,19 +42,19 @@ export async function getReviewById(id) {
 
 export async function update(id, title, rate, text, coords) {
     return db
-        .execute(`UPDATE shops SET title=?,rate=?,coords=? WHERE shops.id=?`, [title, rate, coords, id])
+        .execute(`UPDATE shops SET title=?,rate=?,coords=? WHERE shops.id=?`, [title.replaceAll('</p><p>', ''), rate, coords, id])
         .then(() => getShopsById(id))
 }
 
 export async function create(id, title, address, phone, coords, userId) {
     return db
-        .execute("INSERT INTO shops (id,title,address,phone,coords,userId) VALUES (?,?,?,?,?,?)", [id, title, address, phone, coords, userId])
+        .execute("INSERT INTO shops (id,title,address,phone,coords,userId) VALUES (?,?,?,?,?,?)", [id, title.replaceAll('</p><p>', ''), address, phone, coords, userId])
         .then(result => getShopsById(result[0].insertId))
 }
 
 export async function createReview(text, userId, id, rate) {
     return db
-        .execute("INSERT INTO reviews (text,userId,shopId,rate) VALUES (?,?,?,?)", [text, userId, id, rate])
+        .execute("INSERT INTO reviews (text,userId,shopId,rate) VALUES (?,?,?,?)", [text.replaceAll('</p><p>', ''), userId, id, rate])
         .then(result => getShopsById(result[0].insertId))
 }
 

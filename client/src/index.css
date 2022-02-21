@@ -4,7 +4,7 @@
 
 @layer components {
     .button-common {
-        @apply border rounded bg-black py-4 px-6 cursor-pointer text-white
+        @apply round bg-black py-4 px-6 cursor-pointer text-white
     }
 
     .input-name {
@@ -16,17 +16,17 @@
     }
 
     .title {
-        @apply w-[250px] mx-auto my-4 text-center text-2xl font-semibold p-6 border rounded bg-black text-white
+        @apply w-[250px] mx-auto my-4 text-center text-2xl font-semibold p-6 round bg-black text-white
     }
 
     .title-absolute {
-        @apply text-center md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 text-xl border rounded bg-black text-white w-48 p-4 m-auto
+        @apply text-center md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 text-xl round bg-black text-white w-48 p-4 m-auto
     }
 }
 
 @layer utilities {
     .flex-col-center {
-        @apply flex flex-col justify-center
+        @apply flex-col flex-row-center
     }
 
     .flex-row-center {
@@ -51,6 +51,10 @@
 
     .active {
         @apply translate-y-0
+    }
+
+    .round {
+        @apply rounded border
     }
 }
 
@@ -121,20 +125,9 @@ main {
     width: 200px;
 }
 
-
-/*map*/
-@media screen and (max-width: 1023px) {
-    #myMap {
-        width: 81vw !important;
-        margin: auto;
-        min-height: 45vh !important;
+@media screen and (max-width: 1024px) {
+    .slick-track {
+        height: 300px;
     }
 }
 
-@media screen and (max-width: 425px) {
-    #menu_wrap {
-        padding: 2em 0;
-        position: static;
-        margin: 2em auto;
-    }
-}

@@ -46,7 +46,7 @@ const TextEditor = ({
                     'text': content.text || '',
                 }
             }
-            if (isShop && id) {
+            if (isShop) {
                 dataObj = {
                     'text': content.text || '내용 없음',
                     'rate': content.rate || 0
