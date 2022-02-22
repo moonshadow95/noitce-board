@@ -51,10 +51,10 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
     return (
         <main>
             {/*Section*/}
-            <section className='flex flex-col align-center border rounded m-6 mt-[100px]'>
+            <section className='flex-col-center align-center border rounded m-6 mt-[100px]'>
                 {!editing && <>
-                    <header className='w-full flex justify-center align-center'>
-                        <h1 className='w-full text-2xl flex p-6 gap-4'>
+                    <header className='w-full flex-col-center align-center md:flex-row '>
+                        <h1 className='w-full text-2xl flex p-6 gap-4 flex-col md:flex-row items-center'>
                             {selected.title}
                             {!isSnack &&
                             <Rate value={rating}/>}
@@ -62,7 +62,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                         {isShop &&
                         <div className='m-auto'>
                             <button
-                                className='mr-2 border rounded w-[150px] h-[60px] bg-black text-white transition hover:bg-white hover:text-black active:translate-y-2'
+                                className='mb-4 md:mb-0 mr-2 w-[120px] round button-common button-animation'
                                 onClick={onEditClick}>리뷰 추가
                             </button>
                         </div>}
