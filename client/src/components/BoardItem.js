@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import timeFormatter from "../../util/date";
-import Rate from "../Rate/Rate";
+import timeFormatter from "../util/date";
+import Rate from "./Rate";
 
 const BoardItem = ({content}) => {
     return (

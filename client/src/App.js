@@ -1,19 +1,16 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Snack from "./routes/Snack/Snack";
-import Read from "./routes/Read/Read";
-import Banner from "./components/Banner/Banner";
-import Navigation from "./components/Navigation/Navigation";
-import Auth from "./components/Auth/Auth";
-import Gourmet from "./routes/Gourmet/Gourmet";
-import Home from './routes/Home/Home'
-import ShopAll from "./components/Shop/ShopAll";
-import ShopDetail from "./components/Shop/ShopDetail";
+import Read from "./routes/Read";
+import Banner from "./components/Banner";
+import Navigation from "./components/Navigation";
+import Gourmet from "./routes/Gourmet";
+import Home from './routes/Home'
+import ShopDetail from "./components/ShopDetail";
+import Board from "./components/Board";
 
 function App({authService, boardService}) {
     const [user, setUser] = useState(undefined)
     const [banner, setBanner] = useState('')
-    const [isAuth, setIsAuth] = useState(undefined)
     const [isAlert, setIsAlert] = useState()
 
     const getUser = useCallback(async () => {
@@ -21,36 +18,32 @@ function App({authService, boardService}) {
             const user = await authService.me()
             setUser(user.data)
         } catch (error) {
-            console.log(error.message)
+            setBanner('로그인 해주세요.')
         }
         return user
     }, [user, authService])
 
     useEffect(() => {
         getUser()
-        setIsAuth(prev => user)
     }, [])
 
     return (
         <BrowserRouter>
             {/* 로그인 상태시 내비게이션 바 표시 */}
             {user && <Navigation authService={authService} user={user}/>}
-            <Banner text={banner} isAlert={isAlert} />
+            {/* 알림 배너 */}
+            <Banner text={banner} isAlert={isAlert}/>
+            {/* 라우트 */}
             <Routes>
                 <Route path="/" element={
-                    // 로그인 상태
-                    user ? <Home/> : <>
-                        {/* 로그인 */}
-                        <div className='my-4 text-white py-4 mx-auto text-7xl bg-ictus rounded w-max'>
-                            <h1 className='w-max px-10 text-center m-auto leading-2'>ictus</h1>
-                        </div>
-                        <Auth setIsAuth={setIsAuth} authService={authService} setBanner={setBanner}
-                              setIsAlert={setIsAlert}/>
-                    </>
+                    // 홈
+                    <Home user={user} setUser={setUser} authService={authService}
+                          setBanner={setBanner} setIsAlert={setIsAlert}
+                    />
                 }/>
-                {/* 간식 게시판 */}
+                {/* 간식 신청 게시판 */}
                 <Route path="/snack" element={
-                    <Snack
+                    <Board
                         user={user}
                         authService={authService}
                         boardService={boardService}
@@ -58,6 +51,7 @@ function App({authService, boardService}) {
                         setIsAlert={setIsAlert}
                     />}
                 />
+                {/* 신청 내용 보기 */}
                 <Route path='/snack/:id' element={
                     <Read
                         user={user}
@@ -76,8 +70,9 @@ function App({authService, boardService}) {
                         setIsAlert={setIsAlert}
                     />}
                 />
+                {/* 맛집 등록 지도 & 등록된 맛집들 */}
                 <Route path='/gourmet/shops' element={
-                    <ShopAll
+                    <Board
                         user={user}
                         authService={authService}
                         boardService={boardService}
@@ -85,6 +80,7 @@ function App({authService, boardService}) {
                         setIsAlert={setIsAlert}
                     />}
                 />
+                {/* 등록된 가게 정보 & 리뷰들 */}
                 <Route path='/gourmet/shops/:id' element={
                     <ShopDetail
                         user={user}

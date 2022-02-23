@@ -1,11 +1,12 @@
 import React from 'react';
 import Slider from "react-slick";
 import {Link} from "react-router-dom";
-import Rate from "../Rate/Rate";
-import timeFormatter from "../../util/date";
+import Rate from "./Rate";
+import timeFormatter from "../util/date";
 import HTMLReactParser from "html-react-parser";
+import LoadingSpinner from "./LoadingSpinner";
 
-const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
+const Review = ({reviews, isLoading}) => {
     const settings = {
         dots: true,
         arrows: true,
@@ -53,27 +54,30 @@ const Review = ({reviews, boardService, setBanner, setIsAlert}) => {
                 </div>
             </div>
             <span className='text-center'>리뷰 클릭시 가게 정보로 이동합니다.</span>
-            <Slider {...settings}>
-                {reviews[0] ? reviews.slice(0, 6).map((review) =>
-                        <Link className='m-auto' to={`./shops/${review.shopId}`} key={review.id}>
-                            <div
-                                className='flex-col-center gap-4 p-4 items-center text-center item-animation xl:min-h-[350px] min-h-[300px]'>
-                                <span className='ellipsis text-lg font-semibold'>{review.shopTitle}</span>
-                                <span className='text-lg text-center ellipsis'>{HTMLReactParser(review.text)}</span>
-                                <Rate value={review.rate} size={'lg'}/>
-                                <div className='flex-col-center'>
-                                    <span>{timeFormatter(review.date)}</span>
-                                    <span>{review.username}</span>
+            {isLoading ? <LoadingSpinner isScreen={false}/> :
+                reviews[0] ?
+                    <Slider {...settings}>
+                        {reviews.slice(0, 6).map((review) =>
+                            <Link className='m-auto' to={`./shops/${review.shopId}`} key={review.id}>
+                                <div
+                                    className='flex-col-center gap-4 p-4 items-center text-center item-animation xl:min-h-[350px] min-h-[300px]'>
+                                    <span className='ellipsis text-lg font-semibold'>{review.shopTitle}</span>
+                                    <span className='text-lg text-center ellipsis'>{HTMLReactParser(review.text)}</span>
+                                    <Rate value={review.rate} size={'lg'}/>
+                                    <div className='flex-col-center'>
+                                        <span>{timeFormatter(review.date)}</span>
+                                        <span>{review.username}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                    ) :
+                            </Link>
+                        )}
+                    </Slider>
+                    :
                     <div>
-                        <div className='flex-col-center min-h-[380px] text-center'>
-                            <span>최근 등록 리뷰가 없습니다.</span>
+                        <div className='flex-col-center min-h-[380px] text-center w-[80vw] m-auto round shadow-lg'>
+                            최근 등록 리뷰가 없습니다.
                         </div>
                     </div>}
-            </Slider>
         </div>
     )
 };

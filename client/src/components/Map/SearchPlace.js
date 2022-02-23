@@ -7,7 +7,7 @@ const SearchPlace = ({
                          keyword,
                          setKeyword,
                          setPlaceObj,
-                         titleAndCoords,
+                         registeredShops,
                          getBoards,
                          setBanner,
                          setIsAlert
@@ -25,14 +25,14 @@ const SearchPlace = ({
             <div className="map_wrap">
                 <MapContainer boardService={boardService} keyword={keyword} setKeyword={setKeyword}
                               setPlaceObj={setPlaceObj} getBoards={getBoards}
-                              titleAndCoords={titleAndCoords} setBanner={setBanner} setIsAlert={setIsAlert}/>
+                              registeredShops={registeredShops} setBanner={setBanner} setIsAlert={setIsAlert}/>
                 <div id="menu_wrap" className="border md:border-none">
                     <div className="text-center">
                         <div>
                             <form onSubmit={handleSubmit} method='' className='p-1'>
                                 <span>키워드 : </span><
                                 input
-                                className='p-1 border mr-2 w-[120px]'
+                                className='p-1 mr-2 w-[120px] round'
                                 type="text" onChange={onChange} value={inputText} id="keyword"
                                 size="15"/>
                                 <button className='round text-center py-1 px-2 bg-white' type="submit">검색하기

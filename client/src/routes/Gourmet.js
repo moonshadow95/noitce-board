@@ -2,23 +2,25 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Review from "../../components/Review/Review";
-import Shop from "../../components/Shop/Shop";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import Review from "../components/Review";
+import Shop from "../components/Shop";
 
 const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     const navigate = useNavigate();
     const [shops, setShops] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const [isLoading, setIsLoading] = useState(true)
 
     const getBoards = useCallback(async () => {
         const response = await boardService.getBoard()
-        return setShops(prev => [...response])
+        setShops(prev => [...response])
+        return setIsLoading(false)
     }, [boardService])
 
     const getReviews = useCallback(async () => {
         const response = await boardService.getReviews()
-        return setReviews(prev => [...response])
+        setReviews(prev => [...response])
+        return setIsLoading(false)
     }, [boardService])
 
     useEffect(() => {
@@ -30,19 +32,10 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     }, [authService, navigate])
 
     return (
-        <>{(shops || reviews) ?
-            <section className='xl:mt-[80px] mt-[100px]'>
-                <Review
-                    reviews={reviews}
-                    boardService={boardService}
-                    setIsAlert={setIsAlert}
-                    setBanner={setBanner}
-                />
-                <Shop data={shops}/>
-            </section> :
-            <LoadingSpinner/>
-        }</>
-
+        <section className='xl:mt-[94px] mt-[100px]'>
+            <Review reviews={reviews} isLoading={isLoading}/>
+            <Shop shops={shops} isLoading={isLoading}/>
+        </section>
     )
 };
 

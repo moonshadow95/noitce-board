@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import HTMLReactParser from "html-react-parser";
-import TextEditor from "../TextEditor/TextEditor";
+import TextEditor from "./TextEditor";
 import {useNavigate, useParams} from "react-router-dom";
-import timeFormatter from "../../util/date";
-import ReviewItem from "../Review/ReviewItem";
-import Rate from "../Rate/Rate";
+import timeFormatter from "../util/date";
+import ReviewItem from "./ReviewItem";
+import Rate from "./Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 
 const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews, getReviews}) => {
@@ -50,8 +50,8 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
     })
     return (
         <main>
-            {/*Section*/}
-            <section className='flex-col-center align-center border rounded m-6 mt-[100px]'>
+            <section className='flex-col-center align-center round mx-auto w-[80vw] md:w-[75vw] lg:w-[70vw] mt-[100px]'>
+                {/* 작성 시 */}
                 {!editing && <>
                     <header className='w-full flex-col-center align-center md:flex-row '>
                         <h1 className='w-full text-2xl flex p-6 gap-4 flex-col md:flex-row items-center'>
@@ -59,11 +59,12 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                             {!isSnack &&
                             <Rate value={rating}/>}
                         </h1>
+                        {/* 등록된 가게에 후기 작성 */}
                         {isShop &&
                         <div className='m-auto'>
                             <button
                                 className='mb-4 md:mb-0 mr-2 w-[120px] round button-common button-animation'
-                                onClick={onEditClick}>리뷰 추가
+                                onClick={onEditClick}>후기 작성
                             </button>
                         </div>}
                     </header>
@@ -72,8 +73,8 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                         <div><small>{selected.username}</small></div>
                     </div>
                     <div className={`min-h-[300px] ${isSnack && 'm-6'}`}>
-                        {
-                            HTMLReactParser(selected.text || '')}
+                        {HTMLReactParser(selected.text || '')}
+                        {/* 가게 자세히 보기인 경우 */}
                         {shopReviews &&
                         <div>
                             <div className='border-b flex flex-col gap-2 p-6'>
@@ -116,18 +117,20 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                         </div>
                         }
                     </div>
+                    {/* 현재 유저가 작성자와 동일한 경우 */}
                     {selected.isOwner &&
                     <div className='w-full flex-row-center gap-4 py-4 border-t'>
                         {isSnack && <button
-                            className='button-common button-animation'
+                            className='button-common button-animation text-xs sm:text-base'
                             onClick={onEditClick}>{editing ? "취소" : "글 수정하기"}</button>}
                         <button
-                            className='button-common button-animation hover:bg-red hover:text-white'
+                            className='button-common button-animation hover:bg-red hover:text-white text-xs sm:text-base'
                             id={selected.id} onClick={onDeleteClick}>{isShop ? "맛집 삭제하기" : "글 삭제하기"}</button>
                     </div>
                     }
                 </>
                 }
+                {/* 간식 신청 게시판 - 글 수정 */}
                 {editing &&
                 <TextEditor
                     isEdit={true}

@@ -1,9 +1,9 @@
 import React from 'react';
-import StaticMap from "../Map/StaticMap";
+import StaticMap from "./Map/StaticMap";
 import Slider from "react-slick";
-import {Link} from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
-const Shop = ({data}) => {
+const Shop = ({shops, isLoading}) => {
     const settings = {
         dots: true,
         arrows: true,
@@ -40,27 +40,30 @@ const Shop = ({data}) => {
     };
     return (
         <div className='relative grow-1 flex-col-center pb-14 mt-4'>
-            <div className='md:flex relative mb-4'>
-                <h2 className='title title-absolute'>
+            <div className='md:flex mb-2'>
+                <h2 className='title'>
                     최근 등록 맛집</h2>
-                <div
-                    className='button-common button-animation ml-auto w-[190px] md:w-auto text-center m-auto md:mr-24 xl:mr-40'>
-                    <Link to='./shops'>
-                        <button>전체보기 / 등록하기</button>
-                    </Link>
-                </div>
             </div>
             <span className='text-center'>지도 클릭시 카카오 맵으로 이동합니다.</span>
-            <Slider {...settings}>
-                {data.slice(0, 6).map((shop) =>
-                    <div className='xl:h-[350px] h-[250px]' key={shop.id}>
-                        <div className='text-center text-lg py-3 flex-row-center font-semibold ellipsis'>
-                            <p>{shop.title}</p>
+            {isLoading ? <LoadingSpinner/> :
+                shops[0] ?
+                    <Slider {...settings}>
+                        {shops.slice(0, 6).map((shop) =>
+                            <div className='xl:h-[350px] h-[250px] shadow-lg' key={shop.id}>
+                                <div className='text-center text-lg py-3 flex-row-center font-semibold ellipsis'>
+                                    <p>{shop.title}</p>
+                                </div>
+                                <StaticMap shop={shop} key={shop.id}/>
+                            </div>
+                        )}
+                    </Slider> :
+                    <div>
+                        <div className='flex-col-center min-h-[380px] text-center w-[80vw] m-auto round shadow-lg'>
+                            최근 등록 맛집이 없습니다.
                         </div>
-                        <StaticMap shop={shop} key={shop.id}/>
                     </div>
-                )}
-            </Slider>
+
+            }
         </div>
     )
 };

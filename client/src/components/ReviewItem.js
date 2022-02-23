@@ -1,6 +1,6 @@
 import React from 'react';
-import timeFormatter from "../../util/date";
-import Rate from "../Rate/Rate";
+import timeFormatter from "../util/date";
+import Rate from "./Rate";
 import HTMLReactParser from "html-react-parser";
 
 const ReviewItem = ({content, onDeleteClick, isOwner}) => {

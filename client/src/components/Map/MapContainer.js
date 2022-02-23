@@ -5,7 +5,7 @@ const MapContainer = ({
                           keyword,
                           setKeyword,
                           setPlaceObj,
-                          titleAndCoords,
+                          registeredShops,
                           getBoards,
                           setBanner,
                           setIsAlert
@@ -207,11 +207,10 @@ const MapContainer = ({
                 paginationEl.appendChild(fragment);
             }
 
-            // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
             // 인포윈도우에 장소명을 표시합니다
             function displayInfowindow(marker, title) {
                 var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
+                console.log('h')
                 infowindow.setContent(content);
                 infowindow.open(map, marker);
             }
@@ -222,26 +221,6 @@ const MapContainer = ({
                     el.removeChild(el.lastChild);
                 }
             }
-
-            // 지도에 마커를 표시하는 함수
-            function displayMarker(place) {
-                // 마커를 생성하고 지도에 표시
-                let marker = new kakao.maps.Marker({
-                    map: map,
-                    position: new kakao.maps.LatLng(place.y, place.x)
-                });
-
-                // 마커에 클릭이벤트를 등록
-                kakao.maps.event.addListener(marker, 'click', function () {
-
-                    // 클릭한 마커의 이름으로 title input value
-                    setKeyword(place.place_name)
-
-                    // 마커를 클릭하면 장소명이 인포윈도우에 표출
-                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-                    infowindow.open(map, marker);
-                });
-            }
         }
 
         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
@@ -250,10 +229,11 @@ const MapContainer = ({
 
         // 등록된 장소 표시 로직
         // 마커를 표시할 위치와 title 객체 배열
-        let positions = titleAndCoords.map(item => {
+        let positions = registeredShops.map(item => {
+            const id = item.id
             const title = item.title
             const latlngs = item.coords
-            return {title, latlng: new kakao.maps.LatLng(latlngs[1], latlngs[0])}
+            return {id, title, latlng: new kakao.maps.LatLng(latlngs[1], latlngs[0])}
         })
 
         const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png'
@@ -267,30 +247,40 @@ const MapContainer = ({
 
             // 마커를 생성합니다
             var staticMarker = new kakao.maps.Marker({
+                id: positions[i].id, // 마커가 있는 가게의 id
                 map: map, // 마커를 표시할 지도
                 position: positions[i].latlng, // 마커를 표시할 위치
                 image: markerImage, // 마커 이미지
             });
-
             // 마커에 표시할 인포윈도우를 생성합니다
             var staticInfowindow = new kakao.maps.InfoWindow({
                 // 인포윈도우에 표시할 내용
-                content: `<div style="font-size: 12px;padding: 5px;">${positions[i].title}</div>`
+                content: `<div style="font-size: 14px; padding: 5px 10px;width:150px; text-align:center;" >${positions[i].title}</div>`
             });
             // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
             (function (staticMarker, staticInfowindow) {
                 // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다
                 kakao.maps.event.addListener(staticMarker, 'mouseover', function () {
                     staticInfowindow.open(map, staticMarker);
-                });
 
+                });
+                // 마커에 onClick 이벤트를 등록합니다
+                kakao.maps.event.addListener(staticMarker, 'click', function () {
+                    const startIndex = staticInfowindow.cc.indexOf('>')
+                    const endIndex = staticInfowindow.cc.indexOf('</div>')
+                    for (let i = 0; positions.length > i; i++) {
+                        if (positions[i].title === staticInfowindow.cc.substring(startIndex + 1, endIndex)){
+                            window.location.href = `./shops/${positions[i].id}`
+                        }
+                    }
+                })
                 // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
                 kakao.maps.event.addListener(staticMarker, 'mouseout', function () {
                     staticInfowindow.close();
                 });
             })(staticMarker, staticInfowindow);
         }
-    }, [keyword, titleAndCoords, kakao.maps.ControlPosition.LEFT, kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.MarkerImage, kakao.maps.Size, kakao.maps.ZoomControl, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, setKeyword, setPlaceObj]);
+    }, [keyword, registeredShops, kakao.maps.ControlPosition.LEFT, kakao.maps.InfoWindow, kakao.maps.LatLng, kakao.maps.LatLngBounds, kakao.maps.Map, kakao.maps.Marker, kakao.maps.MarkerImage, kakao.maps.Size, kakao.maps.ZoomControl, kakao.maps.event, kakao.maps.services.Places, kakao.maps.services.Status.OK, setKeyword, setPlaceObj]);
     return (
         <>
             <div id={`myMap`} style={{

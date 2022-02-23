@@ -16,11 +16,11 @@
     }
 
     .title {
-        @apply w-[250px] mx-auto my-4 text-center text-2xl font-semibold p-6 round bg-black text-white
+        @apply mx-auto text-center text-2xl font-semibold p-6 round bg-black text-white text-xl w-[80vw] sm:w-auto
     }
 
     .title-absolute {
-        @apply text-center md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 text-xl round bg-black text-white w-48 p-4 m-auto
+        @apply md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 round bg-black text-white m-auto
     }
 }
 
@@ -68,7 +68,6 @@ body {
 }
 
 main {
-    max-width: 1000px;
     margin: auto;
 }
 

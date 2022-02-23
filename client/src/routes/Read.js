@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import { useParams} from "react-router-dom";
-import Selected from "../../components/Selected/Selected";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import {useParams} from "react-router-dom";
+import Selected from "../components/Selected";
+import LoadingSpinner from "../components/LoadingSpinner";
 import {useNavigate} from "react-router-dom";
 
 const Read = ({user, authService, setBanner, setIsAlert, boardService}) => {
@@ -11,17 +11,21 @@ const Read = ({user, authService, setBanner, setIsAlert, boardService}) => {
     const navigate = useNavigate();
 
     // 선택된 게시물 가져오기
-    const getSelected = useCallback(async(id) =>{
+    const getSelected = useCallback(async (id) => {
         const response = await boardService.getBoard(id)
-        if(response.isOwner === true){
+        if (response.isOwner === true) {
             setIsOwner(true)
         }
         return setSelected(response)
-    },[boardService])
-    useEffect(()=>{
-        getSelected(id)
-        authService.me().then(r => getSelected(id)).catch(err => navigate(-1))
-    },[authService,id,navigate, getSelected])
+    }, [boardService])
+    useEffect(() => {
+        authService.me()
+            .then(r => getSelected(id))
+            .catch(err => {
+                navigate('/')
+                window.location.reload();
+            })
+    }, [authService, id, navigate, getSelected])
     return (
         selected ?
             <Selected
@@ -32,7 +36,7 @@ const Read = ({user, authService, setBanner, setIsAlert, boardService}) => {
                 setIsAlert={setIsAlert}
                 boardService={boardService}
             /> :
-            <LoadingSpinner />
+            <LoadingSpinner/>
     );
 }
 
