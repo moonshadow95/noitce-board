@@ -1,7 +1,8 @@
 import React from 'react';
-import StaticMap from "./Map/StaticMap";
+import StaticMap from "../Map/StaticMap";
 import Slider from "react-slick";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner";
+import {Link} from "react-router-dom";
 
 const Shop = ({shops, isLoading}) => {
     const settings = {
@@ -44,7 +45,6 @@ const Shop = ({shops, isLoading}) => {
                 <h2 className='title'>
                     최근 등록 맛집</h2>
             </div>
-            <span className='text-center'>지도 클릭시 카카오 맵으로 이동합니다.</span>
             {isLoading ? <LoadingSpinner/> :
                 shops[0] ?
                     <Slider {...settings}>
@@ -53,7 +53,9 @@ const Shop = ({shops, isLoading}) => {
                                 <div className='text-center text-lg py-3 flex-row-center font-semibold ellipsis'>
                                     <p>{shop.title}</p>
                                 </div>
-                                <StaticMap shop={shop} key={shop.id}/>
+                                <Link to={`./shops/${shop.id}`}>
+                                    <StaticMap shop={shop} key={shop.id}/>
+                                </Link>
                             </div>
                         )}
                     </Slider> :

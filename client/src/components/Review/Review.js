@@ -1,10 +1,10 @@
 import React from 'react';
 import Slider from "react-slick";
 import {Link} from "react-router-dom";
-import Rate from "./Rate";
-import timeFormatter from "../util/date";
+import Rate from "../Rate";
+import timeFormatter from "../../util/date";
 import HTMLReactParser from "html-react-parser";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner";
 
 const Review = ({reviews, isLoading}) => {
     const settings = {
@@ -53,7 +53,6 @@ const Review = ({reviews, isLoading}) => {
                     </Link>
                 </div>
             </div>
-            <span className='text-center'>리뷰 클릭시 가게 정보로 이동합니다.</span>
             {isLoading ? <LoadingSpinner isScreen={false}/> :
                 reviews[0] ?
                     <Slider {...settings}>

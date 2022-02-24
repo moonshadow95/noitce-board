@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import Selected from "./Selected";
+import Selected from "../Selected";
 
 const ShopDetail = ({user, authService, boardService, setIsAlert, setBanner}) => {
     const [shop, setShop] = useState({})

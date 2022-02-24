@@ -4,7 +4,7 @@ import HTMLReactParser from "html-react-parser";
 import TextEditor from "./TextEditor";
 import {useNavigate, useParams} from "react-router-dom";
 import timeFormatter from "../util/date";
-import ReviewItem from "./ReviewItem";
+import ReviewItem from "./Review/ReviewItem";
 import Rate from "./Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 

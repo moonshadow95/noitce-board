@@ -210,7 +210,6 @@ const MapContainer = ({
             // 인포윈도우에 장소명을 표시합니다
             function displayInfowindow(marker, title) {
                 var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-                console.log('h')
                 infowindow.setContent(content);
                 infowindow.open(map, marker);
             }

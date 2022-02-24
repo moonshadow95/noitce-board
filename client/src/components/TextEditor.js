@@ -107,7 +107,7 @@ const TextEditor = ({
                 <>
                     <div className=''>
                         <div className='relative my-6 mx-auto w-[90%]'>
-                            <input className='p-4 border rounded w-[100%]' type="text"
+                            <input className='p-4 border rounded w-full' type="text" maxLength='30'
                                    value={content.title || ''} name='title' onChange={onChange}/>
                             <span className='input-name'>
                                 {isSnack ? '희망하는 간식' : (isShop && id) ? '상호명' : '상호명을 입력하세요'}

@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Review from "../components/Review";
-import Shop from "../components/Shop";
+import Review from "../components/Review/Review";
+import Shop from "../components/Shop/Shop";
 
 const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     const navigate = useNavigate();

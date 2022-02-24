@@ -87,6 +87,7 @@ main {
 .slick-slider {
     width: 80%;
     margin: auto;
+    margin-top: 1em;
 }
 
 .slick-list {

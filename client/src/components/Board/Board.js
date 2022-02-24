@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import BoardItem from "./BoardItem";
-import TextEditor from "./TextEditor";
-import Paging from "./Paging/Paging";
+import TextEditor from "../TextEditor";
+import Paging from "../Paging/Paging";
 import {useNavigate} from "react-router-dom";
-import SearchPlace from "./Map/SearchPlace";
-import LoadingSpinner from "./LoadingSpinner";
+import SearchPlace from "../Map/SearchPlace";
+import LoadingSpinner from "../LoadingSpinner";
 
 const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)

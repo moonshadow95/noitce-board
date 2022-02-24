@@ -5,8 +5,8 @@ import Banner from "./components/Banner";
 import Navigation from "./components/Navigation";
 import Gourmet from "./routes/Gourmet";
 import Home from './routes/Home'
-import ShopDetail from "./components/ShopDetail";
-import Board from "./components/Board";
+import ShopDetail from "./components/Shop/ShopDetail";
+import Board from "./components/Board/Board";
 
 function App({authService, boardService}) {
     const [user, setUser] = useState(undefined)
