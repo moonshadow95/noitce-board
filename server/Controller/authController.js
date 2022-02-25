@@ -11,7 +11,6 @@ const bcryptSaltRounds = 12
 // Sign Up
 export async function signup(req, res) {
     const {username, password} = req.body;
-    const sqlQueryInsert = `INSERT INTO Users (username, password) VALUES (?,?)`;
     const found = await userRepository.findByUsername(username)
     if (found) {
         return res.status(409).json({message: `${username}은(는) 존재하는 유저입니다.`})
@@ -37,15 +36,16 @@ export async function login(req, res) {
     res.status(200).json({token, username})
 }
 
-// Create JWT
-function createJwtToken(id) {
-    return jwt.sign({id}, jwtSecretKey, {expiresIn: jwtExpiresInDays})
-}
-
+// Check
 export async function me(req, res) {
     const user = await userRepository.findById(req.userId);
     if (!user) {
         return res.status(404).json({message: '유저를 찾지 못했습니다.'});
     }
     res.status(200).json({token: req.token, username: user.username})
+}
+
+// Create JWT
+function createJwtToken(id) {
+    return jwt.sign({id}, jwtSecretKey, {expiresIn: jwtExpiresInDays})
 }

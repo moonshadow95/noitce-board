@@ -7,7 +7,7 @@ import {isAuth} from "../middleware/auth.js";
 
 const authRouter = express.Router();
 
-const validateSignup = [
+const validation = [
     body('username')
         .trim()
         .notEmpty()
@@ -18,8 +18,8 @@ const validateSignup = [
         .withMessage('비밀번호를 4글자 이상 입력하세요.'),
     validate
 ];
-authRouter.post('/signup', validateSignup, signup)
-authRouter.post('/login', validateSignup, login)
+authRouter.post('/signup', validation, signup)
+authRouter.post('/login', validation, login)
 authRouter.post('/me', isAuth, me)
 
 export default authRouter;

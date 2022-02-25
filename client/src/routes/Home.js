@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import Auth from "../components/Auth";
 
-const Home = ({setBanner, setIsAlert, user, authService, setUser}) => {
-
+const Home = ({setBanner, setIsAlert, user, authService, setUser, getUser}) => {
+    useEffect(() => {
+        getUser()
+    }, [])
     return (
         <>
             {/* 로그인 상태 */}

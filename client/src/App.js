@@ -13,12 +13,14 @@ function App({authService, boardService}) {
     const [banner, setBanner] = useState('')
     const [isAlert, setIsAlert] = useState()
 
+    // 로그인 여부 확인
     const getUser = useCallback(async () => {
         try {
             const user = await authService.me()
             setUser(user.data)
         } catch (error) {
-            setBanner('로그인 해주세요.')
+            setUser(undefined)
+            setBanner(error.response.data.message)
         }
         return user
     }, [user, authService])
@@ -38,7 +40,7 @@ function App({authService, boardService}) {
                 <Route path="/" element={
                     // 홈
                     <Home user={user} setUser={setUser} authService={authService}
-                          setBanner={setBanner} setIsAlert={setIsAlert}
+                          setBanner={setBanner} setIsAlert={setIsAlert} getUser={getUser}
                     />
                 }/>
                 {/* 간식 신청 게시판 */}

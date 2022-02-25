@@ -10,7 +10,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false)
     const [viewContent, setViewContent] = useState([])
-    const [registeredShops, setsetRegisteredShops] = useState([])
+    const [registeredShops, setRegisteredShops] = useState([])
     const [page, setPage] = useState(1)
     const [keyword, setKeyword] = useState('');
     const [placeObj, setPlaceObj] = useState()
@@ -35,7 +35,7 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
                 const coords = item.coords.split(',');
                 return {id:id, title: titles, coords: coords.map(item => parseFloat(item))}
             })
-            setsetRegisteredShops([...data])
+            setRegisteredShops([...data])
         }
         setViewContent(prev => [...response])
         return setIsLoading(false)
