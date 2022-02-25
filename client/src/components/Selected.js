@@ -6,7 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import timeFormatter from "../util/date";
 import ReviewItem from "./Review/ReviewItem";
 import Rate from "./Rate";
-import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
+import {faPhoneAlt, faMapMarkerAlt, faLink, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 
 const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews, getReviews}) => {
     const [editing, setEditing] = useState(false);
@@ -43,6 +43,11 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
             return setRating(value)
         }
     }
+    // TODO - 좋아요
+    // // 좋아요
+    // const onThumbClick = () => {
+    //     console.log(selected)
+    // }
     useEffect(() => {
         if (shopReviews) {
             average(shopReviews.map(review => review.rate))
@@ -54,11 +59,15 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                 {/* 작성 시 */}
                 {!editing && <>
                     <header className='w-full flex-col-center align-center md:flex-row '>
-                        <h1 className='w-full text-2xl flex p-6 gap-4 flex-col md:flex-row items-center'>
-                            {selected.title}
-                            {!isSnack &&
-                            <Rate value={rating}/>}
-                        </h1>
+                        <div className='w-full text-2xl flex p-6 gap-4 flex-col md:flex-row items-center'>
+                            <h1>{selected.title}</h1>
+                            {isSnack ?
+                                <div>
+                                    {/*<FontAwesomeIcon icon={faThumbsUp} size={'xs'} className='mb-1 cursor-pointer' onClick={onThumbClick}/>*/}
+                                    {/*<span className='text-[20px]'> +{selected.likes}</span>*/}
+                                </div>:
+                                <Rate value={rating}/>}
+                        </div>
                         {/* 등록된 가게에 후기 작성 */}
                         {isShop &&
                         <div className='m-auto'>
@@ -74,7 +83,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                     </div>
                     <div className={`min-h-[300px] ${isSnack && 'm-6'}`}>
                         {HTMLReactParser(selected.text || '')}
-                        {/* 가게 자세히 보기인 경우 */}
+                        {/* 가게 정보 보기인 경우 */}
                         {shopReviews &&
                         <div>
                             <div className='border-b flex flex-col gap-2 p-6'>

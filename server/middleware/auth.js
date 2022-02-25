@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../data/auth.js';
+import {config} from "../config.js";
 
 const AUTH_ERROR = {message: '로그인 후 이용할 수 있습니다.'}
 
@@ -13,7 +14,7 @@ export const isAuth = async (req, res, next) => {
 
     jwt.verify(
         token,
-        '3E793A85B4612E59DFDFB7B924FFF',
+        config.jwt.secretKey,
         async (error, decoded) => {
             if (error) {
                 return res.status(401).json(AUTH_ERROR);
