@@ -2,18 +2,19 @@ import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "./TextEditor";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import timeFormatter from "../util/date";
 import ReviewItem from "./Review/ReviewItem";
 import Rate from "./Rate";
-import {faPhoneAlt, faMapMarkerAlt, faLink, faThumbsUp} from "@fortawesome/free-solid-svg-icons";
+import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 
 const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews, getReviews}) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
-    const isSnack = window.location.href.includes('snack')
-    const isShop = window.location.href.includes('shops')
     const navigate = useNavigate();
+    const location = useLocation().pathname.includes('gourmet') ? '/gourmet' : '/snack'
+    const isSnack = location.includes('snack')
+    const isShop = location.includes('gourmet')
     const {id: shopId} = useParams()
     // Edit
     const onEditClick = (event) => {
@@ -26,10 +27,10 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
         const ok = window.confirm("삭제하시겠습니까?");
         if (ok) {
             const {target: {id}} = event;
-            await boardService.deleteBoard(id)
+            await boardService.deleteBoard(id, location)
             setIsAlert(false)
             setBanner('삭제되었습니다.')
-            if (isSnack || (isShop && shopId)) {
+            if (isSnack) {
                 navigate(-1)
             } else {
                 getReviews()
@@ -44,9 +45,9 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
         }
     }
     // TODO - 좋아요
-    // // 좋아요
-    // const onThumbClick = () => {
-    //     console.log(selected)
+    // 좋아요
+    // const onThumbClick = async() => {
+    //     await boardService.addLike(selected.id)
     // }
     useEffect(() => {
         if (shopReviews) {
@@ -65,7 +66,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
                                 <div>
                                     {/*<FontAwesomeIcon icon={faThumbsUp} size={'xs'} className='mb-1 cursor-pointer' onClick={onThumbClick}/>*/}
                                     {/*<span className='text-[20px]'> +{selected.likes}</span>*/}
-                                </div>:
+                                </div> :
                                 <Rate value={rating}/>}
                         </div>
                         {/* 등록된 가게에 후기 작성 */}

@@ -18,13 +18,13 @@ export async function getSnackById(id) {
 
 export async function update(id, title, text) {
     return db
-        .execute('UPDATE snacks SET title=?,text=? WHERE snacks.id=?', [title.replaceAll('</p><p>', ''), text.replaceAll('</p><p>', ''), id])
+        .execute('UPDATE snacks SET title=?,text=? WHERE snacks.id=?', [title, text.replaceAll('</p><p>', ''), id])
         .then(() => getSnackById(id))
 }
 
 export async function create(title, text, userId) {
     return db
-        .execute("INSERT INTO snacks (title, text, userId) VALUES (?,?,?)", [title.replaceAll('</p><p>', ''), text.replaceAll('</p><p>', ''), userId])
+        .execute("INSERT INTO snacks (title, text, userId) VALUES (?,?,?)", [title, text.replaceAll('</p><p>', ''), userId])
         .then(result => getSnackById(result[0].insertId))
 }
 

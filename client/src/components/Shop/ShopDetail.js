@@ -17,7 +17,7 @@ const ShopDetail = ({user, authService, boardService, setIsAlert, setBanner}) =>
 
     // 해당 가게 정보 가져오기
     const getShopDetail = useCallback(async (id) => {
-        const response = await boardService.getBoard(id)
+        const response = await boardService.getBoard(id, '/gourmet')
         return setShop(prev => response)
     }, [boardService])
 

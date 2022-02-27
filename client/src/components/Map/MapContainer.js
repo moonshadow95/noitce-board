@@ -134,7 +134,7 @@ const MapContainer = ({
                     const ok = window.confirm('등록하시겠습니까?')
                     if (ok) {
                         try {
-                            await boardService.postBoard(places, '')
+                            await boardService.postBoard(places, '', '/gourmet')
                             setIsAlert(false)
                             setBanner('등록되었습니다.')
                             getBoards()
@@ -268,7 +268,7 @@ const MapContainer = ({
                     const startIndex = staticInfowindow.cc.indexOf('>')
                     const endIndex = staticInfowindow.cc.indexOf('</div>')
                     for (let i = 0; positions.length > i; i++) {
-                        if (positions[i].title === staticInfowindow.cc.substring(startIndex + 1, endIndex)){
+                        if (positions[i].title === staticInfowindow.cc.substring(startIndex + 1, endIndex)) {
                             window.location.href = `./shops/${positions[i].id}`
                         }
                     }

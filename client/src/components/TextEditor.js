@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Rating from "react-rating";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
@@ -22,8 +22,9 @@ const TextEditor = ({
                     }) => {
     const [content, setContent] = useState(selected)
     const [rating, setRating] = useState(0)
-    const isSnack = window.location.href.includes('snack')
-    const isShop = window.location.href.includes('shops')
+    const location = useLocation().pathname.includes('gourmet') ? '/gourmet' : '/snack'
+    const isSnack = location.includes('snack')
+    const isShop = location.includes('gourmet')
     const navigate = useNavigate()
     const {id} = useParams()
     let dataObj
@@ -52,7 +53,7 @@ const TextEditor = ({
                     'rate': content.rate || 0
                 }
             }
-            await boardService.postBoard(dataObj, ((id === undefined) ? '' : id))
+            await boardService.postBoard(dataObj, ((id === undefined) ? '' : id), location)
             setIsAlert(false)
             setBanner('작성되었습니다.')
         } catch (error) {
@@ -61,7 +62,7 @@ const TextEditor = ({
         }
         if (isSnack || (isShop && !id)) {
             onWriteClick()
-            getBoards()
+            getBoards(null, location)
         } else {
             onEditClick()
             getReviews(id)
@@ -84,7 +85,7 @@ const TextEditor = ({
                 }
             }
             setContent({...dataObj})
-            await boardService.updateBoard(selected.id, content)
+            await boardService.updateBoard(selected.id, content, location)
             navigate(-1)
             setIsAlert(false)
             setBanner('수정되었습니다.')

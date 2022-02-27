@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import Selected from "../components/Selected";
 import LoadingSpinner from "../components/LoadingSpinner";
 import {useNavigate} from "react-router-dom";
@@ -9,10 +9,11 @@ const Read = ({user, authService, setBanner, setIsAlert, boardService}) => {
     const [selected, setSelected] = useState('');
     const [isOwner, setIsOwner] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation().pathname.includes('gourmet') ? '/gourmet' : '/snack'
 
     // 선택된 게시물 가져오기
     const getSelected = useCallback(async (id) => {
-        const response = await boardService.getBoard(id)
+        const response = await boardService.getBoard(id, location)
         if (response.isOwner === true) {
             setIsOwner(true)
         }
@@ -22,8 +23,8 @@ const Read = ({user, authService, setBanner, setIsAlert, boardService}) => {
         authService.me()
             .then(r => getSelected(id))
             .catch(err => {
-                navigate('/')
-                window.location.reload();
+                // navigate('/')
+                // window.location.reload();
             })
     }, [authService, id, navigate, getSelected])
     return (

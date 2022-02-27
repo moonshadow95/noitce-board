@@ -1,18 +1,19 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Review from "../components/Review/Review";
 import Shop from "../components/Shop/Shop";
 
-const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
+const Gourmet = ({authService, boardService}) => {
     const navigate = useNavigate();
+    const location = useLocation().pathname
     const [shops, setShops] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
 
     const getBoards = useCallback(async () => {
-        const response = await boardService.getBoard()
+        const response = await boardService.getBoard(null, location)
         setShops(prev => [...response])
         return setIsLoading(false)
     }, [boardService])
@@ -26,7 +27,7 @@ const Gourmet = ({authService, boardService, setIsAlert, setBanner}) => {
     useEffect(() => {
         getBoards()
         getReviews()
-    }, [getBoards, getReviews])
+    }, [getBoards, getReviews, window.location])
     useEffect(() => {
         authService.me().catch(err => navigate('/'))
     }, [authService, navigate])

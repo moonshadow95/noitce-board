@@ -53,3 +53,16 @@ export async function remove(req, res) {
     await snackRepository.remove(id)
     res.sendStatus(204);
 }
+
+// Add Like
+// export async function addLike(req,res){
+//     const {params:id}=req
+//     const snack = await snackRepository.getSnackById(id)
+//     if(!snack){
+//         return res.status(404)
+//     }
+//     if(snack.userId === req.userId){
+//         return res.status(403).json({message:'자신의 글은 추천할 수 없습니다.'})
+//     }
+//     if()
+// }

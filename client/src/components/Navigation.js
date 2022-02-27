@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faCookieBite, faMapMarkerAlt, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 
@@ -28,12 +28,12 @@ const Navigation = ({authService, user}) => {
                 <li onClick={goBack} className='nav-animation'>
                     <FontAwesomeIcon icon={faChevronLeft} size={'lg'}/>
                 </li>}
-                <Link to={'/snack'}>
+                <NavLink to='/snack'>
                     <li className={`${isSnack && 'text-black'} nav-animation`}>
                         <FontAwesomeIcon icon={faCookieBite} size={'lg'}/>
                     </li>
-                </Link>
-                <Link to={'/gourmet'}>
+                </NavLink>
+                <Link to='/gourmet'>
                     <li className={`${isGourmet && 'text-black'} nav-animation`}>
                         <FontAwesomeIcon icon={faMapMarkerAlt} size={'lg'}/>
                     </li>

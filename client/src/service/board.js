@@ -1,5 +1,6 @@
 import Axios from "axios";
 
+const currentPath = (window.location.href.includes('snack')) ? 'snack' : 'gourmet'
 export default class BoardService {
     constructor(http, tokenStorage) {
         this.http = http;
@@ -9,50 +10,59 @@ export default class BoardService {
     async getReviews(id) {
         const {data} = await Axios({
             method: 'GET',
-            url:`${this.http}/gourmet/reviews/get/${id || ''}`,
+            url: `${this.http}/gourmet/reviews/get/${id || ''}`,
             headers: this.getHeaders(),
         })
         return data
     }
 
-    async getBoard(id) {
+    async getBoard(id, location) {
         const param = id ? id : '';
         const {data} = await Axios({
             method: 'GET',
-            url:`${this.http}/${window.location.href.includes('snack')?'snack':'gourmet'}/get/${param}`,
+            url: `${this.http}${location}/get/${param}`,
             headers: this.getHeaders(),
         })
         return data
     }
 
-    async postBoard(dataObj,id) {
+    async postBoard(dataObj, id, location) {
         const {data} = await Axios({
             method: 'POST',
-            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'gourmet'}/insert/${id}`,
+            url: `${this.http}${location}/insert/${id}`,
             data: dataObj,
             headers: this.getHeaders(),
         })
         return data
     }
 
-    async deleteBoard(id) {
+    async deleteBoard(id,location) {
         const {data} = await Axios({
             method: 'DELETE',
-            url: `${this.http}/${window.location.href.includes('snack')?'snack':'gourmet'}/delete/${id}`,
+            url: `${this.http}${location}/delete/${id}`,
             headers: this.getHeaders(),
         })
         return data
     }
 
-    async updateBoard(id, dataObj) {
+    async updateBoard(id, dataObj,location) {
         const {data} = await Axios({
             method: 'PUT',
-            url:`${this.http}/${window.location.href.includes('snack') ? 'snack' : 'gourmet'}/edit/${id}`,
+            url: `${this.http}${location}/edit/${id}`,
             data: dataObj,
             headers: this.getHeaders(),
         })
         return data
     }
+
+    // async addLike(id) {
+    //     const {data} = await Axios({
+    //         method: 'POST',
+    //         url: `${this.http}/snack/${id}/like`,
+    //         headers: this.getHeaders()
+    //     })
+    //     return data
+    // }
 
     getHeaders() {
         const token = this.tokenStorage.getToken();

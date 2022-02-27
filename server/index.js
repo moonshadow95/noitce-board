@@ -8,7 +8,6 @@ import snackRouter from './Router/snack.js';
 import authRouter from './Router/auth.js'
 import shopsRouter from "./Router/shops.js";
 import {config} from "./config.js";
-import dotenv from "dotenv";
 
 const app = express();
 const PORT = config.host.port;

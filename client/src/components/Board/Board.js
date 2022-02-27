@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import BoardItem from "./BoardItem";
 import TextEditor from "../TextEditor";
 import Paging from "../Paging/Paging";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import SearchPlace from "../Map/SearchPlace";
 import LoadingSpinner from "../LoadingSpinner";
 
@@ -16,7 +16,8 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     const [placeObj, setPlaceObj] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
-    const isShops = window.location.href.includes('shops')
+    const location = useLocation().pathname.includes('gourmet') ? '/gourmet' : '/snack'
+    const isShops = location.includes('gourmet')
     const itemsPerPage = 8
     const onWriteClick = () => {
         setKeyword('')
@@ -24,27 +25,25 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     }
     const pagination = (array, page, itemsPerPage) =>
         array.slice((page - 1) * itemsPerPage, (page - 1) * itemsPerPage + itemsPerPage)
-
     // 게시판 가져오기
     const getBoards = useCallback(async () => {
-        const response = await boardService.getBoard()
+        const response = await boardService.getBoard(null, location)
         if (isShops) {
             const data = response.map(item => {
-                const id= item.id
+                const id = item.id
                 const titles = item.title
                 const coords = item.coords.split(',');
-                return {id:id, title: titles, coords: coords.map(item => parseFloat(item))}
+                return {id: id, title: titles, coords: coords.map(item => parseFloat(item))}
             })
             setRegisteredShops([...data])
         }
         setViewContent(prev => [...response])
         return setIsLoading(false)
     }, [boardService, isShops])
-
     useEffect(() => {
         getBoards()
         setIsAuth(prev => user)
-    }, [getBoards, user])
+    }, [getBoards, user,])
 
     // 로그인 확인
     useEffect(() => {
