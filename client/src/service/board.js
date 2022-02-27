@@ -1,6 +1,5 @@
 import Axios from "axios";
 
-const currentPath = (window.location.href.includes('snack')) ? 'snack' : 'gourmet'
 export default class BoardService {
     constructor(http, tokenStorage) {
         this.http = http;

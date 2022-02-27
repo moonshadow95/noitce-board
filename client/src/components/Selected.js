@@ -8,14 +8,23 @@ import ReviewItem from "./Review/ReviewItem";
 import Rate from "./Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
 
-const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user, shopReviews, getReviews}) => {
+const Selected = ({
+                      selected,
+                      isOwner,
+                      setBanner,
+                      boardService,
+                      setIsAlert,
+                      user,
+                      shopReviews,
+                      getReviews,
+                      getSelected
+                  }) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
     const navigate = useNavigate();
     const location = useLocation().pathname.includes('gourmet') ? '/gourmet' : '/snack'
     const isSnack = location.includes('snack')
     const isShop = location.includes('gourmet')
-    const {id: shopId} = useParams()
     // Edit
     const onEditClick = (event) => {
         if (isOwner || isShop) {
@@ -30,11 +39,7 @@ const Selected = ({selected, isOwner, setBanner, boardService, setIsAlert, user,
             await boardService.deleteBoard(id, location)
             setIsAlert(false)
             setBanner('삭제되었습니다.')
-            if (isSnack) {
-                navigate(-1)
-            } else {
-                getReviews()
-            }
+            navigate(-1)
         }
     }
     // 별점 평균 구하기
