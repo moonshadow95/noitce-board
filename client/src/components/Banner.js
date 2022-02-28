@@ -5,10 +5,10 @@ const Banner = ({text, isAlert}) => {
         const banner = document.querySelector('.banner');
 
         function activeBanner() {
-            banner.classList.add('active')
+            banner.classList.add('banner-active')
             setTimeout(()=>{
-                banner.classList.remove('active')
-            },3000)
+                banner.classList.remove('banner-active')
+            },2000)
         }
 
         if (text !== '') {

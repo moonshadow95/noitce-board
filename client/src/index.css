@@ -55,8 +55,8 @@
         @apply transition hover:text-white hover:bg-black active:translate-y-2
     }
 
-    .active {
-        @apply translate-y-0
+    .banner-active {
+        @apply translate-y-[80px]
     }
 }
 

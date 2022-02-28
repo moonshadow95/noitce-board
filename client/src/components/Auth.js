@@ -43,7 +43,7 @@ const Auth = ({setUser, authService, setBanner, setIsAlert}) => {
 
     return (
         <>
-            <header className='my-4 text-white py-4 mx-auto text-7xl bg-ictus round w-max'>
+            <header className='mt-16 mb-4 text-white py-4 mx-auto text-7xl bg-ictus round w-max'>
                 <h1 className='px-10 text-center m-auto'>ictus</h1>
             </header>
             <div className='flex align-center justify-center'>

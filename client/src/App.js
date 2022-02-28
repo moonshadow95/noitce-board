@@ -23,7 +23,7 @@ function App({authService, boardService}) {
             setBanner(error.response.data.message)
         }
         return user
-    }, [user, authService])
+    }, [])
 
     useEffect(() => {
         getUser()

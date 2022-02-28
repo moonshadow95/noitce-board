@@ -12,19 +12,23 @@ const Read = ({user, authService, setBanner, setIsAlert, boardService}) => {
     const location = useLocation().pathname.includes('gourmet') ? '/gourmet' : '/snack'
 
     // 선택된 게시물 가져오기
-    const getSelected = useCallback(async (id,location) => {
-        const response = await boardService.getBoard(id, location)
-        if (response.isOwner === true) {
-            setIsOwner(true)
+    const getSelected = useCallback(async (id, location) => {
+        try {
+            const response = await boardService.getBoard(id, location)
+            if (response.isOwner === true) {
+                setIsOwner(true)
+            }
+            return setSelected(response)
+        } catch (error) {
+            setBanner('게시물을 찾을 수 없습니다.')
+            navigate('/')
         }
-        return setSelected(response)
     }, [boardService])
     useEffect(() => {
         authService.me()
-            .then(r => getSelected(id,location))
+            .then(r => getSelected(id, location))
             .catch(err => {
                 navigate('/')
-                window.location.reload();
             })
     }, [authService, id, navigate, getSelected])
     return (

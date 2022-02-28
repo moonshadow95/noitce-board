@@ -1,10 +1,11 @@
-import mysql from 'mysql2';
+import mysql from 'mysql2'
+import {config} from '../config.js'
 
 const pool = mysql.createPool({
-    host: 'localhost',
+    host: config.db.host,
     user: 'root',
-    database:'board',
-    password: '0503',
+    database: 'board',
+    password: config.db.password,
 
 })
 

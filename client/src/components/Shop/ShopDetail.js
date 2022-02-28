@@ -5,7 +5,7 @@ import Selected from "../Selected";
 const ShopDetail = ({user, authService, boardService, setIsAlert, setBanner}) => {
     const [shop, setShop] = useState({})
     const [reviews, setReviews] = useState([])
-    const [isOwner, setIsOwner] = useState(false)
+    const [isOwner] = useState(false)
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -17,9 +17,14 @@ const ShopDetail = ({user, authService, boardService, setIsAlert, setBanner}) =>
 
     // 해당 가게 정보 가져오기
     const getShopDetail = useCallback(async (id) => {
-        const response = await boardService.getBoard(id, '/gourmet')
-        return setShop(prev => response)
-    }, [boardService])
+        try {
+            const response = await boardService.getBoard(id, '/gourmet')
+            return setShop(prev => response)
+        } catch (error) {
+            setBanner('등록되지 않은 가게입니다.')
+            navigate('/gourmet')
+        }
+    }, [boardService, setBanner, navigate])
 
     useEffect(() => {
         getShopDetail(id)

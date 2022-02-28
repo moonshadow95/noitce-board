@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from "body-parser";
 import cors from 'cors';
-import morgan  from 'morgan';
+import morgan from 'morgan';
 import helmet from "helmet";
 import 'express-async-errors';
 import snackRouter from './Router/snack.js';
@@ -22,10 +22,10 @@ app.use('/snack', snackRouter)
 app.use('/gourmet', shopsRouter)
 app.use('/auth', authRouter)
 
-app.use((req, res,next)=>{
+app.use((req, res, next) => {
     res.sendStatus(404);
 })
-app.use((error,req,res, next)=>{
+app.use((error, req, res, next) => {
     console.error(error);
     res.sendStatus(500);
 })

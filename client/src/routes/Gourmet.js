@@ -12,12 +12,13 @@ const Gourmet = ({authService, boardService}) => {
     const [reviews, setReviews] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
 
+    // 게시판 가져오기
     const getBoards = useCallback(async () => {
         const response = await boardService.getBoard(null, location)
         setShops(prev => [...response])
         return setIsLoading(false)
     }, [boardService])
-
+    // 리뷰 가져오기
     const getReviews = useCallback(async () => {
         const response = await boardService.getReviews()
         setReviews(prev => [...response])
@@ -27,7 +28,8 @@ const Gourmet = ({authService, boardService}) => {
     useEffect(() => {
         getBoards()
         getReviews()
-    }, [getBoards, getReviews, window.location])
+    }, [getBoards, getReviews])
+
     useEffect(() => {
         authService.me().catch(err => navigate('/'))
     }, [authService, navigate])

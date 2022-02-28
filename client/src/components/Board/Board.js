@@ -7,7 +7,6 @@ import SearchPlace from "../Map/SearchPlace";
 import LoadingSpinner from "../LoadingSpinner";
 
 const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
-    const [isAuth, setIsAuth] = useState(undefined)
     const [writing, setWriting] = useState(false)
     const [viewContent, setViewContent] = useState([])
     const [registeredShops, setRegisteredShops] = useState([])
@@ -27,27 +26,31 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
         array.slice((page - 1) * itemsPerPage, (page - 1) * itemsPerPage + itemsPerPage)
     // 게시판 가져오기
     const getBoards = useCallback(async () => {
-        const response = await boardService.getBoard(null, location)
-        if (isShops) {
-            const data = response.map(item => {
-                const id = item.id
-                const titles = item.title
-                const coords = item.coords.split(',');
-                return {id: id, title: titles, coords: coords.map(item => parseFloat(item))}
-            })
-            setRegisteredShops([...data])
+        try {
+            const response = await boardService.getBoard(null, location)
+            if (isShops) {
+                const data = response.map(item => {
+                    const id = item.id
+                    const titles = item.title
+                    const coords = item.coords.split(',');
+                    return {id: id, title: titles, coords: coords.map(item => parseFloat(item))}
+                })
+                setRegisteredShops([...data])
+            }
+            setViewContent(prev => [...response])
+            return setIsLoading(false)
+        } catch (error) {
+            setBanner('게시물을 찾을 수 없습니다.')
+            navigate('/')
         }
-        setViewContent(prev => [...response])
-        return setIsLoading(false)
-    }, [boardService, isShops])
+    }, [boardService, isShops, location])
     useEffect(() => {
         getBoards()
-        setIsAuth(prev => user)
-    }, [getBoards, user,])
+    }, [getBoards, user])
 
     // 로그인 확인
     useEffect(() => {
-        authService.me().catch(err => navigate('/'))
+        authService.me()
     }, [authService, navigate])
     return (
         <main
