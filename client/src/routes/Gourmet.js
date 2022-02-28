@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Review from "../components/Review/Review";
@@ -33,7 +33,13 @@ const Gourmet = ({authService, boardService}) => {
     }, [authService, navigate])
 
     return (
-        <section className='xl:mt-[94px] mt-[100px]'>
+        <section className='xl:mt-[94px] mt-[80px] md:mt-[100px]'>
+            <Link to='./shops'>
+                <button
+                    className='block button-common sm:absolute right-0 z-10 button-animation w-[190px] md:w-auto text-center mx-auto mb-4 md:mr-24 xl:mr-40'>
+                    전체보기 / 등록하기
+                </button>
+            </Link>
             <Review reviews={reviews} isLoading={isLoading}/>
             <Shop shops={shops} isLoading={isLoading}/>
         </section>

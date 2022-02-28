@@ -12,7 +12,7 @@ export async function createShops(req, res) {
     const coords = `${req.body.x},${req.body.y}`
     const exists = await shopsRepository.getShopsById(id)
     if (exists) {
-        return res.status(409).json({message: `${title}는(은) 이미 등록되어 있습니다.`})
+        return res.status(409).json({message: `${title}은(는) 이미 등록되어 있습니다.`})
     } else {
         const review = await shopsRepository.create(id, title, address, phone, coords, userId)
         return res.status(201).json(review)

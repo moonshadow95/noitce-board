@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    .round {
+        @apply rounded border
+    }
+
+    .flex-col-center {
+        @apply flex-col flex-row-center
+    }
+
+    .flex-row-center {
+        @apply flex justify-center
+    }
+
+    .title {
+        @apply mx-auto text-center text-2xl font-semibold p-6 round bg-black text-white text-xl w-[80vw] sm:w-auto
+    }
+}
+
 @layer components {
     .button-common {
         @apply round bg-black py-4 px-6 cursor-pointer text-white
@@ -15,24 +33,12 @@
         @apply mx-auto p-14 rounded border-8 p-10 text-3xl lg:p-24 xl:p-44 sm:my-auto active:bg-black hover:bg-gray transition
     }
 
-    .title {
-        @apply mx-auto text-center text-2xl font-semibold p-6 round bg-black text-white text-xl w-[80vw] sm:w-auto
-    }
-
     .title-absolute {
         @apply md:absolute top-1/2 left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 round bg-black text-white m-auto
     }
 }
 
 @layer utilities {
-    .flex-col-center {
-        @apply flex-col flex-row-center
-    }
-
-    .flex-row-center {
-        @apply flex justify-center
-    }
-
     .bg-ictus {
         @apply bg-gradient-to-r from-ictusStart to-ictusEnd
     }
@@ -52,12 +58,9 @@
     .active {
         @apply translate-y-0
     }
-
-    .round {
-        @apply rounded border
-    }
 }
 
+/*Global*/
 * {
     box-sizing: border-box;
 }
@@ -71,6 +74,7 @@ main {
     margin: auto;
 }
 
+/*CKEditor*/
 .ck-editor__editable,
 .ck-editor__editable:focus {
     width: 100%;

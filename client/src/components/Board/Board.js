@@ -49,7 +49,6 @@ const Board = ({user, authService, boardService, setBanner, setIsAlert}) => {
     useEffect(() => {
         authService.me().catch(err => navigate('/'))
     }, [authService, navigate])
-
     return (
         <main
             className={`flex-col-center mt-[100px] lg:mx-24 ${isShops && 'lg:flex-row gap-6'}`}

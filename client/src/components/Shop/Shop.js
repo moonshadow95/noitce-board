@@ -41,7 +41,7 @@ const Shop = ({shops, isLoading}) => {
     };
     return (
         <div className='relative grow-1 flex-col-center pb-14 mt-4'>
-            <div className='md:flex mb-2'>
+            <div className='md:flex mb-4'>
                 <h2 className='title'>
                     최근 등록 맛집</h2>
             </div>

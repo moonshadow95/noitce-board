@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import HTMLReactParser from "html-react-parser";
 import TextEditor from "./TextEditor";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import timeFormatter from "../util/date";
 import ReviewItem from "./Review/ReviewItem";
 import Rate from "./Rate";
 import {faPhoneAlt, faMapMarkerAlt, faLink} from "@fortawesome/free-solid-svg-icons";
+import getAverage from "../util/rating";
 
 const Selected = ({
                       selected,
@@ -17,7 +18,6 @@ const Selected = ({
                       user,
                       shopReviews,
                       getReviews,
-                      getSelected
                   }) => {
     const [editing, setEditing] = useState(false);
     const [rating, setRating] = useState(0)
@@ -42,30 +42,30 @@ const Selected = ({
             navigate(-1)
         }
     }
-    // 별점 평균 구하기
-    const average = (arr) => {
-        const value = arr.reduce((p, c) => p + c, 0) / arr.length
-        if (value) {
-            return setRating(value)
-        }
-    }
+
     // TODO - 좋아요
     // 좋아요
     // const onThumbClick = async() => {
     //     await boardService.addLike(selected.id)
     // }
+
+    // 별점 평균값 구하기
     useEffect(() => {
         if (shopReviews) {
-            average(shopReviews.map(review => review.rate))
+            const averageRate = getAverage(shopReviews.map(review => review.rate))
+            if (averageRate) {
+                setRating(averageRate)
+            }
         }
-    })
+    }, [shopReviews])
     return (
         <main>
             <section className='flex-col-center align-center round mx-auto w-[80vw] md:w-[75vw] lg:w-[70vw] mt-[100px]'>
                 {/* 작성 시 */}
                 {!editing && <>
                     <header className='w-full flex-col-center align-center md:flex-row '>
-                        <div className='w-full text-2xl flex p-6 gap-4 flex-col md:flex-row items-center'>
+                        <div
+                            className={`w-full text-2xl flex flex-col ${isShop && 'gap-2'} p-6 md:flex-row items-center`}>
                             <h1>{selected.title}</h1>
                             {isSnack ?
                                 <div>

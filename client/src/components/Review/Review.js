@@ -43,15 +43,9 @@ const Review = ({reviews, isLoading}) => {
     }
     return (
         <div className='relative grow-1 flex-col-center border-b pb-14'>
-            <div className='md:flex relative mb-4'>
-                <h2 className='title title-absolute'>
+            <div className='md:flex mb-4'>
+                <h2 className='title'>
                     최근 등록 리뷰</h2>
-                <div
-                    className='button-common button-animation ml-auto w-[190px] md:w-auto text-center m-auto md:mr-24 xl:mr-40'>
-                    <Link to='./shops'>
-                        <button>전체보기 / 등록하기</button>
-                    </Link>
-                </div>
             </div>
             {isLoading ? <LoadingSpinner isScreen={false}/> :
                 reviews[0] ?
